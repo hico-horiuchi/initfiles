@@ -22,7 +22,7 @@
 [alias]
   st = status -s
   addm = !git add `git ls-files -m`
-  graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad]%Creset %s\"
+  graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
   master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master | grep -v '*')
   sed =  "!f () { git grep -l $1 | xargs sed -i s/$1/$2/g; }; f"
 [pager]
