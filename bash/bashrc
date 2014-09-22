@@ -88,9 +88,9 @@ fi
 #alias ll='ls -alF'
 #alias la='ls -A'
 #alias l='ls -CF'
-alias ls='ls -1 --color --show-control-char'
-alias ll='ls -l --color --show-control-char'
-alias la='ls -la --color --show-control-char'
+alias ls='ls -1F --color=always --show-control-char'
+alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
