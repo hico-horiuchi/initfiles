@@ -128,3 +128,8 @@ fi
 PS1='\n[\w$(__git_ps1 "\[\033[32m\](%s)\[\033[0m\]")]\$ '
 
 alias emacs='emacs -nw'
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/home/hiconyan/google-cloud-sdk/path.bash.inc'
+# The next line enables bash completion for gcloud.
+source '/home/hiconyan/google-cloud-sdk/completion.bash.inc'
