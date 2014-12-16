@@ -141,7 +141,7 @@ alias nkf_Lw='nkf -Lw --overwrite'
 alias nkf_Lu='nkf -Lu --overwrite'
 alias emacs='emacs -nw'
 alias gcc='sh ~/.local/bin/gcc_o.sh'
-alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without production'
+alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
