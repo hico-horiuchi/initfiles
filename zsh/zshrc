@@ -113,7 +113,7 @@ zstyle ':completion:*:sudo:*' command-path \
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 # GNU ls の色定義を流用
-eval `dircolors ${HOME}/src/solarized/dircolors.256dark`
+eval `gdircolors ${HOME}/src/solarized/dircolors.256dark`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
@@ -131,9 +131,9 @@ alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
 alias less='more'
-alias ls='gls -1F --color=always --show-control-char'
-alias ll='gls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
-alias la='gls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias ls='ls -1F --color=always --show-control-char'
+alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_e='nkf -e --overwrite'
 alias nkf_w='nkf -w --overwrite'
