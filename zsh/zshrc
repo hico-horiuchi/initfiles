@@ -3,7 +3,7 @@
 #--------------------------------------------------------------------------------
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
-export PATH=$HOME/.local/bin:$PATH
+export PATH=/usr/texbin:$HOME/.local/bin:$PATH
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
 autoload -Uz colors
@@ -131,14 +131,15 @@ alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
 alias less='more'
-alias ls='ls -1F --color=always --show-control-char'
-alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
-alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias ls='gls -1F --color=always --show-control-char'
+alias ll='gls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias la='gls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_e='nkf -e --overwrite'
 alias nkf_w='nkf -w --overwrite'
 alias nkf_Lw='nkf -Lw --overwrite'
 alias nkf_Lu='nkf -Lu --overwrite'
+alias nkf_Lm='nkf -Lm --overwrite'
 alias emacs='emacs -nw'
 alias gcc='gcc_o'
 alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
