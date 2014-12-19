@@ -3,6 +3,7 @@
 #--------------------------------------------------------------------------------
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
+export EDITOR='emacs -nw'
 export PATH=/usr/texbin:$HOME/.local/bin:$PATH
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
