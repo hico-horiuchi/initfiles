@@ -2,3 +2,4 @@ vendor/bin
 vendor/bundler
 .rake_tasks
 .envrc
+.DS_Store
