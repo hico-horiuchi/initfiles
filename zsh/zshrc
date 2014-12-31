@@ -119,12 +119,11 @@ zstyle ':completion:*:default' menu select=1
 # sudo の後のコマンドでエイリアスを有効にする
 alias sudo='sudo '
 # グローバルエイリアス
-alias -g L='| more'
+alias -g L='| less'
 alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias less='more'
 alias ls='ls -1F --color=always --show-control-char'
 alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
 alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
