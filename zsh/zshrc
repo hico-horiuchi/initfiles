@@ -125,8 +125,8 @@ alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
 alias ls='ls -1F --color=always --show-control-char'
-alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
-alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias ll='ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M''
+alias la='ls -laF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M''
 alias nkf_g='nkf --guess'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_e='nkf -e --overwrite'
@@ -151,7 +151,7 @@ setopt prompt_subst
 function branch-status-check {
   local branchname suffix
   # .gitの中だから除外
-  if [[ "$PWD" =~ '/\.git(/.*)?$' ]]; then
+  if [[ '$PWD' =~ '/\.git(/.*)?$' ]]; then
     return
   fi
   branchname=`get-branch-name`
@@ -170,11 +170,11 @@ function get-branch-status {
   local branchstatus branchname
   branchname=`get-branch-name`
   output=`git status 2> /dev/null`
-  if [[ -n `echo $output | grep "^nothing to commit"` ]]; then
+  if [[ -n `echo $output | grep '^nothing to commit'` ]]; then
     branchstatus='%{'${fg[green]}'%}⮂%{'${fg[black]}${bg[green]}'%} ⭠ '${branchname}
-  elif [[ -n `echo $output | grep "^Untracked files:"` ]]; then
+  elif [[ -n `echo $output | grep '^Untracked files:'` ]]; then
     branchstatus='%{'${fg[yellow]}'%}⮂%{'${fg[black]}${bg[yellow]}'%} ⭠ '${branchname}
-  elif [[ -n `echo $output | grep "^Changes not staged for commit:"` ]]; then
+  elif [[ -n `echo $output | grep '^Changes not staged for commit:'` ]]; then
     branchstatus='%{'${fg[red]}'%}⮂%{'${fg[black]}${bg[red]}'%} ⭠ '${branchname}
   else
     branchstatus='%{'${fg[cyan]}'%}⮂%{'${fg[black]}${bg[cyan]}'%} ⭠ '${branchname}
@@ -187,13 +187,13 @@ function get-branch-status {
 # powerline-shell
 #--------------------------------------------------------------------------------
 powerline_shell_path=$HOME'/src/powerline-shell/powerline-shell.py'
-if [  -f $powerline_shell_path ] ; then
+if [ -f $powerline_shell_path ]; then
   function powerline_precmd() {
     export PS1=$'\n'"$($powerline_shell_path $? --shell zsh) "
   }
   function install_powerline_precmd() {
-    for s in '${precmd_functions[ @]}'; do
-      if [  '$s' = 'powerline_precmd' ]; then return; fi
+    for s in '${precmd_functions[@]}'; do
+      if [ '$s' = 'powerline_precmd' ]; then return; fi
     done
     precmd_functions+=(powerline_precmd)
   }
@@ -205,7 +205,7 @@ fi
 # auto-fu.zsh
 #--------------------------------------------------------------------------------
 auto_fu_path=$HOME'/src/auto-fu.zsh/auto-fu.zsh'
-if [ -f $auto_fu_path ] ; then
+if [ -f $auto_fu_path ]; then
   source $auto_fu_path
   function zle-line-init () { auto-fu-init }
   zle -N zle-line-init
@@ -218,7 +218,7 @@ fi
 # source-highlight
 #--------------------------------------------------------------------------------
 src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
-if [ -f $src_hilite_path ] ; then
+if [ -f $src_hilite_path ]; then
   export LESS='-R'
   export LESSOPEN='| '$src_hilite_path' %s'
 fi
@@ -231,8 +231,8 @@ function exists { which $1 &> /dev/null }
 if exists percol; then
   function percol_select_history() {
     local tac
-    exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-    BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER" --prompt "<bold><magenta>HISTORY ></magenta></bold> %q")
+    exists gtac && tac='gtac' || { exists tac && tac='tac' || { tac='tail -r' } }
+    BUFFER=$(fc -l -n 1 | eval $tac | percol --query '$LBUFFER' --prompt '<bold><magenta>HISTORY ></magenta></bold> %q')
     CURSOR=$#BUFFER
     zle -R -c
   }
@@ -254,10 +254,10 @@ _rake_refresh () {
 _rake () {
   if [[ -f Rakefile ]]; then
     if _rake_refresh; then
-      bundle exec rake --silent --tasks | cut -d " " -f 2 > .rake_tasks
+      bundle exec rake --silent --tasks | cut -d ' ' -f 2 > .rake_tasks
       sed -i -e 's/:/\\\:/g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' .rake_tasks
     fi
-    _values "rake" $(<.rake_tasks)
+    _values 'rake' $(<.rake_tasks)
   fi
 }
 compdef _rake rake
@@ -271,8 +271,8 @@ _be () {
   if [[ -d vendor/bin ]]; then
     _arguments '*: :->'
     if [[ $CURRENT == 2 ]]; then
-      _values "bundle exec" `\ls -1 vendor/bin`
-    elif [[ $CURRENT == 3 && $line[1] == "rake" ]]; then
+      _values 'bundle exec' `\ls -1 vendor/bin`
+    elif [[ $CURRENT == 3 && $line[1] == 'rake' ]]; then
       _rake
     else
       _files
