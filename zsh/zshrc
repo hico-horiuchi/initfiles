@@ -145,7 +145,7 @@ alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=v
 #--------------------------------------------------------------------------------
 # RPROMPT
 RPROMPT=$'`branch-status-check`'
-#表示毎にPROMPTで設定されている文字列を評価する
+# 表示毎にPROMPTで設定されている文字列を評価する
 setopt prompt_subst
 # fg[color]表記と$reset_colorを使いたい
 # @see https://wiki.archlinux.org/index.php/zsh
@@ -180,32 +180,8 @@ function get-branch-status {
   else
     branchstatus='%{'${fg[cyan]}'%}⮂%{'${fg[black]}${bg[cyan]}'%} ⭠ '${branchname}
   fi
-  echo ${branchstatus}' ' # `get-stash-status``get-merge-status``get-push-status`
+  echo ${branchstatus}' '
 }
-# function get-stash-status {
-#   local stashstatus
-#   output=`git stash list 2> /dev/null | wc -l`
-#   if [[ output -gt 0 ]]; then
-#     stashstatus=' ⮃ S'${output}
-#   fi
-#   echo ${stashstatus}
-# }
-# function get-merge-status {
-#   local mergestatus
-#   output=`git rev-list origin/master..${get-branch-name} 2> /dev/null | wc -l`
-#   if [[ output -gt 0 ]]; then
-#     mergestatus=' ⮃ M'${output}
-#   fi
-#   echo ${mergestatus}
-# }
-# function get-push-status {
-#   local pushstatus
-#   output=`git rev-list origin/master..master 2> /dev/null | wc -l`
-#   if [[ output -gt 0 ]]; then
-#     pushstatus=' ⮃ P'${output}
-#   fi
-#   echo ${pushstatus}
-# }
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -227,19 +203,15 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# percol
+# auto-fu.zsh
 #--------------------------------------------------------------------------------
-function exists { which $1 &> /dev/null }
-if exists percol; then
-  function percol_select_history() {
-    local tac
-    exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-    BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER" --prompt "<bold><magenta>HISTORY ></magenta></bold> %q")
-    CURSOR=$#BUFFER
-    zle -R -c
-  }
-  zle -N percol_select_history
-  bindkey '^R' percol_select_history
+auto_fu_path=$HOME'/src/auto-fu.zsh/auto-fu.zsh'
+if [ -f $auto_fu_path ] ; then
+  source $auto_fu_path
+  function zle-line-init () { auto-fu-init }
+  zle -N zle-line-init
+  # 「-azfu-」を表示させない
+  zstyle ':auto-fu:var' postdisplay $''
 fi
 #--------------------------------------------------------------------------------
 
@@ -254,15 +226,19 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# auto-fu.zsh
+# percol
 #--------------------------------------------------------------------------------
-auto_fu_path=$HOME'/src/auto-fu.zsh/auto-fu.zsh'
-if [ -f $auto_fu_path ] ; then
-  source $auto_fu_path
-  function zle-line-init () { auto-fu-init }
-  zle -N zle-line-init
-  # 「-azfu-」を表示させない
-  zstyle ':auto-fu:var' postdisplay $''
+function exists { which $1 &> /dev/null }
+if exists percol; then
+  function percol_select_history() {
+    local tac
+    exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+    BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER" --prompt "<bold><magenta>HISTORY ></magenta></bold> %q")
+    CURSOR=$#BUFFER
+    zle -R -c
+  }
+  zle -N percol_select_history
+  bindkey '^R' percol_select_history
 fi
 #--------------------------------------------------------------------------------
 
@@ -285,7 +261,7 @@ _rake () {
     _values "rake" $(<.rake_tasks)
   fi
 }
-# compdef _rake rake
+compdef _rake rake
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
