@@ -312,6 +312,9 @@ compdef _be be
 ansible-ssh() {
   ssh -i /etc/ansible/id_rsa ansible@$1
 }
+if exists ! _ssh_hosts; then
+  _ssh
+fi
 compdef _ssh_hosts ansible-ssh
 #--------------------------------------------------------------------------------
 
