@@ -191,7 +191,8 @@ function get-branch-status {
 k_path=$HOME'/src/k/k.sh'
 if [ -f $k_path ]; then
   source $k_path
-  alias lk='k'
+  alias ll='k -h'
+  alias la='k -ah'
 fi
 #--------------------------------------------------------------------------------
 
