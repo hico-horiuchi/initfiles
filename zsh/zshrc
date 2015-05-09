@@ -24,6 +24,25 @@ zstyle ':zle:*' word-style unspecified
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
+# OS
+#--------------------------------------------------------------------------------
+case ${OSTYPE} in
+  darwin*)
+    export GNU='g'
+    src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
+    go_comp_path='/usr/local/share/zsh/site-functions/_go'
+    ansible_id_rsa=$HOME'/.ssh/ansible'
+  ;;
+  linux*)
+    export GNU=''
+    src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
+    go_comp_path='/usr/local/go/misc/zsh/go'
+    ansible_id_rsa='/etc/ansible/id_rsa'
+  ;;
+esac
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # キーバインド
 #--------------------------------------------------------------------------------
 # emacs 風キーバインドにする
@@ -107,7 +126,7 @@ zstyle ':completion:*:sudo:*' command-path \
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 # GNU ls の色定義を流用
-eval `dircolors ${HOME}/src/solarized/dircolors.256dark`
+eval `${GNU}dircolors ${HOME}/src/solarized/dircolors.256dark`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*:default' menu select=1
@@ -124,9 +143,9 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias ls='ls -1F --color=always --show-control-char'
-alias ll='ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
-alias la='ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias ls='${GNU}ls -1F --color=always --show-control-char'
+alias ll='${GNU}ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias la='${GNU}ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
 alias nkf_g='nkf --guess'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_e='nkf -e --overwrite'
@@ -244,7 +263,6 @@ fi
 #--------------------------------------------------------------------------------
 # source-highlight
 #--------------------------------------------------------------------------------
-src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
 if [ -f $src_hilite_path ]; then
   export LESSOPEN='| '$src_hilite_path' %s'
 fi
@@ -253,7 +271,6 @@ fi
 #--------------------------------------------------------------------------------
 # golang
 #--------------------------------------------------------------------------------
-go_comp_path='/usr/local/go/misc/zsh/go'
 if [ -f $go_comp_path ]; then
   export GOPATH=$HOME/.go
   export GOROOT=/usr/local/go
@@ -307,7 +324,7 @@ compdef _be be
 # ansible-ssh
 #--------------------------------------------------------------------------------
 function ansible-ssh() {
-  ssh -i /etc/ansible/id_rsa ansible@$1
+  ssh -i $ansible_id_rsa ansible@$1
 }
 if exists ! _ssh_hosts; then; _ssh; fi
 compdef _ssh_hosts ansible-ssh
