@@ -29,12 +29,14 @@ zstyle ':zle:*' word-style unspecified
 case ${OSTYPE} in
   darwin*)
     export GNU='g'
+    export GOROOT=/usr/local/opt/go/libexec
     src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
     go_comp_path='/usr/local/share/zsh/site-functions/_go'
     ansible_id_rsa=$HOME'/.ssh/ansible'
   ;;
   linux*)
     export GNU=''
+    export GOROOT=/usr/local/go
     src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
     go_comp_path='/usr/local/go/misc/zsh/go'
     ansible_id_rsa='/etc/ansible/id_rsa'
@@ -158,6 +160,8 @@ alias curl='curl -s'
 alias gcc='gcc_o'
 alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
 alias rails_s='bundle exec rails s --bind=0.0.0.0'
+alias ssh_http='ssh -L 3000:sss.eng.kagawa-u.ac.jp:3000 sss'
+alias ssh_rdp='ssh -L 3389:133.92.147.234:3389 sss'
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -273,7 +277,6 @@ fi
 #--------------------------------------------------------------------------------
 if [ -f $go_comp_path ]; then
   export GOPATH=$HOME/.go
-  export GOROOT=/usr/local/go
   export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   source $go_comp_path
 fi
