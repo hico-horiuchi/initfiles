@@ -285,18 +285,21 @@ fi
 #--------------------------------------------------------------------------------
 # gom exec
 #--------------------------------------------------------------------------------
-function ge() { gom exec $* }
-function _ge() {
-  if [ -d _vendor/bin ]; then
-    _arguments '*: :->'
-    if [[ $CURRENT == 2 ]]; then
-      _values 'gom exec' `\ls -1 _vendor/bin`
-    else
-      _files
+if [ -f $go_comp_path ]; then
+  export GOM_VENDOR_NAME=.vendor
+  function ge() { gom exec $* }
+  function _ge() {
+    if [ -d ${GOM_VENDOR_NAME}/bin ]; then
+      _arguments '*: :->'
+      if [[ $CURRENT == 2 ]]; then
+        _values 'gom exec' `\ls -1 ${GOM_VENDOR_NAME}/bin`
+      else
+        _files
+      fi
     fi
-  fi
-}
-compdef _ge ge
+  }
+  compdef _ge ge
+fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
