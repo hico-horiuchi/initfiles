@@ -221,7 +221,7 @@ fi
 powerline_shell_path=$HOME'/src/powerline-shell/powerline-shell.py'
 if [ -f $powerline_shell_path ]; then
   function powerline_precmd() {
-    export PS1=$'\n'"$($powerline_shell_path $? --shell zsh) "
+    PS1=$'\n'"$($powerline_shell_path $? --shell zsh) "
   }
   function install_powerline_precmd() {
     for s in '${precmd_functions[@]}'; do
@@ -229,7 +229,9 @@ if [ -f $powerline_shell_path ]; then
     done
     precmd_functions+=(powerline_precmd)
   }
-  install_powerline_precmd
+  if [  "$TERM" != "linux" ]; then
+    install_powerline_precmd
+  fi
 fi
 #--------------------------------------------------------------------------------
 
