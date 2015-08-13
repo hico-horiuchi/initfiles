@@ -110,8 +110,7 @@ setopt notify
 # 補完
 #--------------------------------------------------------------------------------
 # 補完機能を有効にする
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 # 補完候補をグループ別に表示する
 zstyle ':completion:*' menu select
 zstyle ':completion:*' format '%B%d%b'
@@ -184,13 +183,14 @@ function branch-status-check() {
   echo `get-branch-status`${suffix}
 }
 function get-branch-name() {
+  local git==git
   # gitディレクトリじゃない場合のエラーは捨てます
-  echo `git rev-parse --abbrev-ref HEAD 2> /dev/null`
+  echo `${git} rev-parse --abbrev-ref HEAD 2> /dev/null`
 }
 function get-branch-status() {
-  local branchstatus branchname
+  local git==git branchstatus branchname
   branchname=`get-branch-name`
-  output=`git status 2> /dev/null`
+  output=`${git} status 2> /dev/null`
   if [[ -n `echo $output | grep '^nothing to commit'` ]]; then
     branchstatus='%{'${fg[green]}'%}⮂%{'${fg[black]}${bg[green]}'%} ⭠ '${branchname}
   elif [[ -n `echo $output | grep '^Untracked files:'` ]]; then
@@ -229,7 +229,7 @@ if [ -f $powerline_shell_path ]; then
     done
     precmd_functions+=(powerline_precmd)
   }
-  if [  "$TERM" != "linux" ]; then
+  if [ '$TERM' != 'linux' ]; then
     install_powerline_precmd
   fi
 fi
@@ -281,6 +281,16 @@ if [ -f $go_comp_path ]; then
   export GOPATH=$HOME/.go
   export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   source $go_comp_path
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# hub
+#--------------------------------------------------------------------------------
+hub_comp_path=$GOPATH'/src/github.com/github/hub/etc/hub.zsh_completion'
+if [ -f $hub_comp_path ]; then
+  function git() { hub "$@" }
+  source $hub_comp_path
 fi
 #--------------------------------------------------------------------------------
 
