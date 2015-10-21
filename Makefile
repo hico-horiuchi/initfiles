@@ -9,10 +9,13 @@ install:
 	cd $(HOME)/src/solarized && wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
 
 	cd $(HOME)/src && git clone git://github.com/hchbaw/auto-fu.zsh.git
-
 	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
+
 	cd $(HOME)/src && git clone git://github.com/milkbikis/powerline-shell.git
 	$(HOME)/src/powerline-shell/install.py
+
+	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
+	cd $(HOME)/src && git clone git://github.com/rupa/z.git
 
 	ln -fs $(PWD)/bash/bashrc    $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc   $(HOME)/.inputrc
