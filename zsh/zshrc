@@ -261,7 +261,7 @@ if [ -f $z_path ]; then
   source $z_path
   if exists percol; then
     function percol_z_search() {
-      local res=$(z | sort -rn | cut -c 12- | percol)
+      local res=$(z | sort -rn | cut -c 12- | percol --query "$LBUFFER" --prompt '<bold><magenta>DIRECTORY ></magenta></bold> %q')
       if [ -n $res ]; then
         BUFFER+="cd $res"
         zle accept-line
