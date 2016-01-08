@@ -1,8 +1,10 @@
 PWD=$(shell pwd)
 
 install:
+	cd ~/.local || mkdir ~/.local
+
 	cd $(HOME)/src && git clone git://github.com/mooz/percol.git
-	python $(HOME)/src/percol/setup.py install --prefix=$(HOME)/.local
+	cd $(HOME)/src/percol && python setup.py install --prefix=~/.local
 	cd $(HOME)/.percol.d || mkdir $(HOME)/.percol.d
 
 	cd $(HOME)/src/solarized && mkdir $(HOME)/src/solarized
@@ -12,7 +14,8 @@ install:
 	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
 
 	cd $(HOME)/src && git clone git://github.com/milkbikis/powerline-shell.git
-	$(HOME)/src/powerline-shell/install.py
+	patch $(HOME)/src/powerline-shell/powerline_shell_base.py $(PWD)/powerline-shell/powerline_shell_base.py.patch
+	cd $(HOME)/src/powerline-shell && ./install.py
 
 	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
 	cd $(HOME)/src && git clone git://github.com/rupa/z.git
