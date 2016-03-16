@@ -1,5 +1,10 @@
-vendor/bin
-vendor/bundler
-.rake_tasks
-.envrc
+*~
+.*.swp
+*#*
 .DS_Store
+.envrc
+.rake_tasks
+/_vendor
+/.vendor
+/vendor/bin
+/vendor/bundler
