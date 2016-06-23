@@ -3,6 +3,7 @@
   email = 12ff5b8@gmail.com
 [github]
   user = hico-horiuchi
+  token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
 [core]
   editor = emacs -nw
   quotepath = false
@@ -29,3 +30,5 @@
   log = diff-highlight | less
   show = diff-highlight | less
   diff = diff-highlight | less
+[diff]
+  compactionHeuristic = true
