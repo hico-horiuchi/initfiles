@@ -20,12 +20,15 @@ install:
 	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
 	cd $(HOME)/src && git clone git://github.com/rupa/z.git
 
-	ln -fs $(PWD)/bash/bashrc          $(HOME)/.bashrc
-	ln -fs $(PWD)/bash/inputrc         $(HOME)/.inputrc
-	ln -fs $(PWD)/gem/gemrc            $(HOME)/.gemrc
-	ln -fs $(PWD)/git/gitconfig        $(HOME)/.gitconfig
-	ln -fs $(PWD)/git/gitignore        $(HOME)/.gitignore
-	ln -fs $(PWD)/git/commit_template  $(HOME)/.commit_template
-	ln -fs $(PWD)/percol/rc.py         $(HOME)/.percol.d/rc.py
-	ln -fs $(PWD)/tmux/tmux.conf       $(HOME)/.tmux.conf
-	ln -fs $(PWD)/zsh/zshrc            $(HOME)/.zshrc
+	sudo pip install wakatime
+
+	ln -fs $(PWD)/bash/bashrc           $(HOME)/.bashrc
+	ln -fs $(PWD)/bash/inputrc          $(HOME)/.inputrc
+	ln -fs $(PWD)/gem/gemrc             $(HOME)/.gemrc
+	ln -fs $(PWD)/git/gitconfig         $(HOME)/.gitconfig
+	ln -fs $(PWD)/git/gitignore         $(HOME)/.gitignore
+	ln -fs $(PWD)/git/commit_template   $(HOME)/.commit_template
+	ln -fs $(PWD)/percol/rc.py          $(HOME)/.percol.d/rc.py
+	ln -fs $(PWD)/tmux/tmux.conf        $(HOME)/.tmux.conf
+	ln -fs $(PWD)/zsh/zshrc             $(HOME)/.zshrc
+	ln -fs $(PWD)/wakatime/wakatime.cfg $(HOME)/.wakatime.cfg
