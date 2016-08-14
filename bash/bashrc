@@ -128,3 +128,6 @@ fi
 PS1='\n[\w$(__git_ps1 "\[\033[32m\](%s)\[\033[0m\]")]\$ '
 
 alias emacs='emacs -nw'
+
+### Added by the rbenv
+eval "$(rbenv init -)"
