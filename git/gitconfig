@@ -29,9 +29,10 @@
   template = ~/.commit_template
 [alias]
   st = status -s
-  addm = !git add `git ls-files -m`
+  addm = !git add $(git ls-files -m)
   graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
-  master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master | grep -v '*')
-  sed =  "!f () { git ls-files | xargs sed -i '.bak' -e 's/$1/$2/g'; }; f"
+  master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master)
+  undo = !git reset --hard $(git rev-parse --abbrev-ref HEAD)@{${1-1}}
+  sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
 [i18n]
   commitencoding = utf-8
