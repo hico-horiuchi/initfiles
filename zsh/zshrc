@@ -343,13 +343,12 @@ fi
 # gom exec
 #--------------------------------------------------------------------------------
 if [ -f $go_comp_path ]; then
-  export GOM_VENDOR_NAME=.vendor
   function ge() { gom exec $* }
   function _ge() {
-    if [ -d ${GOM_VENDOR_NAME}/bin ]; then
+    if [ -d vendor/bin ]; then
       _arguments '*: :->'
       if [[ $CURRENT == 2 ]]; then
-        _values 'gom exec' `\ls -1 ${GOM_VENDOR_NAME}/bin`
+        _values 'gom exec' `\ls -1 vendor/bin`
       else
         _files
       fi
