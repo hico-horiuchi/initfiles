@@ -1,6 +1,7 @@
+TAGS
 *~
-.*.swp
 *#*
+.*.swp
 .DS_Store
 .envrc
 .rake_tasks
