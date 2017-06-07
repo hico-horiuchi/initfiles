@@ -51,6 +51,7 @@
   prune = fetch --prune
   undo = reset --soft HEAD^
   stash-all = stash save --include-untracked
+  ci = !hub ci-status -v | awk '{ print $3 }' | xargs open
   graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
   master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master)
   sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
