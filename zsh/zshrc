@@ -221,7 +221,7 @@ waka_filename() {
     echo "$PWD"
   else
     # only command without arguments to avoid senstive information
-    echo "$history[$((HISTCMD-1))]" | cut -d ' ' -f1
+    echo "$history[$((HISTCMD-1))]" | cut -d ' ' -f 1
   fi
 }
 precmd_functions+=(send_wakatime_heartbeat)
