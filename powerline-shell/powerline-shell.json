@@ -1,0 +1,8 @@
+{
+  "segments": [
+    "read_only",
+    "virtual_env",
+    "cwd",
+    "root"
+  ]
+}

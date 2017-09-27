@@ -147,9 +147,9 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias ls='${GNU}ls -1F --color=always --show-control-char'
-alias ll='${GNU}ls -lF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
-alias la='${GNU}ls -laF --color=always --show-control-char --time-style=+"%Y/%m/%d %H:%M"'
+alias ls="${GNU}ls -1F --color=always --show-control-char"
+alias ll="${GNU}ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
+alias la="${GNU}ls -laF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
 alias nkf_g='nkf --guess'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_e='nkf -e --overwrite'
@@ -164,6 +164,13 @@ alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=v
 alias rails_s='bundle exec rails s --bind=0.0.0.0'
 alias ssh_http='ssh -L 3000:sss.eng.kagawa-u.ac.jp:3000 sss'
 alias ssh_rdp='ssh -L 3389:133.92.147.234:3389 sss'
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# 関数
+#--------------------------------------------------------------------------------
+function exists() { which $1 &> /dev/null }
+function docker-ssh() { docker exec -i -t $1 /bin/bash }
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -230,18 +237,19 @@ precmd_functions+=(send_wakatime_heartbeat)
 #--------------------------------------------------------------------------------
 # powerline-shell
 #--------------------------------------------------------------------------------
-powerline_shell_path=$HOME'/src/powerline-shell/powerline-shell.py'
-if [ -f $powerline_shell_path ]; then
+export PATH=$HOME/Library/Python/2.7/bin:$PATH
+export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
+if exists powerline-shell; then
   function powerline_precmd() {
-    PS1=$'\n'"$($powerline_shell_path $? --shell zsh) "
+    PS1=$'\n'"$(powerline-shell --shell zsh $?) "
   }
   function install_powerline_precmd() {
-    for s in '${precmd_functions[@]}'; do
-      [ '$s' = 'powerline_precmd' ] && return
+    for s in "${precmd_functions[@]}"; do
+      [ "$s" = 'powerline_precmd' ] && return
     done
     precmd_functions+=(powerline_precmd)
   }
-  if [ '$TERM' != 'linux' ]; then
+  if [ "$TERM" != 'linux' ]; then
     install_powerline_precmd
   fi
 fi
@@ -250,9 +258,7 @@ fi
 #--------------------------------------------------------------------------------
 # percol
 #--------------------------------------------------------------------------------
-function exists() { which $1 &> /dev/null }
 if exists percol; then
-  export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
   function percol_select_history() {
     local tac
     exists gtac && tac='gtac' || { exists tac && tac='tac' || { tac='tail -r' } }
@@ -372,7 +378,7 @@ function _rake() {
   if [ -f Rakefile ]; then
     if _rake_refresh; then
       bundle exec rake --silent --tasks | cut -d ' ' -f 2 > .rake_tasks
-      sed -i -e 's/:/\\\:/g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' .rake_tasks
+      ${GNU}sed -i -e 's/:/\\\:/g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' .rake_tasks
     fi
     _values 'rake' $(<.rake_tasks)
   fi
@@ -407,14 +413,6 @@ function ansible-ssh() {
 }
 if exists ! _ssh_hosts; then; _ssh; fi
 compdef _ssh_hosts ansible-ssh
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# docker-ssh
-#--------------------------------------------------------------------------------
-function docker-ssh() {
-  docker exec -i -t $1 /bin/bash
-}
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
