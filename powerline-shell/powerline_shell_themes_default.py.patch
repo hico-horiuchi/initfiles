@@ -1,0 +1,10 @@
+19c19
+<     HOME_BG = 31  # blueish
+---
+>     HOME_BG = 35  # a mid-tone green
+61,62c61,62
+<     VIRTUAL_ENV_BG = 35  # a mid-tone green
+<     VIRTUAL_ENV_FG = 00
+---
+>     VIRTUAL_ENV_BG = 31  # blueish
+>     VIRTUAL_ENV_FG = 15  # white
