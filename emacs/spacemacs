@@ -173,25 +173,25 @@
 
 (defun dotspacemacs/user-config ()
   (custom-set-variables
-   '(create-lockfiles nil)           ;; ロックファイルを作成しない
-   '(auto-save-default nil)          ;; 自動保存しない
-   '(auto-save-list-file-name nil)   ;; 自動保存ファイルの名前を記録しない
-   '(auto-save-list-file-prefix nil) ;; 自動保存ファイルリストを初期化しない
-   '(delete-auto-save-files t)       ;; 自動保存ファイルを削除
-   '(inhibit-startup-screen t)       ;; スタートアップ画面を非表示
-   '(initial-scratch-message nil)    ;; scratchメッセージを非表示
-   '(backup-inhibited t)             ;; 保存時にバックアップファイルを作成しない
-   '(make-backup-files nil)          ;; バックアップファイルを作成しない
-   '(scroll-bar-mode nil)            ;; スクロールバーなし
-   '(transient-mark-mode t)          ;; アクティブなリージョンをハイライト
-   '(menu-bar-mode nil)              ;; メニューバー非表示
-   '(tool-bar-mode nil)              ;; ツールバー非表示
-   '(indent-tabs-mode nil)           ;; タブを空白で入力
-   '(comment-empty-lines t)          ;; 空行もコメントアウト
-   '(blink-cursor-mode nil)          ;; カーソルを点滅しない
-   '(kill-whole-line t)              ;; C-kで改行までまとめてカット
-   '(require-final-newline t)        ;; 最終行に必ず1行追加
-   '(next-line-add-newlines nil))    ;; 最終行での新規行の追加を禁止
+   '(auto-save-default nil)
+   '(auto-save-list-file-name nil)
+   '(auto-save-list-file-prefix nil)
+   '(backup-inhibited t)
+   '(blink-cursor-mode nil)
+   '(comment-empty-lines t)
+   '(create-lockfiles nil)
+   '(delete-auto-save-files t)
+   '(indent-tabs-mode nil)
+   '(inhibit-startup-screen t)
+   '(initial-scratch-message nil)
+   '(kill-whole-line t)
+   '(make-backup-files nil)
+   '(menu-bar-mode nil)
+   '(next-line-add-newlines nil)
+   '(require-final-newline t)
+   '(scroll-bar-mode nil)
+   '(tool-bar-mode nil)
+   '(transient-mark-mode t))
   ;; c-c++
   (add-hook-fn 'c-mode-common-hook
                (c-set-style "stroustrup")
