@@ -253,18 +253,11 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# percol
+# fzf
 #--------------------------------------------------------------------------------
-if exists percol; then
-  function percol_select_history() {
-    local tac
-    exists gtac && tac='gtac' || { exists tac && tac='tac' || { tac='tail -r' } }
-    BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER" --prompt '<bold><magenta>HISTORY ></magenta></bold> %q')
-    CURSOR=$#BUFFER
-    zle -R -c
-  }
-  zle -N percol_select_history
-  bindkey '^R' percol_select_history
+if exists fzf; then
+  source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+  export FZF_DEFAULT_OPTS='--reverse --inline-info --ansi'
 fi
 #--------------------------------------------------------------------------------
 
@@ -285,9 +278,9 @@ fi
 z_path=$HOME'/src/z/z.sh'
 if [ -f $z_path ]; then
   source $z_path
-  if exists percol; then
-    function percol_z_search() {
-      local res=$(z | sort -rn | cut -c 12- | percol --query "$LBUFFER" --prompt '<bold><magenta>DIRECTORY ></magenta></bold> %q')
+  if exists fzf; then
+    function fzf_z_search() {
+      local res="$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
       if [ -n $res ]; then
         BUFFER+="cd $res"
         zle accept-line
@@ -296,8 +289,8 @@ if [ -f $z_path ]; then
       fi
     }
   fi
-  zle -N percol_z_search
-  bindkey '^F' percol_z_search
+  zle -N fzf_z_search
+  bindkey '^F' fzf_z_search
 fi
 #--------------------------------------------------------------------------------
 
@@ -329,6 +322,19 @@ if [ -f $go_comp_path ]; then
   export GOPATH=$HOME/.go
   export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
   [ ! -d /usr/local/share/zsh-completions ] && source $go_comp_path
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# git
+#--------------------------------------------------------------------------------
+if exists fzf; then
+  fcs() {
+    local commits commit
+    commits=$(git log --color=always --reverse --date=short --pretty=format:"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s") &&
+    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
+    echo -n $(echo "$commit" | sed 's/^<\(.*\)> .*$/\1/')
+  }
 fi
 #--------------------------------------------------------------------------------
 

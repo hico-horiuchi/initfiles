@@ -3,10 +3,6 @@ PWD=$(shell pwd)
 install:
 	cd ~/.local || mkdir ~/.local
 
-	cd $(HOME)/src && git clone git://github.com/mooz/percol.git
-	cd $(HOME)/src/percol && ./setup.py build && ./setup.py install --user
-	mkdir -p $(HOME)/.percol.d
-
 	cd $(HOME)/src && git clone git://github.com/hchbaw/auto-fu.zsh.git
 	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
 
@@ -26,7 +22,6 @@ install:
 	ln -fs $(PWD)/git/gitconfig                      $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                      $(HOME)/.gitignore
 	ln -fs $(PWD)/git/commit_template                $(HOME)/.commit_template
-	ln -fs $(PWD)/percol/rc.py                       $(HOME)/.percol.d/rc.py
 	ln -fs $(PWD)/powerline-shell/powerline-shell.py $(HOME)/.powerline-shell.json
 	ln -fs $(PWD)/tmux/tmux.conf                     $(HOME)/.tmux.conf
 	ln -fs $(PWD)/zsh/zshrc                          $(HOME)/.zshrc
