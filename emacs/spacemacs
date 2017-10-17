@@ -1,0 +1,282 @@
+;; -*- mode: emacs-lisp -*-
+
+(defun dotspacemacs/layers ()
+  (setq-default
+   dotspacemacs-distribution 'spacemacs
+   dotspacemacs-enable-lazy-installation 'unused
+   dotspacemacs-ask-for-lazy-installation t
+   dotspacemacs-configuration-layer-path '()
+   dotspacemacs-configuration-layers
+   '(
+     ;; Checkers
+     spell-checking ;; brew install ispell
+     syntax-checking
+     ;; Completion
+     auto-completion
+     helm
+     ;; Distributions
+     spacemacs
+     spacemacs-base
+     spacemacs-bootstrap
+     ;; Emacs
+     (better-defaults :variables
+                      better-defaults-move-to-beginning-of-code-first t
+                      better-defaults-move-to-end-of-code-first t)
+     ibuffer
+     semantic
+     smex
+     ;; Fun
+     emoji
+     ;; Operating systems
+     osx
+     ;; Programming and markup languages
+     (c-c++ :variables
+            c-basic-offset 2)
+     csv
+     emacs-lisp
+     (go :variables
+         gofmt-command "goimports"
+         go-tab-width 2)
+     (html :variables
+           css-indent-offset 2
+           cssm-indent-function #'cssm-c-style-indenter)
+     (javascript :variables ;; npm install -g tern js-beautify eslint
+                 javascript-disable-tern-port-files nil
+                 js2-basic-offset 2
+                 js-indent-level 2
+                 coffee-tab-width 2)
+     (markdown :valiables ;; brew install multimarkdown && npm install -g vmd
+               markdown-live-preview-engine 'vmd
+               markdown-command "multimarkdown")
+     python
+     (ruby :variables ;; gem install pry pry-doc ruby_parser rubocop
+           ruby-version-manager 'rvm
+           ruby-test-runner 'rspec)
+     shell-scripts
+     yaml
+     ;; Source control
+     (git :variables
+          vc-follow-symlinks t)
+     github
+     ;; Spacemacs distribution layers
+     spacemacs-completion
+     spacemacs-editing
+     spacemacs-editing-visual
+     spacemacs-layouts
+     spacemacs-misc
+     spacemacs-ui
+     spacemacs-ui-visual
+     ;; Tags
+     gtags ;; brew install global --with-pygments --with-ctags
+     ;; Tools
+     ansible
+     docker
+     imenu-list
+     nginx
+     systemd
+     ;; Vim
+     vim-powerline ;; brew install ricty --with-powerline
+     ;; Web services
+     ;; (wakatime :variables
+     ;;           wakatime-api-key  (replace-regexp-in-string "\n+$" ""
+     ;;                                                       (shell-command-to-string "grep api_key ~/.wakatime.cfg | awk '{print $3}'"))
+     ;;           wakatime-cli-path (replace-regexp-in-string "\n+$" ""
+     ;;                                                       (shell-command-to-string "which wakatime")))
+     )
+   dotspacemacs-additional-packages
+   '(
+     ace-isearch
+     all-the-icons
+     all-the-icons-dired
+     groovy-mode
+     migemo ;; brew install cmigemo
+     textile-mode
+     toml-mode
+     undohist
+     redo+
+     )
+   dotspacemacs-frozen-packages '()
+   dotspacemacs-excluded-packages '()
+   dotspacemacs-install-packages 'used-only))
+
+(defun dotspacemacs/init ()
+  (setq-default
+   dotspacemacs-elpa-https t
+   dotspacemacs-elpa-timeout 3
+   dotspacemacs-check-for-update t
+   dotspacemacs-elpa-subdirectory nil
+   dotspacemacs-editing-style 'emacs
+   dotspacemacs-verbose-loading nil
+   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-lists '((recents . 5)
+                                (projects . 7))
+   dotspacemacs-startup-buffer-responsive t
+   dotspacemacs-scratch-mode 'text-mode
+   dotspacemacs-themes '(spacemacs-dark)
+   dotspacemacs-colorize-cursor-according-to-state t
+   dotspacemacs-default-font '("Ricty for Powerline"
+                               :size 16
+                               :weight normal
+                               :width normal
+                               :powerline-scale 1.1)
+   dotspacemacs-leader-key "SPC"
+   dotspacemacs-emacs-command-key "SPC"
+   dotspacemacs-ex-command-key ":"
+   dotspacemacs-emacs-leader-key "M-m"
+   dotspacemacs-major-mode-leader-key ","
+   dotspacemacs-major-mode-emacs-leader-key "C-M-m"
+   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-remap-Y-to-y$ nil
+   dotspacemacs-retain-visual-state-on-shift t
+   dotspacemacs-visual-line-move-text nil
+   dotspacemacs-ex-substitute-global nil
+   dotspacemacs-default-layout-name "Default"
+   dotspacemacs-display-default-layout nil
+   dotspacemacs-auto-resume-layouts nil
+   dotspacemacs-large-file-size 1
+   dotspacemacs-auto-save-file-location nil
+   dotspacemacs-max-rollback-slots 10
+   dotspacemacs-helm-resize t
+   dotspacemacs-helm-no-header t
+   dotspacemacs-helm-position 'bottom
+   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-enable-paste-transient-state nil
+   dotspacemacs-which-key-delay 0.4
+   dotspacemacs-which-key-position 'bottom
+   dotspacemacs-loading-progress-bar t
+   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-use-non-native nil
+   dotspacemacs-maximized-at-startup nil
+   dotspacemacs-active-transparency 90
+   dotspacemacs-inactive-transparency 90
+   dotspacemacs-show-transient-state-title t
+   dotspacemacs-show-transient-state-color-guide t
+   dotspacemacs-mode-line-unicode-symbols t
+   dotspacemacs-smooth-scrolling t
+   dotspacemacs-line-numbers t
+   dotspacemacs-folding-method 'evil
+   dotspacemacs-smartparens-strict-mode nil
+   dotspacemacs-smart-closing-parenthesis nil
+   dotspacemacs-highlight-delimiters 'all
+   dotspacemacs-persistent-server nil
+   dotspacemacs-search-tools '("rg", "ag" "pt" "ack" "grep") ;; brew install ripgrep
+   dotspacemacs-default-package-repository nil
+   dotspacemacs-whitespace-cleanup t
+   ))
+
+(defun dotspacemacs/user-init ()
+  (defmacro add-hook-fn (name &rest body)
+    `(add-hook ,name #'(lambda () ,@body)))
+  (defmacro add-auto-mode (name mode)
+    `(setq auto-mode-alist (cons '(,name . ,mode) auto-mode-alist)))
+  )
+
+(defun dotspacemacs/user-config ()
+  (custom-set-variables
+   '(create-lockfiles nil)           ;; ロックファイルを作成しない
+   '(auto-save-default nil)          ;; 自動保存しない
+   '(auto-save-list-file-name nil)   ;; 自動保存ファイルの名前を記録しない
+   '(auto-save-list-file-prefix nil) ;; 自動保存ファイルリストを初期化しない
+   '(delete-auto-save-files t)       ;; 自動保存ファイルを削除
+   '(inhibit-startup-screen t)       ;; スタートアップ画面を非表示
+   '(initial-scratch-message nil)    ;; scratchメッセージを非表示
+   '(backup-inhibited t)             ;; 保存時にバックアップファイルを作成しない
+   '(make-backup-files nil)          ;; バックアップファイルを作成しない
+   '(scroll-bar-mode nil)            ;; スクロールバーなし
+   '(transient-mark-mode t)          ;; アクティブなリージョンをハイライト
+   '(menu-bar-mode nil)              ;; メニューバー非表示
+   '(tool-bar-mode nil)              ;; ツールバー非表示
+   '(indent-tabs-mode nil)           ;; タブを空白で入力
+   '(comment-empty-lines t)          ;; 空行もコメントアウト
+   '(blink-cursor-mode nil)          ;; カーソルを点滅しない
+   '(kill-whole-line t)              ;; C-kで改行までまとめてカット
+   '(require-final-newline t)        ;; 最終行に必ず1行追加
+   '(next-line-add-newlines nil))    ;; 最終行での新規行の追加を禁止
+  ;; c-c++
+  (add-hook-fn 'c-mode-common-hook
+               (c-set-style "stroustrup")
+               (c-toggle-auto-hungry-state t))
+  ;; markdown
+  (add-hook-fn 'markdown-mode-hook
+               (define-key markdown-mode-map (kbd "C-c RET") 'markdown-insert-list-item)
+               (remove-hook 'before-save-hook 'delete-trailing-whitespace))
+  ;; ace-isearch
+  (global-ace-isearch-mode 1)
+  ;; all-the-icons
+  (require 'all-the-icons)
+  ;; all-the-icons-dired
+  (add-hook 'dired-mode-hook 'all-the-icons-dired-mode)
+  ;; groovy-mode
+  (autoload 'groovy-mode "groovy-mode")
+  (add-auto-mode "\\.groovy$" groovy-mode)
+  (add-hook-fn 'groovy-mode-hook
+               (require 'groovy-electric)
+               (groovy-electric-mode))
+  ;; migemo
+  (require 'migemo)
+  (setq migemo-command "cmigemo"
+        migemo-options '("-q" "--emacs")
+        migemo-coding-system 'utf-8-unix
+        migemo-dictionary "/usr/local/share/migemo/utf-8/migemo-dict"
+        migemo-user-dictionary nil
+        migemo-regex-dictionary nil)
+  (migemo-init)
+  (with-eval-after-load "helm" (helm-migemo-mode t))
+  ;; textile-mode
+  (autoload 'textile-mode "textile-mode")
+  (add-auto-mode "\\.textile$" textile-mode)
+  ;; toml-mode
+  (autoload 'toml-mode "toml-mode")
+  (add-auto-mode "\\.toml$" toml-mode)
+  ;; redo+
+  (require 'redo+)
+  (global-set-key (kbd "C-M-_") 'redo)
+  (setq undo-no-redo t
+        undo-limit 600000
+        undo-strong-limit 900000)
+  ;; undohist
+  (require 'undohist)
+  (undohist-initialize)
+  ;; Clipboard
+  (setq interprogram-cut-function
+        (lambda (text &optional push)
+          (let ((process-connection-type nil))
+            (let ((proc (start-process "pbcopy" nil "pbcopy")))
+              (process-send-string proc text)
+              (process-send-eof proc)))))
+  (setq interprogram-paste-function
+        (lambda ()
+          (shell-command-to-string "pbpaste")))
+  ;; Completion
+  (setq read-buffer-completion-ignore-case t
+        read-file-name-completion-ignore-case t)
+  ;; Hook
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  ;; Keybind
+  (define-key query-replace-map [return] 'act)
+  (global-set-key (kbd "C-c r r") 'replace-regexp)
+  (global-set-key (kbd "C-c r s") 'replace-string)
+  ;; Mouse
+  (xterm-mouse-mode t)
+  (mouse-wheel-mode t)
+  (global-set-key   [mouse-4] '(lambda () (interactive) (scroll-down 1)))
+  (global-set-key   [mouse-5] '(lambda () (interactive) (scroll-up   1)))
+  ;; https://github.com/syl20bnr/spacemacs/issues/9549
+  (require 'helm-bookmark)
+  )
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (redo+ mmm-mode markdown-toc markdown-mode gh-md undohist toml-mode textile-mode migemo insert-shebang groovy-mode fish-mode company-shell ace-isearch yapfify rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake pyvenv pytest pyenv-mode py-isort pip-requirements minitest live-py-mode hy-mode helm-pydoc cython-mode company-anaconda chruby bundler inf-ruby anaconda-mode pythonic web-mode web-beautify tagedit slim-mode scss-mode sass-mode pug-mode livid-mode skewer-mode simple-httpd js2-refactor multiple-cursors js2-mode js-doc helm-css-scss haml-mode go-guru go-eldoc emmet-mode disaster csv-mode company-web web-completion-data company-tern dash-functional tern company-go go-mode company-c-headers coffee-mode cmake-mode clang-format all-the-icons-dired all-the-icons memoize font-lock+ yaml-mode wakatime-mode systemd smeargle reveal-in-osx-finder pbcopy osx-trash osx-dictionary orgit nginx-mode magit-gitflow magit-gh-pulls launchctl jinja2-mode imenu-list helm-gtags helm-gitignore gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht ggtags evil-magit magit git-commit with-editor emoji-cheat-sheet-plus dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat company-emoji company-ansible ansible-doc ansible unfill stickyfunc-enhance srefactor smex mwim ibuffer-projectile helm-company helm-c-yasnippet fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete tabbar ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
+ '(tramp-syntax (quote default) nil (tramp)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

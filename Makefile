@@ -14,7 +14,7 @@ install:
 	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
 
 	cd $(HOME)/src && git clone git://github.com/milkbikis/powerline-shell.git
-	patch $(HOME)/src/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
+	# patch $(HOME)/src/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
 	cd $(HOME)/src/powerline-shell && ./setup.py build && ./setup.py install --user
 
 	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
@@ -24,6 +24,7 @@ install:
 
 	ln -fs $(PWD)/bash/bashrc                        $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                       $(HOME)/.inputrc
+	ln -fs $(PWD)/emacs/spacemacs                    $(HOME)/.spacemacs
 	ln -fs $(PWD)/gem/gemrc                          $(HOME)/.gemrc
 	ln -fs $(PWD)/git/gitconfig                      $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                      $(HOME)/.gitignore

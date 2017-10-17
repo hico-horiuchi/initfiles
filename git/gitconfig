@@ -7,7 +7,7 @@
   token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
 
 [core]
-  editor = emacs -nw
+  editor = emacsclient -nw
   pager = less -fRX
   quotepath = false
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol

@@ -3,8 +3,8 @@
 #--------------------------------------------------------------------------------
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
-export EDITOR='emacs -nw'
-export PATH=/usr/texbin:$HOME/.local/bin:$PATH
+export EDITOR='emacsclient -nw'
+export PATH=/usr/texbin:$HOME/Library/Python/2.7/bin:$HOME/.local/bin:$PATH
 export LESS='-fRX'
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
@@ -157,7 +157,7 @@ alias nkf_w='nkf -w --overwrite'
 alias nkf_Lw='nkf -Lw --overwrite'
 alias nkf_Lu='nkf -Lu --overwrite'
 alias nkf_Lm='nkf -Lm --overwrite'
-alias emacs='emacs -nw'
+alias emacs='emacsclient -nw'
 alias curl='curl -s'
 alias gcc='gcc_o'
 alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
@@ -202,13 +202,13 @@ function get-branch-status() {
   branchname=`get-branch-name`
   output=`${git} status 2> /dev/null`
   if [[ -n `echo $output | grep '^nothing to commit'` ]]; then
-    branchstatus='%{'${fg[green]}'%}⮂%{'${fg[black]}${bg[green]}'%} ⭠ '${branchname}
+    branchstatus='%{'${fg[green]}'%}%{'${fg[black]}${bg[green]}'%}  '${branchname}
   elif [[ -n `echo $output | grep '^Untracked files:'` ]]; then
-    branchstatus='%{'${fg[yellow]}'%}⮂%{'${fg[black]}${bg[yellow]}'%} ⭠ '${branchname}
+    branchstatus='%{'${fg[yellow]}'%}%{'${fg[black]}${bg[yellow]}'%}  '${branchname}
   elif [[ -n `echo $output | grep '^Changes not staged for commit:'` ]]; then
-    branchstatus='%{'${fg[red]}'%}⮂%{'${fg[black]}${bg[red]}'%} ⭠ '${branchname}
+    branchstatus='%{'${fg[red]}'%}%{'${fg[black]}${bg[red]}'%}  '${branchname}
   else
-    branchstatus='%{'${fg[cyan]}'%}⮂%{'${fg[black]}${bg[cyan]}'%} ⭠ '${branchname}
+    branchstatus='%{'${fg[cyan]}'%}%{'${fg[black]}${bg[cyan]}'%}  '${branchname}
   fi
   echo ${branchstatus}' '
 }
@@ -237,8 +237,6 @@ precmd_functions+=(send_wakatime_heartbeat)
 #--------------------------------------------------------------------------------
 # powerline-shell
 #--------------------------------------------------------------------------------
-export PATH=$HOME/Library/Python/2.7/bin:$PATH
-export PYTHONPATH=$HOME/.local/lib/python2.7/site-packages
 if exists powerline-shell; then
   function powerline_precmd() {
     PS1=$'\n'"$(powerline-shell --shell zsh $?) "
