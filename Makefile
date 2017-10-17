@@ -4,8 +4,8 @@ install:
 	cd ~/.local || mkdir ~/.local
 
 	cd $(HOME)/src && git clone git://github.com/mooz/percol.git
-	cd $(HOME)/src/percol && python setup.py install --prefix=~/.local
-	cd $(HOME)/.percol.d || mkdir $(HOME)/.percol.d
+	cd $(HOME)/src/percol && ./setup.py build && ./setup.py install --user
+	mkdir -p $(HOME)/.percol.d
 
 	cd $(HOME)/src/solarized && mkdir $(HOME)/src/solarized
 	cd $(HOME)/src/solarized && wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
