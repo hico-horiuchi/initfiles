@@ -7,9 +7,6 @@ install:
 	cd $(HOME)/src/percol && ./setup.py build && ./setup.py install --user
 	mkdir -p $(HOME)/.percol.d
 
-	cd $(HOME)/src/solarized && mkdir $(HOME)/src/solarized
-	cd $(HOME)/src/solarized && wget https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
-
 	cd $(HOME)/src && git clone git://github.com/hchbaw/auto-fu.zsh.git
 	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
 

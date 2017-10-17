@@ -114,9 +114,10 @@ setopt notify
 # 補完機能を有効にする
 [ -d /usr/local/share/zsh-completions ] && fpath=(/usr/local/share/zsh-completions $fpath)
 autoload -Uz compinit && compinit -u
-# 補完候補をグループ別に表示する
+# 補完候補のカーソル選択を有効に
 zstyle ':completion:*' menu select
-zstyle ':completion:*' format '%B%d%b'
+# 補完候補をグループ別に表示する
+zstyle ':completion:*' format '%F{white}%B%d%b'
 zstyle ':completion:*' group-name ''
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -130,10 +131,8 @@ zstyle ':completion:*:sudo:*' command-path \
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 # GNU ls の色定義を流用
-eval `${GNU}dircolors ${HOME}/src/solarized/dircolors.256dark`
+eval `${GNU}dircolors ${HOME}/src/initfiles/terminal/dircolors.256dark`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# 補完候補のカーソル選択を有効に
-zstyle ':completion:*:default' menu select=1
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
