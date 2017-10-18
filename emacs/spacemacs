@@ -137,7 +137,7 @@
    dotspacemacs-large-file-size 1
    dotspacemacs-auto-save-file-location nil
    dotspacemacs-max-rollback-slots 10
-   dotspacemacs-helm-resize t
+   dotspacemacs-helm-resize nil
    dotspacemacs-helm-no-header t
    dotspacemacs-helm-position 'bottom
    dotspacemacs-helm-use-fuzzy 'always
