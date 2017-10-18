@@ -331,6 +331,18 @@ fi
 # git
 #--------------------------------------------------------------------------------
 if exists fzf; then
+  fbs() {
+    local branches branch
+    branches=$(git branch -a | grep -v '^*' | sed -e 's/^ *//g' -e 's/remotes\/origin\///g') &&
+    branch=$(echo "$branches" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
+    echo -n $(echo "$branch")
+  }
+  fts() {
+    local tags tag
+    tags=$(git tag) &&
+    tag=$(echo "$tags" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
+    echo -n $(echo "$tag")
+  }
   fcs() {
     local commits commit
     commits=$(git log --color=always --reverse --date=short --pretty=format:"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s") &&
