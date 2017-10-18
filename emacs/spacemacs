@@ -51,7 +51,8 @@
      python
      (ruby :variables ;; gem install pry pry-doc ruby_parser rubocop
            ruby-version-manager 'rvm
-           ruby-test-runner 'rspec)
+           ruby-test-runner 'rspec
+           ruby-insert-encoding-magic-comment nil)
      shell-scripts
      yaml
      ;; Source control
