@@ -157,6 +157,8 @@ alias nkf_Lw='nkf -Lw --overwrite'
 alias nkf_Lu='nkf -Lu --overwrite'
 alias nkf_Lm='nkf -Lm --overwrite'
 alias emacs='emacsclient -nw'
+alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
+alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
 alias curl='curl -s'
 alias gcc='gcc_o'
 alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
