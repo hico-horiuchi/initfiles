@@ -10,6 +10,7 @@ install:
 	# patch $(HOME)/src/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
 	cd $(HOME)/src/powerline-shell && ./setup.py build && ./setup.py install --user
 
+	cd $(HOME)/src && git clone git://github.com/jimeh/tmux-themepack.git
 	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
 	cd $(HOME)/src && git clone git://github.com/rupa/z.git
 
