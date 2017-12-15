@@ -146,6 +146,8 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
+alias readlink="${GNU}readlink"
+alias sed="${GNU}sed"
 alias ls="${GNU}ls -1F --color=always --show-control-char"
 alias ll="${GNU}ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
 alias la="${GNU}ls -laF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
