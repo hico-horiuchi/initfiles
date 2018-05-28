@@ -95,7 +95,7 @@
      textile-mode
      toml-mode
      undohist
-     redo+
+     ;; redo+
      )
    dotspacemacs-frozen-packages '()
    dotspacemacs-excluded-packages '()
@@ -238,11 +238,11 @@
   (autoload 'toml-mode "toml-mode")
   (add-auto-mode "\\.toml$" toml-mode)
   ;; redo+
-  (require 'redo+)
-  (global-set-key (kbd "C-M-_") 'redo)
-  (setq undo-no-redo t
-        undo-limit 600000
-        undo-strong-limit 900000)
+  ;; (require 'redo+)
+  ;; (global-set-key (kbd "C-M-_") 'redo)
+  ;; (setq undo-no-redo t
+  ;;       undo-limit 600000
+  ;;       undo-strong-limit 900000)
   ;; undohist
   (require 'undohist)
   (undohist-initialize)
