@@ -208,7 +208,10 @@
                (remove-hook 'before-save-hook 'delete-trailing-whitespace))
   ;; ruby
   (add-hook-fn 'ruby-mode-hook
-               (setq flycheck-checker 'ruby-rubocop))
+               (setq flycheck-checker 'ruby-rubocop)
+               (setq flycheck-command-wrapper-function
+                     (lambda (command)
+                       (append '("bundle" "exec") command))))
   ;; ace-isearch
   (global-ace-isearch-mode 1)
   ;; all-the-icons
