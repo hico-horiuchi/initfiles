@@ -31,7 +31,7 @@ case ${OSTYPE} in
     export GNU='g'
     export GOROOT=/usr/local/opt/go/libexec
     src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
-    go_comp_path='/usr/local/share/zsh-completions/_go'
+    go_comp_path='/usr/local/share/zsh-completions/_golang'
     ansible_id_rsa=$HOME'/.ssh/ansible'
   ;;
   linux*)
