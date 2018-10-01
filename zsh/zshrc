@@ -163,7 +163,7 @@ alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
 alias curl='curl -s'
 alias gcc='gcc_o'
-alias bundle_install='bundle install --jobs=4 --path=vendor/bundler --binstubs=vendor/bin --without doc production'
+alias bundle_install='bundle install --jobs 4 --path vendor/bundler --binstubs vendor/bin --without doc production'
 alias rails_s='bundle exec rails s --bind=0.0.0.0'
 alias ssh_http='ssh -L 3000:sss.eng.kagawa-u.ac.jp:3000 sss'
 alias ssh_rdp='ssh -L 3389:133.92.147.234:3389 sss'
