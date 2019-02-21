@@ -23,6 +23,7 @@ install:
 	ln -fs $(PWD)/git/gitconfig                      $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                      $(HOME)/.gitignore
 	ln -fs $(PWD)/git/commit_template                $(HOME)/.commit_template
+	ln -fs $(PWD)/homebrew/Brewfile                  $(HOME)/.Brewfile
 	ln -fs $(PWD)/powerline-shell/powerline-shell.py $(HOME)/.powerline-shell.json
 	ln -fs $(PWD)/tmux/tmux.conf                     $(HOME)/.tmux.conf
 	ln -fs $(PWD)/zsh/zshrc                          $(HOME)/.zshrc
