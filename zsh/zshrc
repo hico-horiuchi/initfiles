@@ -4,7 +4,7 @@
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
 export EDITOR='emacsclient -nw'
-export PATH=/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:/usr/texbin:$HOME/Library/Python/2.7/bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/src/google-cloud-sdk/bin:/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:/usr/texbin:$HOME/Library/Python/2.7/bin:$HOME/.local/bin:$PATH
 export LESS='-fRX'
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
@@ -461,6 +461,7 @@ compdef _ssh_hosts ansible-ssh
 # heroku toolbelt
 #--------------------------------------------------------------------------------
 [ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:$PATH
+[ ! -f $HOME/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -475,4 +476,10 @@ compdef _ssh_hosts ansible-ssh
 #--------------------------------------------------------------------------------
 export NVM_DIR=$HOME/.nvm
 [ -d $NVM_DIR ] && . /usr/local/opt/nvm/nvm.sh
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# sensuctl
+#--------------------------------------------------------------------------------
+[ -d $HOME/.config/sensu/sensuctl ] && source <(sensuctl completion zsh)
 #--------------------------------------------------------------------------------
