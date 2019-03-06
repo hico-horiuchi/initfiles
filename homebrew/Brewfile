@@ -51,7 +51,7 @@ brew "tmux"
 brew "wget"
 brew "zsh"
 brew "zsh-completions"
-brew "d12frosted/emacs-plus/emacs-plus", args: ["HEAD"]
+brew "d12frosted/emacs-plus/emacs-plus"
 brew "heroku/brew/heroku"
 brew "sanemat/font/ricty", args: ["with-powerline"]
 cask "mark-text"
