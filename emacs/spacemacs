@@ -208,10 +208,12 @@
                (remove-hook 'before-save-hook 'delete-trailing-whitespace))
   ;; ruby
   (add-hook-fn 'ruby-mode-hook
-               (setq flycheck-checker 'ruby-rubocop)
-               (setq flycheck-command-wrapper-function
-                     (lambda (command)
-                       (append '("bundle" "exec") command))))
+               (setq flycheck-checker 'ruby-rubocop))
+               ;; (setq flycheck-command-wrapper-function
+               ;;       (lambda (command)
+               ;;         (append '("bundle" "exec") command))))
+  ;; spacemacs-ui-visual
+  (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   ;; ace-isearch
   (global-ace-isearch-mode 1)
   ;; all-the-icons
@@ -276,3 +278,17 @@
   ;; https://github.com/syl20bnr/spacemacs/issues/9549
   (require 'helm-bookmark)
   )
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (yapfify yaml-mode ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill undohist toml-mode toc-org textile-mode terraform-mode hcl-mode tagedit systemd stickyfunc-enhance srefactor spaceline smex smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode powerline popwin pip-requirements persp-mode pcre2el pbcopy paradox spinner osx-trash osx-dictionary orgit org-plus-contrib org-bullets open-junk-file nginx-mode neotree mwim move-text mmm-mode minitest migemo markdown-toc markdown-mode magit-gitflow magit-gh-pulls macrostep lorem-ipsum livid-mode skewer-mode simple-httpd live-py-mode linum-relative link-hint launchctl js2-refactor multiple-cursors js2-mode js-doc jinja2-mode insert-shebang indent-guide imenu-list ibuffer-projectile hydra hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-pydoc helm-projectile helm-mode-manager helm-make projectile helm-gtags helm-gitignore request helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haml-mode groovy-mode google-translate golden-ratio go-guru go-eldoc gitignore-mode github-search github-clone github-browse-file gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gist gh marshal logito pcache ht gh-md ggtags fuzzy flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck pkg-info epl flx-ido flx fish-mode fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist highlight evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit magit transient git-commit with-editor evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu emoji-cheat-sheet-plus emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker json-mode tablist magit-popup docker-tramp json-snatcher json-reformat disaster diminish cython-mode csv-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-go go-mode company-emoji company-c-headers company-ansible company-anaconda company column-enforce-mode coffee-mode cmake-mode clean-aindent-mode clang-format chruby bundler inf-ruby bind-map bind-key auto-yasnippet yasnippet auto-highlight-symbol auto-dictionary auto-compile packed ansible-doc ansible anaconda-mode pythonic f dash s all-the-icons-dired all-the-icons memoize aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core async ace-isearch ac-ispell auto-complete popup))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
