@@ -5,6 +5,7 @@ TAGS
 .DS_Store
 .envrc
 .rake_tasks
+.tern-port
 /_vendor
 /.vendor
 /vendor/bin
