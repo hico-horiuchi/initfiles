@@ -208,10 +208,22 @@
                (remove-hook 'before-save-hook 'delete-trailing-whitespace))
   ;; ruby
   (add-hook-fn 'ruby-mode-hook
+               (hs-minor-mode 1)
+               (define-key hs-minor-mode-map (kbd "C-\\") 'hs-toggle-hiding)
                (setq flycheck-checker 'ruby-rubocop))
                ;; (setq flycheck-command-wrapper-function
                ;;       (lambda (command)
                ;;         (append '("bundle" "exec") command))))
+  (let ((ruby-mode-hs-info
+         '(ruby-mode
+           "class\\|module\\|def\\|if\\|unless\\|case\\|while\\|until\\|for\\|begin\\|do"
+           "end"
+           "#"
+           ruby-move-to-block
+           nil)))
+    (if (not (member ruby-mode-hs-info hs-special-modes-alist))
+        (setq hs-special-modes-alist
+              (cons ruby-mode-hs-info hs-special-modes-alist))))
   ;; spacemacs-ui-visual
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
   ;; ace-isearch
