@@ -351,10 +351,9 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# nvm
+# nodenv
 #--------------------------------------------------------------------------------
-export NVM_DIR=$HOME/.nvm
-[ -d $NVM_DIR ] && . /usr/local/opt/nvm/nvm.sh
+[ -d $HOME/.nodenv ] && eval "$(nodenv init -)"
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -362,7 +361,7 @@ export NVM_DIR=$HOME/.nvm
 #--------------------------------------------------------------------------------
 if [ -d $HOME/.goenv ]; then
     export GOPATH=$HOME/go
-    export PATH=$HOME/.goenv/bin:$GOPATH/bin:$GOROOT/bin:$PATH
+    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
     eval "$(goenv init -)"
     [ ! -d /usr/local/share/zsh-completions ] && source $go_comp_path
 fi
