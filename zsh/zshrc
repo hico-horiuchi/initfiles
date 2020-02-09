@@ -359,10 +359,11 @@ fi
 #--------------------------------------------------------------------------------
 # goenv
 #--------------------------------------------------------------------------------
-if [ -d $HOME/.goenv ]; then
-    export GOPATH=$HOME/go
-    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+export GOENV_ROOT=$HOME/.goenv
+if [ -d $GOENV_ROOT ]; then
+    export PATH=$GOENV_ROOT/bin:$PATH
     eval "$(goenv init -)"
+    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
     [ ! -d /usr/local/share/zsh-completions ] && source $go_comp_path
 fi
 #--------------------------------------------------------------------------------
@@ -436,25 +437,6 @@ function _be() {
   fi
 }
 # compdef _be be
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# gom exec
-#--------------------------------------------------------------------------------
-if [ -f $go_comp_path ]; then
-    function ge() { gom exec $* }
-    function _ge() {
-        if [ -d vendor/bin ]; then
-            _arguments '*: :->'
-            if [[ $CURRENT == 2 ]]; then
-                _values 'gom exec' `\ls -1 vendor/bin`
-            else
-                _files
-            fi
-        fi
-    }
-    compdef _ge ge
-fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
