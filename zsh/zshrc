@@ -4,7 +4,7 @@
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
 export EDITOR='emacsclient -nw'
-export PATH=/usr/local/sbin:/usr/texbin:/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$HOME/Library/Python/2.7/bin:$HOME/google-cloud-sdk/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/local/sbin:/usr/texbin:/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:${HOME}/Library/Python/2.7/bin:${HOME}/google-cloud-sdk/bin:${HOME}/.local/bin:${PATH}
 export LESS='-fRX'
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
@@ -27,20 +27,18 @@ zstyle ':zle:*' word-style unspecified
 # OS
 #--------------------------------------------------------------------------------
 case ${OSTYPE} in
-  darwin*)
-    export GNU='g'
-    export GOROOT=/usr/local/opt/go/libexec
-    src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
-    go_comp_path='/usr/local/share/zsh-completions/_golang'
-    ansible_id_rsa=$HOME'/.ssh/ansible'
-  ;;
-  linux*)
-    export GNU=''
-    export GOROOT=/usr/local/go
-    src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
-    go_comp_path='/usr/local/go/misc/zsh/go'
-    ansible_id_rsa='/etc/ansible/id_rsa'
-  ;;
+    darwin*)
+        export GNU='g'
+        export GOROOT=/usr/local/opt/go/libexec
+        src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
+        go_comp_path='/usr/local/share/zsh-completions/_golang'
+        ;;
+    linux*)
+        export GNU=''
+        export GOROOT=/usr/local/go
+        src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
+        go_comp_path='/usr/local/go/misc/zsh/go'
+        ;;
 esac
 #--------------------------------------------------------------------------------
 
@@ -127,7 +125,7 @@ zstyle ':completion:*' keep-prefix
 zstyle ':completion:*' ignore-parents parent pwd ..
 # sudo の後ろでコマンド名を補完する
 zstyle ':completion:*:sudo:*' command-path \
-    /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+       /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 # GNU ls の色定義を流用
@@ -146,115 +144,118 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias readlink="${GNU}readlink"
-alias sed="${GNU}sed"
-alias ls="${GNU}ls -1F --color=always --show-control-char"
-alias ll="${GNU}ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
-alias la="${GNU}ls -laF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
-alias nkf_g='nkf --guess'
-alias nkf_s='nkf -s --overwrite'
-alias nkf_e='nkf -e --overwrite'
-alias nkf_w='nkf -w --overwrite'
-alias nkf_Lw='nkf -Lw --overwrite'
-alias nkf_Lu='nkf -Lu --overwrite'
-alias nkf_Lm='nkf -Lm --overwrite'
+alias bundle_install='bundle install --jobs 4 --path vendor/bundler --binstubs vendor/bin --without doc production'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
-alias curl='curl -s'
-alias gcc='gcc_o'
-alias bundle_install='bundle install --jobs 4 --path vendor/bundler --binstubs vendor/bin --without doc production'
-alias rails_s='bundle exec rails s --bind=0.0.0.0'
-alias ssh_http='ssh -L 3000:sss.eng.kagawa-u.ac.jp:3000 sss'
-alias ssh_rdp='ssh -L 3389:133.92.147.234:3389 sss'
-alias g='cd `ghq root`/`ghq list | fzf`'
-alias gh='hub browse `ghq list | fzf | cut -d "/" -f 2,3`'
+alias la="${GNU}ls -alF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
+alias ll="${GNU}ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
+alias ls="${GNU}ls -F1 --color=always --show-control-char"
+alias nkf_Lm='nkf -Lm --overwrite'
+alias nkf_Lu='nkf -Lu --overwrite'
+alias nkf_Lw='nkf -Lw --overwrite'
+alias nkf_e='nkf -e --overwrite'
+alias nkf_g='nkf --guess'
+alias nkf_s='nkf -s --overwrite'
+alias nkf_w='nkf -w --overwrite'
+alias readlink=${GNU}readlink
+alias sed=${GNU}sed
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # 関数
 #--------------------------------------------------------------------------------
-function exists() { which $1 &> /dev/null }
-function docker-ssh() { docker exec -i -t $1 /bin/bash }
+function exists() { which ${1} &> /dev/null }
+function docker-ssh() { docker exec -i -t ${1} /bin/bash }
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # プロンプト
 #--------------------------------------------------------------------------------
 # RPROMPT
-RPROMPT=$'`branch-status-check`'
+RPROMPT=$'$(branch-status-check)'
 # 表示毎にPROMPTで設定されている文字列を評価する
 setopt prompt_subst
 # fg[color]表記と$reset_colorを使いたい
 # @see https://wiki.archlinux.org/index.php/zsh
 function branch-status-check() {
-  local branchname suffix
-  # .gitの中だから除外
-  [[ '$PWD' =~ '/\.git(/.*)?$' ]] && return
-  branchname=`get-branch-name`
-  # ブランチ名が無いので除外
-  [[ -z $branchname ]] && return
-  suffix='%{'${reset_color}'%}'
-  echo `get-branch-status`${suffix}
+    local branchname suffix
+    # .gitの中だから除外
+    [[ "${PWD}" =~ '/\.git(/.*)?$' ]] && return
+    branchname=$(get-branch-name)
+    # ブランチ名が無いので除外
+    [[ -z ${branchname} ]] && return
+    suffix='%{'${reset_color}'%}'
+    echo $(get-branch-status)${suffix}
 }
 function get-branch-name() {
-  local git==git
-  # gitディレクトリじゃない場合のエラーは捨てます
-  echo `${git} rev-parse --abbrev-ref HEAD 2> /dev/null`
+    local git==git
+    # gitディレクトリじゃない場合のエラーは捨てます
+    echo $(${git} rev-parse --abbrev-ref HEAD 2> /dev/null)
 }
 function get-branch-status() {
-  local git==git branchstatus branchname
-  branchname=`get-branch-name`
-  output=`${git} status 2> /dev/null`
-  if [[ -n `echo $output | grep '^nothing to commit'` ]]; then
-    branchstatus='%{'${fg[green]}'%}%{'${fg[black]}${bg[green]}'%}  '${branchname}
-  elif [[ -n `echo $output | grep '^Untracked files:'` ]]; then
-    branchstatus='%{'${fg[yellow]}'%}%{'${fg[black]}${bg[yellow]}'%}  '${branchname}
-  elif [[ -n `echo $output | grep '^Changes not staged for commit:'` ]]; then
-    branchstatus='%{'${fg[red]}'%}%{'${fg[black]}${bg[red]}'%}  '${branchname}
-  else
-    branchstatus='%{'${fg[cyan]}'%}%{'${fg[black]}${bg[cyan]}'%}  '${branchname}
-  fi
-  echo ${branchstatus}' '
+    local git==git branchstatus branchname
+    branchname=$(get-branch-name)
+    output=$(${git} status 2> /dev/null)
+    if [[ -n $(echo ${output} | grep '^nothing to commit') ]]; then
+        branchstatus='%{'${fg[green]}'%}%{'${fg[black]}${bg[green]}'%}  '${branchname}
+    elif [[ -n $(echo ${output} | grep '^Untracked files:') ]]; then
+        branchstatus='%{'${fg[yellow]}'%}%{'${fg[black]}${bg[yellow]}'%}  '${branchname}
+    elif [[ -n $(echo ${output} | grep '^Changes not staged for commit:') ]]; then
+        branchstatus='%{'${fg[red]}'%}%{'${fg[black]}${bg[red]}'%}  '${branchname}
+    else
+        branchstatus='%{'${fg[cyan]}'%}%{'${fg[black]}${bg[cyan]}'%}  '${branchname}
+    fi
+    echo ${branchstatus}' '
 }
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# wakatime
+# source-highlight
 #--------------------------------------------------------------------------------
-# hook function to send wakatime a tick
-send_wakatime_heartbeat() {
-  (wakatime --write --plugin "zsh-wakatime/0.0.1" --entity-type app --project Terminal --entity "$(waka_filename)"> /dev/null 2>&1 &)
-}
-# generate text to report as "filename" to the wakatime API
-waka_filename() {
-  if [ "x$WAKATIME_USE_DIRNAME" = "xtrue" ]; then
-    # just use the current working directory
-    echo "$PWD"
-  else
-    # only command without arguments to avoid senstive information
-    echo "$history[$((HISTCMD-1))]" | cut -d ' ' -f 1
-  fi
-}
-precmd_functions+=(send_wakatime_heartbeat)
+[ -f ${src_hilite_path} ] && export LESSOPEN="| ${src_hilite_path} %s"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# rbenv
+#--------------------------------------------------------------------------------
+[ -d ${HOME}/.rbenv ] && eval "$(rbenv init -)"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# nodenv
+#--------------------------------------------------------------------------------
+[ -d ${HOME}/.nodenv ] && eval "$(nodenv init -)"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# goenv
+#--------------------------------------------------------------------------------
+export GOENV_ROOT=${HOME}/.goenv
+if [ -d ${GOENV_ROOT} ]; then
+    export PATH=${GOENV_ROOT}/bin:${PATH}
+    eval "$(goenv init -)"
+    export PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
+    [ ! -d /usr/local/share/zsh-completions ] && source ${go_comp_path}
+fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # powerline-shell
 #--------------------------------------------------------------------------------
 if exists powerline-shell; then
-  function powerline_precmd() {
-    PS1=$'\n'"$(powerline-shell --shell zsh $?) "
-  }
-  function install_powerline_precmd() {
-    for s in "${precmd_functions[@]}"; do
-      [ "$s" = 'powerline_precmd' ] && return
-    done
-    precmd_functions+=(powerline_precmd)
-  }
-  if [ "$TERM" != 'linux' ]; then
-    install_powerline_precmd
-  fi
+    function powerline_precmd() {
+        PS1=$'\n'"$(powerline-shell --shell zsh $?) "
+    }
+    function install_powerline_precmd() {
+        for s in "${precmd_functions[@]}"; do
+            [ "${s}" = 'powerline_precmd' ] && return
+        done
+        precmd_functions+=(powerline_precmd)
+    }
+    if [ "${TERM}" != 'linux' ]; then
+        install_powerline_precmd
+    fi
 fi
 #--------------------------------------------------------------------------------
 
@@ -262,208 +263,126 @@ fi
 # fzf
 #--------------------------------------------------------------------------------
 if exists fzf; then
-  source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
-  export FZF_DEFAULT_OPTS='--reverse --inline-info --ansi'
+    source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
+    export FZF_DEFAULT_OPTS='--ansi --inline-info --layout=reverse'
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # k
 #--------------------------------------------------------------------------------
-k_path=$HOME'/ghq/github.com/supercrabtree/k/k.sh'
-if [ -f $k_path ]; then
-  source $k_path
-  alias ll='k -h --no-vcs'
-  alias la='k -ah --no-vcs'
+k_path=${HOME}/ghq/github.com/supercrabtree/k/k.sh
+if [ -f ${k_path} ]; then
+    source ${k_path}
+    alias ll='k -h --no-vcs'
+    alias la='k -ah --no-vcs'
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # z
 #--------------------------------------------------------------------------------
-z_path=$HOME'/ghq/github.com/rupa/z/z.sh'
-if [ -f $z_path ]; then
-  source $z_path
-  if exists fzf; then
-    function fzf_z_search() {
-      local res="$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
-      if [ -n $res ]; then
-        BUFFER+="cd $res"
-        zle accept-line
-      else
-        return 1
-      fi
-    }
-  fi
-  zle -N fzf_z_search
-  bindkey '^F' fzf_z_search
+z_path=${HOME}/ghq/github.com/rupa/z/z.sh
+if [ -f ${z_path} ]; then
+    source ${z_path}
+    if exists fzf; then
+        function fzf_z_search() {
+            local directory
+            directory=$(_z -l 2>&1 | fzf +s --tac --height 40% -n 2 | sed 's/^[0-9,.]* *//')
+            if [ -n ${directory} ]; then
+                BUFFER+="cd ${directory}"
+                CURSOR=${#BUFFER}
+                zle reset-prompt
+            else
+                return 1
+            fi
+        }
+        zle -N fzf_z_search
+        bindkey '^F' fzf_z_search
+    fi
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# ghq
+#--------------------------------------------------------------------------------
+if exists ghq; then
+    if exists fzf; then
+        function fzf_ghq_search() {
+            local repository
+            repository=$(ghq list | fzf +s --height 40%)
+            if [ -n ${repository} ]; then
+                BUFFER+="cd $(ghq root)/${repository}"
+                CURSOR=${#BUFFER}
+                zle reset-prompt
+            else
+                return 1
+            fi
+        }
+        zle -N fzf_ghq_search
+        bindkey '^G' fzf_ghq_search
+    fi
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # auto-fu.zsh
 #--------------------------------------------------------------------------------
-auto_fu_path=$HOME'/ghq/github.com/hchbaw/auto-fu.zsh/auto-fu.zsh'
-if [ -f $auto_fu_path ]; then
-  source $auto_fu_path
-  function zle-line-init() { auto-fu-init }
-  zle -N zle-line-init
-  # 「-azfu-」を表示させない
-  zstyle ':auto-fu:var' postdisplay $''
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# source-highlight
-#--------------------------------------------------------------------------------
-if [ -f $src_hilite_path ]; then
-  export LESSOPEN='| '$src_hilite_path' %s'
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# git
-#--------------------------------------------------------------------------------
-if exists fzf; then
-  fbs() {
-    local branches branch
-    branches=$(git branch -a | grep -v '^*' | sed -e 's/^ *//g' -e 's/remotes\/origin\///g') &&
-    branch=$(echo "$branches" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
-    echo -n $(echo "$branch")
-  }
-  fts() {
-    local tags tag
-    tags=$(git tag) &&
-    tag=$(echo "$tags" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
-    echo -n $(echo "$tag")
-  }
-  fcs() {
-    local commits commit
-    commits=$(git log --color=always --reverse --date=short --pretty=format:"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s") &&
-    commit=$(echo "$commits" | fzf --tac +s +m -e --ansi --reverse --height 40%) &&
-    echo -n $(echo "$commit" | sed 's/^<\(.*\)> .*$/\1/')
-  }
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# rbenv
-#--------------------------------------------------------------------------------
-[ -d $HOME/.rbenv ] && eval "$(rbenv init -)"
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# nodenv
-#--------------------------------------------------------------------------------
-[ -d $HOME/.nodenv ] && eval "$(nodenv init -)"
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# goenv
-#--------------------------------------------------------------------------------
-export GOENV_ROOT=$HOME/.goenv
-if [ -d $GOENV_ROOT ]; then
-    export PATH=$GOENV_ROOT/bin:$PATH
-    eval "$(goenv init -)"
-    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-    [ ! -d /usr/local/share/zsh-completions ] && source $go_comp_path
+auto_fu_path=${HOME}/ghq/github.com/hchbaw/auto-fu.zsh/auto-fu.zsh
+if [ -f ${auto_fu_path} ]; then
+    source ${auto_fu_path}
+    function zle-line-init() { auto-fu-init }
+    zle -N zle-line-init
+    # 「-azfu-」を表示させない
+    zstyle ':auto-fu:var' postdisplay $''
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # hub
 #--------------------------------------------------------------------------------
-hub_comp_path=$GOPATH'/src/github.com/github/hub/etc/hub.zsh_completion'
-if [ -f $hub_comp_path ]; then
+hub_comp_path=${GOPATH}/src/github.com/github/hub/etc/hub.zsh_completion
+if [ -f ${hub_comp_path} ]; then
     function git() { hub "$@" }
-    [ ! -d /usr/local/share/zsh-completions ] && source $hub_comp_path
+    [ ! -d /usr/local/share/zsh-completions ] && source ${hub_comp_path}
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # travis gem
 #--------------------------------------------------------------------------------
-[ -f $HOME/.travis/travis.sh ] && source $HOME/.travis/travis.sh
+[ -f ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # heroku toolbelt
 #--------------------------------------------------------------------------------
-[ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:$PATH
-[ ! -f $HOME/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
+[ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:${PATH}
+[ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
 #--------------------------------------------------------------------------------
-
 
 #--------------------------------------------------------------------------------
 # sensuctl
 #--------------------------------------------------------------------------------
-[ -d $HOME/.config/sensu/sensuctl ] && source <(sensuctl completion zsh)
+[ -d ${HOME}/.config/sensu/sensuctl ] && source <(sensuctl completion zsh)
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# rake
+# wakatime
 #--------------------------------------------------------------------------------
-function _rake_refresh() {
-  if [ ! -f .rake_tasks ]; then
-    return 0;
-  else
-    return $([[ Rakefile -nt .rake_tasks ]])
-  fi
+# hook function to send wakatime a tick
+send_wakatime_heartbeat() {
+    (wakatime --write --plugin "zsh-wakatime/0.0.1" --entity-type app --project Terminal --entity "$(waka_filename)"> /dev/null 2>&1 &)
 }
-function _rake() {
-  if [ -f Rakefile ]; then
-    if _rake_refresh; then
-      bundle exec rake --silent --tasks | cut -d ' ' -f 2 > .rake_tasks
-      ${GNU}sed -i -e 's/:/\\\:/g' -e 's/\[/\\[/g' -e 's/\]/\\]/g' .rake_tasks
-    fi
-    _values 'rake' $(<.rake_tasks)
-  fi
-}
-compdef _rake rake
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# bundle exec
-#--------------------------------------------------------------------------------
-function be() { bundle exec $* }
-function _be() {
-  if [ -d vendor/bin ]; then
-    _arguments '*: :->'
-    if [[ $CURRENT == 2 ]]; then
-      _values 'bundle exec' `\ls -1 vendor/bin`
-    elif [[ $CURRENT == 3 && $line[1] == 'rake' ]]; then
-      _rake
+# generate text to report as "filename" to the wakatime API
+waka_filename() {
+    if [ "x$WAKATIME_USE_DIRNAME" = "xtrue" ]; then
+        # just use the current working directory
+        echo "${PWD}"
     else
-      _files
+        # only command without arguments to avoid senstive information
+        echo "${history[$((HISTCMD-1))]}" | cut -d ' ' -f 1
     fi
-  fi
 }
-# compdef _be be
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# tsuru
-#--------------------------------------------------------------------------------
-_tsuru_get_commands() {
-    local -a commands
-    local tasks
-    tasks=$(tsuru 2> /dev/null | awk -F ' ' 'match($0, /^[ ]/) { if (!match($0, /(  help  |This command was removed)/)) { printf "%s:",$1; for(i=2; i<=NF; i++) { printf "%s ",$i }; printf "\n" } }')
-    commands=("${(f)tasks}")
-    _describe 'Tsuru commands' commands
-}
-_tsuru() {
-    _arguments \
-        "1: :_tsuru_get_commands"
-}
-compdef _tsuru tsuru
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# ansible-ssh
-#--------------------------------------------------------------------------------
-function ansible-ssh() {
-  ssh -i $ansible_id_rsa ansible@$1
-}
-if exists ! _ssh_hosts; then; _ssh; fi
-compdef _ssh_hosts ansible-ssh
+precmd_functions+=(send_wakatime_heartbeat)
 #--------------------------------------------------------------------------------
