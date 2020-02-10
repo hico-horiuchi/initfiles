@@ -1,18 +1,19 @@
 PWD=$(shell pwd)
 
 install:
-	cd ~/.local || mkdir ~/.local
+  mkdir -p ~/.local
+  mkdir -p ~/.config/powerline-shell
 
-	cd $(HOME)/src && git clone git://github.com/hchbaw/auto-fu.zsh.git
-	cd $(HOME)/src/auto-fu.zsh && git checkout -b pu origin/pu
+	ghq get github.com/hchbaw/auto-fu.zsh
+	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout -b pu origin/pu
 
-	cd $(HOME)/src && git clone git://github.com/milkbikis/powerline-shell.git
+	ghq get github.com/banga/powerline-shell
 	# patch $(HOME)/src/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
-	cd $(HOME)/src/powerline-shell && ./setup.py build && ./setup.py install --user
+	cd `ghq root`/github.com/banga/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
 
-	cd $(HOME)/src && git clone git://github.com/jimeh/tmux-themepack.git
-	cd $(HOME)/src && git clone git://github.com/supercrabtree/k.git
-	cd $(HOME)/src && git clone git://github.com/rupa/z.git
+	ghq get github.com/jimeh/tmux-themepack
+	ghq get github.com/supercrabtree/k
+	ghq get github.com/rupa/z
 
 	sudo pip install wakatime
 
