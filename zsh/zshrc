@@ -4,7 +4,7 @@
 export LANG=ja_JP.UTF-8
 export TERM='xterm-256color'
 export EDITOR='emacsclient -nw'
-export PATH=/usr/local/sbin:/usr/texbin:/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$HOME/Library/Python/2.7/bin:$HOME/src/google-cloud-sdk/bin:$HOME/.local/bin:$PATH
+export PATH=/usr/local/sbin:/usr/texbin:/Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin/Contents/Home/bin:$HOME/Library/Python/2.7/bin:$HOME/google-cloud-sdk/bin:$HOME/.local/bin:$PATH
 export LESS='-fRX'
 export GREP_OPTIONS='--color=auto'
 # 色を使用出来るようにする
@@ -131,7 +131,7 @@ zstyle ':completion:*:sudo:*' command-path \
 # ps コマンドのプロセス名補完
 zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
 # GNU ls の色定義を流用
-eval `${GNU}dircolors ${HOME}/src/initfiles/terminal/dircolors.256dark`
+eval `${GNU}dircolors ${HOME}/ghq/github.com/hico-horiuchi/initfiles/terminal/dircolors.256dark`
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 #--------------------------------------------------------------------------------
 
@@ -167,6 +167,8 @@ alias bundle_install='bundle install --jobs 4 --path vendor/bundler --binstubs v
 alias rails_s='bundle exec rails s --bind=0.0.0.0'
 alias ssh_http='ssh -L 3000:sss.eng.kagawa-u.ac.jp:3000 sss'
 alias ssh_rdp='ssh -L 3389:133.92.147.234:3389 sss'
+alias g='cd `ghq root`/`ghq list | fzf`'
+alias gh='hub browse `ghq list | fzf | cut -d "/" -f 2,3`'
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -268,7 +270,7 @@ fi
 #--------------------------------------------------------------------------------
 # k
 #--------------------------------------------------------------------------------
-k_path=$HOME'/src/k/k.sh'
+k_path=$HOME'/ghq/github.com/supercrabtree/k/k.sh'
 if [ -f $k_path ]; then
   source $k_path
   alias ll='k -h --no-vcs'
@@ -279,7 +281,7 @@ fi
 #--------------------------------------------------------------------------------
 # z
 #--------------------------------------------------------------------------------
-z_path=$HOME'/src/z/z.sh'
+z_path=$HOME'/ghq/github.com/rupa/z/z.sh'
 if [ -f $z_path ]; then
   source $z_path
   if exists fzf; then
@@ -301,7 +303,7 @@ fi
 #--------------------------------------------------------------------------------
 # auto-fu.zsh
 #--------------------------------------------------------------------------------
-auto_fu_path=$HOME'/src/auto-fu.zsh/auto-fu.zsh'
+auto_fu_path=$HOME'/ghq/github.com/hchbaw/auto-fu.zsh/auto-fu.zsh'
 if [ -f $auto_fu_path ]; then
   source $auto_fu_path
   function zle-line-init() { auto-fu-init }
