@@ -288,7 +288,7 @@ if [ -f ${z_path} ]; then
     if exists fzf; then
         function fzf_z_search() {
             local directory
-            directory=$(_z -l 2>&1 | fzf +s --tac --height 40% -n 2 | sed 's/^[0-9,.]* *//')
+            directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf +s --tac --height 40%)
             if [ -n ${directory} ]; then
                 BUFFER+="cd ${directory}"
                 CURSOR=${#BUFFER}
@@ -304,13 +304,33 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
+# go
+#--------------------------------------------------------------------------------
+if exists fzf; then
+    function fzf_go_src_search() {
+        local directory
+        directory=$(find ${GOPATH}/src/github.com -type d -maxdepth 2 -mindepth 2 | cut -d / -f 7- | fzf -e +s --height 40%)
+        if [ -n ${directory} ]; then
+            BUFFER+="cd ${GOPATH}/src/${directory}"
+            CURSOR=${#BUFFER}
+            zle reset-prompt
+        else
+            return 1
+        fi
+    }
+    zle -N fzf_go_src_search
+    bindkey '^G^G' fzf_go_src_search
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # ghq
 #--------------------------------------------------------------------------------
 if exists ghq; then
     if exists fzf; then
         function fzf_ghq_search() {
             local repository
-            repository=$(ghq list | fzf +s --height 40%)
+            repository=$(ghq list | fzf -e +s --height 40%)
             if [ -n ${repository} ]; then
                 BUFFER+="cd $(ghq root)/${repository}"
                 CURSOR=${#BUFFER}
@@ -320,7 +340,7 @@ if exists ghq; then
             fi
         }
         zle -N fzf_ghq_search
-        bindkey '^G' fzf_ghq_search
+        bindkey '^G^H' fzf_ghq_search
     fi
 fi
 #--------------------------------------------------------------------------------
