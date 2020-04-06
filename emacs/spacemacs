@@ -254,6 +254,10 @@
   ;; toml-mode
   (autoload 'toml-mode "toml-mode")
   (add-auto-mode "\\.toml$" toml-mode)
+  ;; slim-mode
+  (autoload 'toml-mode "slim-mode")
+  (add-auto-mode "\\.slim$" slim-mode)
+  (add-auto-mode "\\.slm$" slim-mode)
   ;; redo+
   ;; (require 'redo+)
   ;; (global-set-key (kbd "C-M-_") 'redo)
