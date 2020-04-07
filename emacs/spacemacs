@@ -237,7 +237,8 @@
   (add-auto-mode "\\.groovy$" groovy-mode)
   (add-hook-fn 'groovy-mode-hook
                (require 'groovy-electric)
-               (groovy-electric-mode))
+               (groovy-electric-mode)
+               (setq groovy-indent-offset 2))
   ;; migemo
   (require 'migemo)
   (setq migemo-command "cmigemo"
