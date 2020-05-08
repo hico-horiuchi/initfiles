@@ -165,8 +165,15 @@ alias sed=${GNU}sed
 #--------------------------------------------------------------------------------
 # 関数
 #--------------------------------------------------------------------------------
-function exists() { which ${1} &> /dev/null }
 function docker-ssh() { docker exec -i -t ${1} /bin/bash }
+function exists() { which ${1} &> /dev/null }
+function set_position() {
+    local x=130 y=150
+    local width=1400 height=900
+
+    osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
+    osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
+}
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -409,11 +416,11 @@ fi
 # wakatime
 #--------------------------------------------------------------------------------
 # hook function to send wakatime a tick
-send_wakatime_heartbeat() {
+function send_wakatime_heartbeat() {
     (wakatime --write --plugin "zsh-wakatime/0.0.1" --entity-type app --project Terminal --entity "$(waka_filename)"> /dev/null 2>&1 &)
 }
 # generate text to report as "filename" to the wakatime API
-waka_filename() {
+function waka_filename() {
     if [ "x$WAKATIME_USE_DIRNAME" = "xtrue" ]; then
         # just use the current working directory
         echo "${PWD}"
