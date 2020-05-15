@@ -1,8 +1,8 @@
 PWD=$(shell pwd)
 
 install:
-  mkdir -p ~/.local
-  mkdir -p ~/.config/powerline-shell
+	mkdir -p ~/.local
+	mkdir -p ~/.config/powerline-shell
 
 	ghq get github.com/hchbaw/auto-fu.zsh
 	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout -b pu origin/pu
