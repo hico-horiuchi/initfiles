@@ -1,44 +1,52 @@
-[user]
-  name = Akihiko Horiuchi
-  email = 12ff5b8@gmail.com
-
-[github]
-  user = hico-horiuchi
-  token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
-
-[core]
-  # editor = emacsclient -nw
-  editor = nano
-  pager = less -fRX
-  quotepath = false
-  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
-  excludesfile = ~/.gitignore
+[alias]
+  ci = !hub ci-status -v | awk '{ print $3 }' | xargs open
+  graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
+  master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master)
+  prune = fetch --prune
+  sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
+  st = status -s
+  stash-all = stash save --include-untracked
+  undo = reset --soft HEAD^
 
 [color]
-  ui = true
-  status = auto
-  diff = auto
   branch = auto
-  interactive = auto
+  diff = auto
   grep = auto
-
-[i18n]
-  commitencoding = utf-8
-
-[pager]
-  log = diff-highlight | emojify | less
-  show = diff-highlight | less
-  diff = diff-highlight | less
+  interactive = auto
+  status = auto
+  ui = true
 
 [commit]
   template = ~/.commit_template
 
+[core]
+  editor = nano
+  excludesfile = ~/.gitignore
+  pager = less -fRX
+  quotepath = false
+  whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
+
 [diff]
   compactionHeuristic = true
 
+[github]
+  token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
+  user = hico-horiuchi
+
+[i18n]
+  commitencoding = utf-8
+
 [merge]
-  ff = only
+  ff = false
   conflictstyle = diff3
+
+[pager]
+  diff = diff-highlight | less
+  log = diff-highlight | emojify | less
+  show = diff-highlight | less
+
+[pull]
+  ff = only
 
 [push]
   default = current
@@ -47,16 +55,10 @@
 [status]
   showUntrackedFiles = all
 
-[alias]
-  st = status -s
-  prune = fetch --prune
-  undo = reset --soft HEAD^
-  stash-all = stash save --include-untracked
-  ci = !hub ci-status -v | awk '{ print $3 }' | xargs open
-  graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
-  master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v master)
-  sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
-
 [url "git@github.com:"]
-	insteadOf = git://github.com/
-	insteadOf = https://github.com/
+  insteadOf = git://github.com/
+  insteadOf = https://github.com/
+
+[user]
+  email = 12ff5b8@gmail.com
+  name = Akihiko Horiuchi
