@@ -113,6 +113,7 @@
         "Red Component": 0.9058823529411765
     },
     "ASCII Anti Aliased": true,
+    "ASCII Ligatures": true,
     "Background Color": {
         "Alpha Component": 1,
         "Blue Component": 0.22745098039215686,
@@ -305,7 +306,7 @@
     "Name": "Default",
     "Non Ascii Font": "Monaco 12",
     "Non-ASCII Anti Aliased": true,
-    "Normal Font": "RictyForPowerline-Regular 15",
+    "Normal Font": "LigaRictyforPowerline-Regular 15",
     "Only The Default BG Color Uses Transparency": false,
     "Option Key Sends": 2,
     "Prompt Before Closing 2": false,

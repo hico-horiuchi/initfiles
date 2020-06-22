@@ -33,7 +33,7 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/ghq/github.com/hico-horiuchi/initfiles/iterm2</string>
+	<string>~/Desktop</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
@@ -101,6 +101,8 @@
 	<array>
 		<dict>
 			<key>ASCII Anti Aliased</key>
+			<true/>
+			<key>ASCII Ligatures</key>
 			<true/>
 			<key>Ambiguous Double Width</key>
 			<false/>
@@ -657,7 +659,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>RictyForPowerline-Regular 15</string>
+			<string>LigaRictyforPowerline-Regular 15</string>
 			<key>Only The Default BG Color Uses Transparency</key>
 			<false/>
 			<key>Option Key Sends</key>
@@ -843,10 +845,11 @@
 	<array>
 		<string>3.3.9</string>
 		<string>3.3.10beta4</string>
+		<string>3.3.11beta1</string>
 	</array>
 	<key>NoSyncBFPRecents</key>
 	<array>
-		<string>Ricty for Powerline</string>
+		<string>Liga Ricty for Powerline</string>
 	</array>
 	<key>NoSyncCommandHistoryHasEverBeenUsed</key>
 	<true/>
@@ -855,12 +858,14 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {2048, 1280}}</string>
 		<key>topLeft</key>
-		<string>{702, 1013}</string>
+		<string>{702, 1014}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>7935A69D-F6FD-4280-A804-2C0D63EA7327</string>
+	<key>NoSyncLastTipTime</key>
+	<real>614053120.84422398</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>193</integer>
+	<integer>868</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1596,6 +1601,13 @@
 	<integer>0</integer>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>611022878.00397396</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>000</string>
+	</array>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -1644,9 +1656,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-19T00:29:07Z</date>
+	<date>2020-06-22T01:11:36Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>SUUpdateGroupIdentifier</key>
+	<integer>4282931912</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SetCookie</key>
@@ -1672,7 +1686,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.10beta4</string>
+	<string>3.3.11beta1</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>

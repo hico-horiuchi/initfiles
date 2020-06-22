@@ -7,6 +7,7 @@
      ace-isearch
      all-the-icons
      all-the-icons-dired
+     fira-code-mode ;; https://github.com/tonsky/FiraCode/files/412440/FiraCode-Regular-Symbol.zip
      groovy-mode
      migemo ;; brew install cmigemo
      terraform-mode
@@ -111,7 +112,7 @@
    dotspacemacs-auto-save-file-location nil
    dotspacemacs-check-for-update t
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Ricty for Powerline"
+   dotspacemacs-default-font '("Liga Ricty for Powerline"
                                :powerline-scale 1.1
                                :size 16
                                :weight normal
@@ -235,6 +236,11 @@
   (add-hook-fn 'c-mode-common-hook
                (c-set-style "stroustrup")
                (c-toggle-auto-hungry-state t))
+  ;; fira-code-mode
+  (if window-system
+      (progn
+        (autoload 'fira-code-mode "fira-code-mode")
+        (add-hook 'prog-mode-hook 'fira-code-mode)))
   ;; groovy-mode
   (autoload 'groovy-mode "groovy-mode")
   (add-auto-mode "\\.groovy$" groovy-mode)
@@ -317,7 +323,7 @@
  '(next-line-add-newlines nil)
  '(package-selected-packages
    (quote
-    (ac-ispell ace-isearch ace-jump-helm-line ace-link ace-window adaptive-wrap aggressive-indent all-the-icons all-the-icons-dired anaconda-mode ansible ansible-doc anzu async auto-compile auto-complete auto-dictionary auto-highlight-symbol auto-yasnippet avy bind-key bind-map bundler chruby clang-format clean-aindent-mode cmake-mode coffee-mode column-enforce-mode company company-anaconda company-ansible company-c-headers company-emoji company-go company-shell company-statistics company-tern company-web csv-mode cython-mode dash dash-functional diminish disaster docker docker-tramp dockerfile-mode dumb-jump elisp-slime-nav emmet-mode emoji-cheat-sheet-plus epl eval-sexp-fu evil evil-anzu evil-args evil-ediff evil-escape evil-exchange evil-iedit-state evil-indent-plus evil-lisp-state evil-magit evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-search-highlight-persist evil-surround evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar exec-path-from-shell expand-region eyebrowse f fancy-battery fill-column-indicator fish-mode flx flx-ido flycheck flycheck-pos-tip flyspell-correct flyspell-correct-helm fuzzy ggtags gh gh-md gist git-commit git-link git-messenger git-timemachine gitattributes-mode gitconfig-mode github-browse-file github-clone github-search gitignore-mode go-eldoc go-guru go-mode golden-ratio google-translate goto-chg groovy-mode haml-mode hcl-mode helm helm-ag helm-c-yasnippet helm-company helm-core helm-css-scss helm-descbinds helm-flx helm-gitignore helm-gtags helm-make helm-mode-manager helm-projectile helm-pydoc helm-swoop helm-themes highlight highlight-indentation highlight-numbers highlight-parentheses hl-todo ht hungry-delete hy-mode hydra ibuffer-projectile iedit imenu-list indent-guide inf-ruby insert-shebang jinja2-mode js-doc js2-mode js2-refactor json-mode json-reformat json-snatcher launchctl link-hint linum-relative live-py-mode livid-mode logito lorem-ipsum lv macrostep magit magit-gh-pulls magit-gitflow magit-popup markdown-mode markdown-toc marshal memoize migemo minitest mmm-mode move-text multiple-cursors mwim neotree nginx-mode open-junk-file org-bullets org-plus-contrib orgit osx-dictionary osx-trash packed paradox parent-mode pbcopy pcache pcre2el persp-mode pip-requirements pkg-info plantuml-mode popup popwin pos-tip powerline projectile pug-mode py-isort pyenv-mode pytest pythonic pyvenv quelpa rainbow-delimiters rake rbenv request restart-emacs reveal-in-osx-finder robe rspec-mode rubocop ruby-test-mode ruby-tools rvm s sass-mode scss-mode simple-httpd skewer-mode slim-mode smartparens smeargle smex spaceline spinner srefactor stickyfunc-enhance systemd tablist tagedit tern terraform-mode textile-mode toc-org toml-mode transient undo-tree undohist unfill use-package uuidgen vi-tilde-fringe volatile-highlights wakatime-mode web-beautify web-completion-data web-mode which-key winum with-editor ws-butler yaml-mode yapfify yasnippet)))
+    (ac-ispell ace-isearch ace-jump-helm-line ace-link ace-window adaptive-wrap aggressive-indent all-the-icons all-the-icons-dired anaconda-mode ansible ansible-doc anzu async auto-compile auto-complete auto-dictionary auto-highlight-symbol auto-yasnippet avy bind-key bind-map bundler chruby clang-format clean-aindent-mode cmake-mode coffee-mode column-enforce-mode company company-anaconda company-ansible company-c-headers company-emoji company-go company-shell company-statistics company-tern company-web csv-mode cython-mode dash dash-functional diminish disaster docker docker-tramp dockerfile-mode dumb-jump elisp-slime-nav emmet-mode emoji-cheat-sheet-plus epl eval-sexp-fu evil evil-anzu evil-args evil-ediff evil-escape evil-exchange evil-iedit-state evil-indent-plus evil-lisp-state evil-magit evil-matchit evil-mc evil-nerd-commenter evil-numbers evil-search-highlight-persist evil-surround evil-tutor evil-unimpaired evil-visual-mark-mode evil-visualstar exec-path-from-shell expand-region eyebrowse f fancy-battery fill-column-indicator fira-code-mode fish-mode flx flx-ido flycheck flycheck-pos-tip flyspell-correct flyspell-correct-helm fuzzy ggtags gh gh-md gist git-commit git-link git-messenger git-timemachine gitattributes-mode gitconfig-mode github-browse-file github-clone github-search gitignore-mode go-eldoc go-guru go-mode golden-ratio google-translate goto-chg groovy-mode haml-mode hcl-mode helm helm-ag helm-c-yasnippet helm-company helm-core helm-css-scss helm-descbinds helm-flx helm-gitignore helm-gtags helm-make helm-mode-manager helm-projectile helm-pydoc helm-swoop helm-themes highlight highlight-indentation highlight-numbers highlight-parentheses hl-todo ht hungry-delete hy-mode hydra ibuffer-projectile iedit imenu-list indent-guide inf-ruby insert-shebang jinja2-mode js-doc js2-mode js2-refactor json-mode json-reformat json-snatcher launchctl link-hint linum-relative live-py-mode livid-mode logito lorem-ipsum lv macrostep magit magit-gh-pulls magit-gitflow magit-popup markdown-mode markdown-toc marshal memoize migemo minitest mmm-mode move-text multiple-cursors mwim neotree nginx-mode open-junk-file org-bullets org-plus-contrib orgit osx-dictionary osx-trash packed paradox parent-mode pbcopy pcache pcre2el persp-mode pip-requirements pkg-info plantuml-mode popup popwin pos-tip powerline projectile pug-mode py-isort pyenv-mode pytest pythonic pyvenv quelpa rainbow-delimiters rake rbenv request restart-emacs reveal-in-osx-finder robe rspec-mode rubocop ruby-test-mode ruby-tools rvm s sass-mode scss-mode simple-httpd skewer-mode slim-mode smartparens smeargle smex spaceline spinner srefactor stickyfunc-enhance systemd tablist tagedit tern terraform-mode textile-mode toc-org toml-mode transient undo-tree undohist unfill use-package uuidgen vi-tilde-fringe volatile-highlights wakatime-mode web-beautify web-completion-data web-mode which-key winum with-editor ws-butler yaml-mode yapfify yasnippet)))
  '(require-final-newline t)
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil)
