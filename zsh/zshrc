@@ -168,8 +168,8 @@ alias sed=${GNU}sed
 function docker-ssh() { docker exec -i -t ${1} /bin/bash }
 function exists() { which ${1} &> /dev/null }
 function set_position() {
-    local x=130 y=150
-    local width=1400 height=900
+    local x=${2:-130} y=${3:-150}
+    local width=${4:-1400} height=${5:-900}
 
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
     osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
