@@ -198,10 +198,12 @@
    '(tool-bar-mode nil)
    '(transient-mark-mode t))
   ;; Clipboard
+  ;; https://gist.github.com/the-kenny/267162
+  (setenv "LANG" "ja_JP.UTF-8")
   (setq interprogram-cut-function
         (lambda (text &optional push)
           (let ((process-connection-type nil))
-            (let ((proc (start-process "pbcopy" nil "pbcopy")))
+            (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
               (process-send-string proc text)
               (process-send-eof proc)))))
   (setq interprogram-paste-function
