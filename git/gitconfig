@@ -33,6 +33,9 @@
   token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
   user = hico-horiuchi
 
+[http]
+  postBuffer = 16M
+
 [i18n]
   commitencoding = utf-8
 
