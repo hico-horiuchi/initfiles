@@ -15,7 +15,7 @@
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>Custom Color Presets</key>
 	<dict/>
 	<key>Default Bookmark Guid</key>
@@ -33,13 +33,15 @@
 	<key>LoadPrefsFromCustomFolder</key>
 	<true/>
 	<key>NSNavLastRootDirectory</key>
-	<string>~/Desktop</string>
+	<string>~/ghq/github.com/hico-horiuchi/initfiles/iterm2</string>
 	<key>NSNavLastUserSetHideExtensionButtonState</key>
 	<false/>
 	<key>NSNavPanelExpandedSizeForOpenMode</key>
 	<string>{712, 448}</string>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{712, 448}</string>
+	<key>NSOverlayScrollersFallBackForAccessoryViews</key>
+	<false/>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
@@ -88,7 +90,7 @@
 	<key>NSWindow Frame iTerm Window 0</key>
 	<string>139 117 1770 1047 0 0 2048 1257 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>148 73 1770 1047 0 0 2048 1257 </string>
+	<string>139 117 1770 1047 0 0 2048 1257 </string>
 	<key>NeverWarnAboutShortLivedSessions_5EEEE8E1-867A-489A-82FF-BD2BDCF2145C</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_5EEEE8E1-867A-489A-82FF-BD2BDCF2145C_selection</key>
@@ -843,10 +845,20 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
+		<string>3.3.12beta3</string>
+		<string>3.3.12</string>
+		<string>3.4.0beta4</string>
+		<string>3.3.11beta1</string>
+		<string>3.3.12beta2</string>
 		<string>3.3.9</string>
 		<string>3.3.10beta4</string>
-		<string>3.3.11beta1</string>
+		<string>3.3.12beta1</string>
+		<string>3.4.0beta1</string>
 	</array>
+	<key>NoSyncAppSupportMoved</key>
+	<true/>
+	<key>NoSyncAppSupportMoved_selection</key>
+	<integer>0</integer>
 	<key>NoSyncBFPRecents</key>
 	<array>
 		<string>Liga Ricty for Powerline</string>
@@ -860,16 +872,20 @@
 		<key>topLeft</key>
 		<string>{702, 1014}</string>
 	</dict>
+	<key>NoSyncIgnoreSystemWindowRestoration</key>
+	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>7935A69D-F6FD-4280-A804-2C0D63EA7327</string>
+	<key>NoSyncLastOSVersion</key>
+	<string>Version 10.14.6 (Build 18G6020)</string>
 	<key>NoSyncLastTipTime</key>
-	<real>614053120.84422398</real>
+	<real>616588462.03308904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>868</integer>
+	<integer>1601</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
-	<integer>1</integer>
+	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>611282157.78222704</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -983,6 +999,14 @@
 				<key>isTerminal</key>
 				<true/>
 				<key>name</key>
+				<string>selectionLength</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
 				<string>path</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
@@ -994,6 +1018,14 @@
 				<string>triggerName</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<false/>
+				<key>name</key>
+				<string>parentSession</string>
+				<key>nonterminalContext</key>
+				<integer>1</integer>
 			</dict>
 			<dict>
 				<key>isTerminal</key>
@@ -1112,6 +1144,14 @@
 				<true/>
 				<key>name</key>
 				<string>tmuxStatusLeft</string>
+				<key>nonterminalContext</key>
+				<integer>0</integer>
+			</dict>
+			<dict>
+				<key>isTerminal</key>
+				<true/>
+				<key>name</key>
+				<string>selection</string>
 				<key>nonterminalContext</key>
 				<integer>0</integer>
 			</dict>
@@ -1590,6 +1630,8 @@
 			</dict>
 		</array>
 	</dict>
+	<key>NoSyncRestoreWindowsCount</key>
+	<integer>0</integer>
 	<key>NoSyncSavePanelSavedSettings_SaveProfile</key>
 	<dict>
 		<key>Initial Directory</key>
@@ -1652,13 +1694,15 @@
 	<key>SUFeedAlternateAppNameKey</key>
 	<string>iTerm</string>
 	<key>SUFeedURL</key>
-	<string>https://iterm2.com/appcasts/testing_new.xml?shard=3</string>
+	<string>https://iterm2.com/appcasts/final_new.xml?shard=3</string>
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-06-22T01:11:36Z</date>
+	<date>2020-08-20T01:33:42Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>SUSkippedVersion</key>
+	<string>3.4.0beta4</string>
 	<key>SUUpdateGroupIdentifier</key>
 	<integer>4282931912</integer>
 	<key>SUUpdateRelaunchingMarker</key>
@@ -1686,7 +1730,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.11beta1</string>
+	<string>3.3.12</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
