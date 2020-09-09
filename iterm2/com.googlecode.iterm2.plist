@@ -881,7 +881,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>616588462.03308904</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>1601</integer>
+	<integer>1936</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1698,7 +1698,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-08-20T01:33:42Z</date>
+	<date>2020-09-08T17:21:07Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUSkippedVersion</key>
@@ -1708,6 +1708,8 @@
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SetCookie</key>
+	<true/>
+	<key>ShowFullScreenTabBar</key>
 	<true/>
 	<key>SoundForEsc</key>
 	<false/>
