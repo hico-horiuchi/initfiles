@@ -303,6 +303,17 @@
   ;; undohist
   (require 'undohist)
   (undohist-initialize)
+  ;; yaml-mode
+  (add-hook-fn 'yaml-mode-hook
+               (yaml-mode-outline-hook)
+               (define-key yaml-mode-map (kbd "TAB") 'outline-toggle-children))
+  ;; https://github.com/yoshiki/yaml-mode/issues/25
+  (defun yaml-outline-level ()
+    (s-count-matches "[ ]\\{2\\}" (match-string 0)))
+  (defun yaml-mode-outline-hook ()
+    (outline-minor-mode)
+    (setq outline-regexp "^\\([ ]\\{2\\}\\)*\\([-] \\)?\\([\"][^\"]*[\"]\\|[a-zA-Z0-9_-]*\\): *\\([>|]\\|&[a-zA-Z0-9_-]*\\)?$")
+    (setq outline-level 'yaml-outline-level))
   ;; https://github.com/syl20bnr/spacemacs/issues/9549
   (require 'helm-bookmark)
   )
