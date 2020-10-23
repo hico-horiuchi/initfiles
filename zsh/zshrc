@@ -168,7 +168,8 @@ alias sed=${GNU}sed
 function docker-ssh() { docker exec -i -t ${1} /bin/bash }
 function exists() { which ${1} &> /dev/null }
 function set_position() {
-    local x=${2:-130} y=${3:-150}
+    # local x=${2:-130} y=${3:-150}
+    local x=${2:-30} y=${3:-980}
     local width=${4:-1400} height=${5:-900}
 
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
@@ -251,6 +252,13 @@ if [ -d ${GOENV_ROOT} ]; then
     export PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
     [ ! -d /usr/local/share/zsh-completions ] && source ${go_comp_path}
 fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# golang
+#--------------------------------------------------------------------------------
+export GOPROXY=direct
+export GOSUMDB=off
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
