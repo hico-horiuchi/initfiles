@@ -314,8 +314,6 @@
     (outline-minor-mode)
     (setq outline-regexp "^\\([ ]\\{2\\}\\)*\\([-] \\)?\\([\"][^\"]*[\"]\\|[a-zA-Z0-9_-]*\\): *\\([>|]\\|&[a-zA-Z0-9_-]*\\)?$")
     (setq outline-level 'yaml-outline-level))
-  ;; https://github.com/syl20bnr/spacemacs/issues/9549
-  (require 'helm-bookmark)
   )
 
 (custom-set-variables
