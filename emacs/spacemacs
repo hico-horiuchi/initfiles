@@ -136,7 +136,7 @@
    dotspacemacs-helm-no-header t
    dotspacemacs-helm-position 'bottom
    dotspacemacs-helm-resize nil
-   dotspacemacs-helm-use-fuzzy 'always
+   dotspacemacs-helm-use-fuzzy 'source
    dotspacemacs-highlight-delimiters 'all
    dotspacemacs-inactive-transparency 90
    dotspacemacs-large-file-size 1
