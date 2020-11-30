@@ -1,12 +1,13 @@
-TAGS
-*~
 *#*
+*~
 .*.swp
 .DS_Store
 .envrc
 .rake_tasks
 .tern-port
-/_vendor
+/.nova
 /.vendor
+/_vendor
 /vendor/bin
 /vendor/bundler
+TAGS
