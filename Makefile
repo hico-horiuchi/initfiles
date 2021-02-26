@@ -5,15 +5,20 @@ install:
 	mkdir -p ~/.config/powerline-shell
 
 	ghq get github.com/hchbaw/auto-fu.zsh
-	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout -b pu origin/pu
+	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
 
 	ghq get github.com/b-ryan/powerline-shell
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
 
 	ghq get github.com/jimeh/tmux-themepack
-	ghq get github.com/supercrabtree/k
 	ghq get github.com/rupa/z
+	ghq get github.com/scopatz/nanorc
+	ghq get github.com/supercrabtree/k
+
+	curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+	python3 get-pip.py
+	rm get-pip.py
 
 	pip install iterm2 wakatime
 
