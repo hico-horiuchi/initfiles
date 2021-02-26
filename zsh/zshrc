@@ -145,6 +145,7 @@ alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
 alias bundle_install='bundle install --jobs 4 --path vendor/bundler --binstubs vendor/bin --without doc production'
+alias cat='bat'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
@@ -251,9 +252,7 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 # goenv
 #--------------------------------------------------------------------------------
-export GOENV_ROOT=${HOME}/.goenv
-if [ -d ${GOENV_ROOT} ]; then
-    export PATH=${GOENV_ROOT}/bin:${PATH}
+if [ -d ${HOME}/.goenv ]; then
     eval "$(goenv init -)"
     export PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
     [ ! -d /usr/local/share/zsh-completions ] && source ${go_comp_path}
@@ -263,8 +262,8 @@ fi
 #--------------------------------------------------------------------------------
 # golang
 #--------------------------------------------------------------------------------
-export GOPROXY=direct
-export GOSUMDB=off
+# export GOPROXY=direct
+# export GOSUMDB=off
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
