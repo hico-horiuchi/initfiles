@@ -15,7 +15,7 @@ install:
 	ghq get github.com/supercrabtree/k
 	ghq get github.com/rupa/z
 
-	sudo pip install wakatime
+	pip install iterm2 wakatime
 
 	ln -fs $(PWD)/bash/bashrc                        $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                       $(HOME)/.inputrc
@@ -25,6 +25,7 @@ install:
 	ln -fs $(PWD)/git/gitignore                      $(HOME)/.gitignore
 	ln -fs $(PWD)/git/commit_template                $(HOME)/.commit_template
 	ln -fs $(PWD)/homebrew/Brewfile                  $(HOME)/.Brewfile
+	ln -fs $(PWD)/nano/nanorc                        $(HOME)/.nanorc
 	ln -fs $(PWD)/powerline-shell/powerline-shell.py $(HOME)/.powerline-shell.json
 	ln -fs $(PWD)/powerline-shell/config.json        $(HOME)/.config/powerline-shell/config.json
 	ln -fs $(PWD)/tmux/tmux.conf                     $(HOME)/.tmux.conf
