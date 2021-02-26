@@ -7,9 +7,9 @@ install:
 	ghq get github.com/hchbaw/auto-fu.zsh
 	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout -b pu origin/pu
 
-	ghq get github.com/banga/powerline-shell
-	# patch $(HOME)/src/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
-	cd `ghq root`/github.com/banga/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
+	ghq get github.com/b-ryan/powerline-shell
+	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
+	cd `ghq root`/github.com/b-ryan/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
 
 	ghq get github.com/jimeh/tmux-themepack
 	ghq get github.com/supercrabtree/k
