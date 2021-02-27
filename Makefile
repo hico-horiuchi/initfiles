@@ -31,7 +31,6 @@ install:
 	ln -fs $(PWD)/git/commit_template                $(HOME)/.commit_template
 	ln -fs $(PWD)/homebrew/Brewfile                  $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                        $(HOME)/.nanorc
-	ln -fs $(PWD)/powerline-shell/powerline-shell.py $(HOME)/.powerline-shell.json
 	ln -fs $(PWD)/powerline-shell/config.json        $(HOME)/.config/powerline-shell/config.json
 	ln -fs $(PWD)/tmux/tmux.conf                     $(HOME)/.tmux.conf
 	ln -fs $(PWD)/zsh/zshrc                          $(HOME)/.zshrc
