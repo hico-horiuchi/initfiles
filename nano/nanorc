@@ -1,1 +1,7 @@
+set autoindent
+set linenumbers
+set minibar
+set nohelp
+set tabsize 2
+
 include "~/ghq/github.com/scopatz/nanorc/*.nanorc"
