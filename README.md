@@ -1,8 +1,11 @@
-initfiles
-=========
+## :books: initfiles
 
-参考文献
---------
-+ [初めて Mac で zsh を使う人のためのチュートリアル - mollifier delta blog](http://mollifier.hatenablog.com/entry/2013/02/22/025415)
-+ [zshのある暮らし2 - 色付き補完](http://wiki.fdiary.net/zsh/?ColoredCompletion)
-+ [Mac の .zshrc を晒してみる！ - techlog](http://d.hatena.ne.jp/j7400157/20080723/1216827182)
+### git/templates/commit_template
+
+```
+echo -e "\n" > git/templates/commit_template
+curl -s https://gitmoji.dev/ \
+  | sed 's|</p>|\n&|g' \
+  | xmllint --html --xpath '//article/div/header/button/text()|//article/div/div/button/code/text()|//article/div/div/p/text()' - 2> /dev/null \
+  | sed -e 's/^/# /g' -e 's/\(:\w*:\)/ - \1 - /g' >> git/templates/commit_template
+```
