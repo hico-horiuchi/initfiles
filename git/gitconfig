@@ -18,7 +18,7 @@
   ui = true
 
 [commit]
-  template = ~/.commit_template
+  template = ~/.git-templates/commit_template
 
 [core]
   editor = nano
@@ -31,7 +31,6 @@
   compactionHeuristic = true
 
 [github]
-  token = 3b1a0b88f9ecf3de6741280290bbc9c9769f18fd
   user = hico-horiuchi
 
 [http]
@@ -39,6 +38,12 @@
 
 [i18n]
   commitencoding = utf-8
+
+[include]
+  path = ~/.git-templates/secrets_template
+
+[init]
+  templatedir = ~/.git-templates/init_template
 
 [merge]
   ff = false

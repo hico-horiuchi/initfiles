@@ -1,15 +1,15 @@
 PWD=$(shell pwd)
 
 install:
-	mkdir -p ~/.local
 	mkdir -p ~/.config/powerline-shell
-
-	ghq get github.com/hchbaw/auto-fu.zsh
-	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
+	mkdir -p ~/.local
 
 	ghq get github.com/b-ryan/powerline-shell
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
+
+	ghq get github.com/hchbaw/auto-fu.zsh
+	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
 
 	ghq get github.com/jimeh/tmux-themepack
 	ghq get github.com/rupa/z
@@ -28,7 +28,7 @@ install:
 	ln -fs $(PWD)/gem/gemrc                          $(HOME)/.gemrc
 	ln -fs $(PWD)/git/gitconfig                      $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                      $(HOME)/.gitignore
-	ln -fs $(PWD)/git/commit_template                $(HOME)/.commit_template
+	ln -fs $(PWD)/git/templates                      $(HOME)/.git-templates
 	ln -fs $(PWD)/homebrew/Brewfile                  $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                        $(HOME)/.nanorc
 	ln -fs $(PWD)/powerline-shell/config.json        $(HOME)/.config/powerline-shell/config.json

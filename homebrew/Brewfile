@@ -17,6 +17,8 @@ brew "fzf"
 brew "gh"
 brew "ghq"
 brew "git"
+brew "git-secrets"
+brew "gitmoji"
 brew "gmailctl"
 brew "gnu-sed"
 brew "goenv", args: ["HEAD"]
