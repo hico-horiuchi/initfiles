@@ -31,13 +31,11 @@ case ${OSTYPE} in
         export GNU='g'
         export GOROOT=/usr/local/opt/go/libexec
         src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
-        go_comp_path='/usr/local/share/zsh-completions/_golang'
         ;;
     linux*)
         export GNU=''
         export GOROOT=/usr/local/go
         src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
-        go_comp_path='/usr/local/go/misc/zsh/go'
         ;;
 esac
 #--------------------------------------------------------------------------------
@@ -258,7 +256,6 @@ fi
 if [ -d ${HOME}/.goenv ]; then
     eval "$(goenv init -)"
     export PATH=${GOPATH}/bin:${GOROOT}/bin:${PATH}
-    [ ! -d /usr/local/share/zsh-completions ] && source ${go_comp_path}
 fi
 #--------------------------------------------------------------------------------
 
