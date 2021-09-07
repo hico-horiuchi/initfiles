@@ -21,6 +21,7 @@ brew "git-secrets"
 brew "gmailctl"
 brew "gnu-sed"
 brew "goenv", args: ["HEAD"]
+brew "gopls"
 brew "gron"
 brew "hub"
 brew "imagemagick"
