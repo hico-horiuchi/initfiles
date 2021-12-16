@@ -24,11 +24,27 @@
 [core]
   editor = nano
   excludesfile = ~/.gitignore
-  pager = less -fRX
+  pager = delta
   quotepath = false
   whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
+[delta]
+  features = decorations
+  line-numbers = true
+  line-numbers-zero-style = gray
+  navigate = true
+  side-by-side = true
+  width = 220
+
+[delta "decorations"]
+  file-style = omit
+  hunk-header-style = file syntax
+
+[delta "interactive"]
+  keep-plus-minus-markers = false
+
 [diff]
+  colorMoved = default
   compactionHeuristic = true
 
 [github]
@@ -46,14 +62,18 @@
 [init]
   templatedir = ~/.git-templates/init_template
 
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+
 [merge]
   ff = false
   conflictstyle = diff3
 
 [pager]
-  diff = diff-highlight | less
-  log = diff-highlight | emojify | less
-  show = diff-highlight | less
+  diff = delta | less
+  log = delta | emojify | less
+  reflog = delta | less
+  show = delta | less
 
 [pull]
   ff = only
