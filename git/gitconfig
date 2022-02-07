@@ -1,7 +1,7 @@
 [alias]
   ci = !hub ci-status -v | awk '{ print $3 }' | xargs open
   develop = !git checkout develop && git pull origin develop && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
-  graph = log --branches --decorate --graph --oneline --tags
+  graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
   main = !git checkout main && git pull origin main && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
   master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
   prune = fetch --prune
