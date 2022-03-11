@@ -32,7 +32,6 @@ brew "nano"
 brew "nkf"
 brew "nodenv"
 brew "plantuml"
-brew "poetry", link: false
 brew "pyenv"
 brew "python-yq"
 brew "qrencode"
