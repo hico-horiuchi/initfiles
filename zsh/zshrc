@@ -325,9 +325,9 @@ fi
 if exists fzf; then
     function fzf_go_src_search() {
         local directory
-        directory=$(find ${GOPATH}/src/github.com -type d -maxdepth 2 -mindepth 2 | cut -d / -f 7- | fzf -e +s --height 40%)
+        directory=$(find ${HOME}/go/*/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 5- | fzf -e +s --height 40%)
         if [ -n ${directory} ]; then
-            BUFFER+="cd ${GOPATH}/src/${directory}"
+            BUFFER+="cd ${HOME}/go/${directory}"
             CURSOR=${#BUFFER}
             zle reset-prompt
         else
