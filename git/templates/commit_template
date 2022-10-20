@@ -12,6 +12,7 @@
 # 🎉 - :tada: - Begin a project.
 # ✅ - :white_check_mark: - Add, update, or pass tests.
 # 🔒️ - :lock: - Fix security issues.
+# 🔐 - :closed_lock_with_key: - Add or update secrets.
 # 🔖 - :bookmark: - Release / Version tags.
 # 🚨 - :rotating_light: - Fix compiler / linter warnings.
 # 🚧 - :construction: - Work in progress.
@@ -66,3 +67,8 @@
 # ⚰️ - :coffin: - Remove dead code.
 # 🧪 - :test_tube: - Add a failing test.
 # 👔 - :necktie: - Add or update business logic
+# 🩺 - :stethoscope: - Add or update healthcheck.
+# 🧱 - :bricks: - Infrastructure related changes.
+# 🧑‍💻 - :technologist: - Improve developer experience
+# 💸 - :money_with_wings: - Add sponsorships or money related infrastructure.
+# 🧵 - :thread: - Add or update code related to multithreading or concurrency.
