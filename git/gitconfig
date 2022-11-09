@@ -4,7 +4,6 @@
   graph = log --graph --date=short --pretty=format:\"%C(yellow)<%h> %Cgreen[%ad] %Cred%an%Creset %s\"
   main = !git checkout main && git pull origin main && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
   master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
-  prune = fetch --prune
   sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
   st = status -s
   stash-all = stash save --include-untracked
@@ -46,6 +45,9 @@
 [diff]
   colorMoved = default
   compactionHeuristic = true
+
+[fetch]
+  prune = true
 
 [github]
   user = hico-horiuchi
