@@ -29,12 +29,10 @@ zstyle ':zle:*' word-style unspecified
 case ${OSTYPE} in
     darwin*)
         export GNU='g'
-        export GOROOT=/usr/local/opt/go/libexec
         src_hilite_path='/usr/local/bin/src-hilite-lesspipe.sh'
         ;;
     linux*)
         export GNU=''
-        export GOROOT=/usr/local/go
         src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
         ;;
 esac
@@ -253,7 +251,11 @@ fi
 #--------------------------------------------------------------------------------
 # goenv
 #--------------------------------------------------------------------------------
-[ -d ${HOME}/.goenv ] && eval "$(goenv init -)"
+if [ -d ${HOME}/.goenv ]; then
+    export GOENV_ROOT=${HOME}/.goenv
+    export PATH=${GOENV_ROOT}/bin:${PATH}
+    eval "$(goenv init -)"
+fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
