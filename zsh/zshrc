@@ -140,6 +140,7 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
+alias awk="${GNU}awk"
 alias bundle_install='bundle install --binstubs vendor/bin --jobs 4 --path vendor/bundle --without doc production'
 alias cat='bat'
 alias emacs='emacsclient -nw'
