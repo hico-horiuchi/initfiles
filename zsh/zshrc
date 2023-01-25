@@ -437,6 +437,7 @@ fi
 #--------------------------------------------------------------------------------
 # google-cloud-sdk
 #--------------------------------------------------------------------------------
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
 gcloud_path=${HOME}/google-cloud-sdk
 if [ -d ${gcloud_path} ]; then
     source ${gcloud_path}/path.zsh.inc
