@@ -107,6 +107,7 @@ setopt notify
 #--------------------------------------------------------------------------------
 # 補完機能を有効にする
 [ -d $(brew --prefix)/share/zsh-completions ] && fpath=($(brew --prefix)/share/zsh-completions ${fpath})
+[ -d $(brew --prefix)/share/zsh-autosuggestions ] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -Uz compinit && compinit -u
 # 補完候補のカーソル選択を有効に
 zstyle ':completion:*' menu select
@@ -143,6 +144,7 @@ alias -g M='`git ls-files -m`'
 alias awk="${GNU}awk"
 alias bundle_install='bundle install --binstubs vendor/bin --jobs 4 --path vendor/bundle --without doc production'
 alias cat='bat'
+alias docker='finch'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
