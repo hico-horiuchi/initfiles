@@ -1,22 +1,78 @@
 #--------------------------------------------------------------------------------
+# OS
+#--------------------------------------------------------------------------------
+case ${OSTYPE} in
+    darwin*)
+        src_hilite_path="${BREW_PREFIX}/bin/src-hilite-lesspipe.sh"
+        ;;
+    linux*)
+        src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
+        ;;
+esac
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # 環境変数
 #--------------------------------------------------------------------------------
-export LANG=ja_JP.UTF-8
-export TERM='xterm-256color'
+export BREW_PREFIX=$(brew --prefix)
 export EDITOR='nano'
-export PATH=/usr/local/sbin:$(brew --prefix)/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
-export LESS='-fRX'
 export GREP_OPTIONS='--color=auto'
-# 色を使用出来るようにする
-autoload -Uz colors
-colors
+export LANG=ja_JP.UTF-8
+export LESS='-fRX'
+export PATH=/usr/local/sbin:${BREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
+export TERM='xterm-256color'
+bin_formulas=('coreutils' 'gawk' 'gnu-sed');
+for formula in ${bin_formulas}; do
+    export PATH=${BREW_PREFIX}/opt/${formula}/libexec/gnubin:${PATH}
+done
+lib_formulas=('mysql-client@5.7' 'readline');
+for formula in ${lib_formulas}; do;
+    export CPPFLAGS="-I/opt/homebrew/opt/${formula}/include ${CPPFLAGS}"
+    export LDFLAGS="-L/opt/homebrew/opt/${formula}/lib ${LDFLAGS}"
+    if [[ -z ${PKG_CONFIG_PATH} ]]; then
+        export PKG_CONFIG_PATH=/opt/homebrew/opt/${formula}/lib/pkgconfig
+    else
+        export PKG_CONFIG_PATH=/opt/homebrew/opt/${formula}/lib/pkgconfig:${PKG_CONFIG_PATH}
+    fi
+done
 # ヒストリの設定
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# 補完
+#--------------------------------------------------------------------------------
+# 色を使用出来るようにする
+autoload -Uz colors
+colors
+# 補完機能を有効にする
+[ -d ${BREW_PREFIX}/share/zsh-completions ] && FPATH=${BREW_PREFIX}/share/zsh-completions:${FPATH}
+[ -d ${BREW_PREFIX}/share/zsh-autosuggestions ] && source ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+autoload -Uz compinit && compinit -u
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
+# 補完候補をグループ別に表示する
+zstyle ':completion:*' format '%F{white}%B%d%b'
+zstyle ':completion:*' group-name ''
+# ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' ignore-parents parent pwd ..
+# 補完で展開時にプレフィクスを保持する
+zstyle ':completion:*' keep-prefix
+# GNU ls の色定義を流用
+eval `dircolors ${HOME}/ghq/github.com/hico-horiuchi/initfiles/terminal/dircolors.256dark`
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# 補完候補のカーソル選択を有効に
+zstyle ':completion:*' menu select
+# ps コマンドのプロセス名補完
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+# sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path \
+       /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
 # ここで指定した文字は単語区切りとみなされる
 # / も区切りと扱うので、^W でディレクトリ1つ分を削除できる
 zstyle ':zle:*' word-chars ' /=;@:{},|'
@@ -24,110 +80,67 @@ zstyle ':zle:*' word-style unspecified
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# OS
-#--------------------------------------------------------------------------------
-case ${OSTYPE} in
-    darwin*)
-        export GNU='g'
-        src_hilite_path="$(brew --prefix)/bin/src-hilite-lesspipe.sh"
-        ;;
-    linux*)
-        export GNU=''
-        src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
-        ;;
-esac
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
 # キーバインド
 #--------------------------------------------------------------------------------
 # Emacs 風キーバインドにする
 bindkey -e
-# Ctrl-R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
 # AquaSKK 用に Ctrl-J を無効化
 bindkey -r '^J'
+# Ctrl-R で履歴検索をするときに * でワイルドカードを使用出来るようにする
+bindkey '^R' history-incremental-pattern-search-backward
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
 # オプション
 #--------------------------------------------------------------------------------
-# 日本語ファイル名を表示可能にする
-setopt print_eight_bit
-# beep を無効にする
-setopt no_beep
-# フローコントロールを無効にする
-setopt no_flow_control
-# '#' 以降をコメントとして扱う
-setopt interactive_comments
 # ディレクトリ名だけでcdする
 setopt auto_cd
-# cd したら自動的にpushdする
-setopt auto_pushd
-# 重複したディレクトリを追加しない
-setopt pushd_ignore_dups
-# = の後はパス名として補完する
-setopt magic_equal_subst
-# 同時に起動したzshの間でヒストリを共有する
-setopt share_history
-# 同じコマンドをヒストリに残さない
-setopt hist_ignore_all_dups
-# ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
-setopt hist_save_nodups
-# スペースから始まるコマンド行はヒストリに残さない
-setopt hist_ignore_space
-# ヒストリに保存するときに余分なスペースを削除する
-setopt hist_reduce_blanks
-# 補完候補が複数あるときに自動的に一覧表示する
-setopt auto_menu
-# 高機能なワイルドカード展開を使用する
-# setopt extended_glob
-# 出力の文字列末尾に改行コードが無い場合でも表示
-unsetopt promptcr
-# プロンプト定義内で変数置換やコマンド置換を扱う
-setopt prompt_subst
-# 補完候補一覧でファイルの種別をマーク表示
-setopt list_types
 # 補完候補を一覧表示
 setopt auto_list
-# 補完候補を詰めて表示
-setopt list_packed
+# 補完候補が複数あるときに自動的に一覧表示する
+setopt auto_menu
 # カッコの対応などを自動的に補完
 setopt auto_param_keys
 # ディレクトリ名の補完で末尾の / を自動的に付加し、次の補完に備える
 # setopt auto_param_slash
+# cd したら自動的にpushdする
+setopt auto_pushd
+# 高機能なワイルドカード展開を使用する
+# setopt extended_glob
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
+# スペースから始まるコマンド行はヒストリに残さない
+setopt hist_ignore_space
+# ヒストリに保存するときに余分なスペースを削除する
+setopt hist_reduce_blanks
+# ヒストリファイルに保存するとき、すでに重複したコマンドがあったら古い方を削除する
+setopt hist_save_nodups
+# '#' 以降をコメントとして扱う
+setopt interactive_comments
+# 補完候補を詰めて表示
+setopt list_packed
+# 補完候補一覧でファイルの種別をマーク表示
+setopt list_types
+# = の後はパス名として補完する
+setopt magic_equal_subst
+# beep を無効にする
+setopt no_beep
+# フローコントロールを無効にする
+setopt no_flow_control
 # 最後のスラッシュを自動的に削除しない
 setopt noautoremoveslash
 # バックグラウンドジョブの状態変化を即時報告
 setopt notify
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# 補完
-#--------------------------------------------------------------------------------
-# 補完機能を有効にする
-[ -d $(brew --prefix)/share/zsh-completions ] && fpath=($(brew --prefix)/share/zsh-completions ${fpath})
-[ -d $(brew --prefix)/share/zsh-autosuggestions ] && source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-autoload -Uz compinit && compinit -u
-# 補完候補のカーソル選択を有効に
-zstyle ':completion:*' menu select
-# 補完候補をグループ別に表示する
-zstyle ':completion:*' format '%F{white}%B%d%b'
-zstyle ':completion:*' group-name ''
-# 補完で小文字でも大文字にマッチさせる
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-# 補完で展開時にプレフィクスを保持する
-zstyle ':completion:*' keep-prefix
-# ../ の後は今いるディレクトリを補完しない
-zstyle ':completion:*' ignore-parents parent pwd ..
-# sudo の後ろでコマンド名を補完する
-zstyle ':completion:*:sudo:*' command-path \
-       /usr/local/sbin /usr/local/bin /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
-# ps コマンドのプロセス名補完
-zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
-# GNU ls の色定義を流用
-eval `${GNU}dircolors ${HOME}/ghq/github.com/hico-horiuchi/initfiles/terminal/dircolors.256dark`
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# 日本語ファイル名を表示可能にする
+setopt print_eight_bit
+# プロンプト定義内で変数置換やコマンド置換を扱う
+setopt prompt_subst
+# 重複したディレクトリを追加しない
+setopt pushd_ignore_dups
+# 同時に起動したzshの間でヒストリを共有する
+setopt share_history
+# 出力の文字列末尾に改行コードが無い場合でも表示
+unsetopt promptcr
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -141,16 +154,15 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias awk="${GNU}awk"
 alias bundle_install='bundle install --binstubs vendor/bin --jobs 4 --path vendor/bundle --without doc production'
 alias cat='bat'
 alias docker='finch'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
-alias la="${GNU}ls -alF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
-alias ll="${GNU}ls -lF --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
-alias ls="${GNU}ls -F1 --color=always --show-control-char"
+alias ls="ls -F1 --color=always --show-control-char"
+alias ll="ls -Fl --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
+alias la="ls -Fal --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
 alias nkf_Lm='nkf -Lm --overwrite'
 alias nkf_Lu='nkf -Lu --overwrite'
 alias nkf_Lw='nkf -Lw --overwrite'
@@ -158,8 +170,6 @@ alias nkf_e='nkf -e --overwrite'
 alias nkf_g='nkf --guess'
 alias nkf_s='nkf -s --overwrite'
 alias nkf_w='nkf -w --overwrite'
-alias readlink=${GNU}readlink
-alias sed=${GNU}sed
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -168,19 +178,13 @@ alias sed=${GNU}sed
 function docker-ssh() { docker exec -i -t ${1} /bin/bash }
 function exists() { which ${1} &> /dev/null }
 function set_position() {
-    # local x=${2:-130} y=${3:-150}
-    local x=${2:-30} y=${3:-980}
+    local x=${2:-130} y=${3:-150}
+    # local x=${2:-30} y=${3:-980}
     local width=${4:-1400} height=${5:-900}
 
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
     osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
 }
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# iTerm2
-#--------------------------------------------------------------------------------
-[ -e "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -225,27 +229,117 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# source-highlight
+# aws-cli
 #--------------------------------------------------------------------------------
-[ -e ${src_hilite_path} ] && export LESSOPEN="| ${src_hilite_path} %s"
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# rbenv
-#--------------------------------------------------------------------------------
-if [ -d ${HOME}/.rbenv ]; then
-    eval "$(rbenv init -)"
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+aws_path=${HOME}/aws-cli
+if [ -d ${aws_path} ]; then
+    export PATH=${aws_path}:${PATH}
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C ${aws_path}/aws_completer aws
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# pyenv
+# fzf
 #--------------------------------------------------------------------------------
-if [ -d ${HOME}/.pyenv ]; then
-    export PYENV_ROOT=${HOME}/.pyenv
-    export PATH=${PYENV_ROOT}/bin:${PATH}
-    eval "$(pyenv init --path)"
+if exists fzf; then
+    export FZF_DEFAULT_OPTS='--ansi --inline-info --layout=reverse'
+    source ${BREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# ghq
+#--------------------------------------------------------------------------------
+if exists ghq; then
+    if exists fzf; then
+        function fzf_ghq_search() {
+            local repository
+            repository=$(ghq list | fzf -e +s --height 40%)
+            if [ -n ${repository} ]; then
+                BUFFER+="cd $(ghq root)/${repository}"
+                CURSOR=${#BUFFER}
+                zle reset-prompt
+            else
+                return 1
+            fi
+        }
+        zle -N fzf_ghq_search
+        bindkey '^G^H' fzf_ghq_search
+    fi
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# go
+#--------------------------------------------------------------------------------
+if exists fzf; then
+    function fzf_go_src_search() {
+        local directory
+        directory=$(find ${HOME}/go/*/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 5- | fzf -e +s --height 40%)
+        if [ -n ${directory} ]; then
+            BUFFER+="cd ${HOME}/go/${directory}"
+            CURSOR=${#BUFFER}
+            zle reset-prompt
+        else
+            return 1
+        fi
+    }
+    zle -N fzf_go_src_search
+    bindkey '^G^G' fzf_go_src_search
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# goenv
+#--------------------------------------------------------------------------------
+if [ -d ${HOME}/.goenv ]; then
+    export GOENV_ROOT=${HOME}/.goenv
+    export PATH=${GOENV_ROOT}/bin:${PATH}
+    eval "$(goenv init -)"
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# google-cloud-sdk
+#--------------------------------------------------------------------------------
+gcloud_path=${HOME}/google-cloud-sdk
+if [ -d ${gcloud_path} ]; then
+    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+    source ${gcloud_path}/completion.zsh.inc
+    source ${gcloud_path}/path.zsh.inc
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# heroku toolbelt
+#--------------------------------------------------------------------------------
+[ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:${PATH}
+[ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# hub
+#--------------------------------------------------------------------------------
+if exists hub; then
+    eval "$(hub alias -s)"
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# iterm2
+#--------------------------------------------------------------------------------
+[ -e "${HOME}/.iterm2_shell_integration.zsh" ] && source "${HOME}/.iterm2_shell_integration.zsh"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# k
+#--------------------------------------------------------------------------------
+k_path=${HOME}/ghq/github.com/supercrabtree/k/k.sh
+if [ -e ${k_path} ]; then
+    source ${k_path}
+    alias ll='k -h --no-vcs'
+    alias la='k -ah --no-vcs'
 fi
 #--------------------------------------------------------------------------------
 
@@ -256,12 +350,11 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# goenv
+# nomad
 #--------------------------------------------------------------------------------
-if [ -d ${HOME}/.goenv ]; then
-    export GOENV_ROOT=${HOME}/.goenv
-    export PATH=${GOENV_ROOT}/bin:${PATH}
-    eval "$(goenv init -)"
+if exists nomad; then
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C /usr/local/bin/nomad nomad
 fi
 #--------------------------------------------------------------------------------
 
@@ -285,23 +378,98 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# fzf
+# pyenv
 #--------------------------------------------------------------------------------
-if exists fzf; then
-    source $(brew --prefix)/opt/fzf/shell/key-bindings.zsh
-    export FZF_DEFAULT_OPTS='--ansi --inline-info --layout=reverse'
+if [ -d ${HOME}/.pyenv ]; then
+    export PYENV_ROOT=${HOME}/.pyenv
+    export PATH=${PYENV_ROOT}/bin:${PATH}
+    eval "$(pyenv init --path)"
 fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# k
+# rbenv
 #--------------------------------------------------------------------------------
-k_path=${HOME}/ghq/github.com/supercrabtree/k/k.sh
-if [ -e ${k_path} ]; then
-    source ${k_path}
-    alias ll='k -h --no-vcs'
-    alias la='k -ah --no-vcs'
+if [ -d ${HOME}/.rbenv ]; then
+    eval "$(rbenv init -)"
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# sensuctl
+#--------------------------------------------------------------------------------
+[ -d ${HOME}/.config/sensu/sensuctl ] && source <(sensuctl completion zsh)
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# source-highlight
+#--------------------------------------------------------------------------------
+[ -e ${src_hilite_path} ] && export LESSOPEN="| ${src_hilite_path} %s"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# ssh
+#--------------------------------------------------------------------------------
+# https://stackoverflow.com/questions/59940971/zsh-autocomplete-slow-for-ssh
+function refresh_ssh_autocomplete () {
+    host_list=($(cat ~/.ssh/config | grep 'Host ' | grep -v '*' | awk '{s = s $2 " "} END {print s}'))
+    zstyle ':completion:*:(ssh|scp|sftp):*' hosts $host_list
+}
+refresh_ssh_autocomplete
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# terraform
+#--------------------------------------------------------------------------------
+if exists terraform; then
+    autoload -U +X bashcompinit && bashcompinit
+    complete -o nospace -C /usr/local/bin/terraform terraform
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# travis gem
+#--------------------------------------------------------------------------------
+[ -e ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# wakatime
+#--------------------------------------------------------------------------------
+# https://github.com/wbingli/zsh-wakatime
+export WAKATIME_USE_DIRNAME=true
+export ZSH_WAKATIME_PROJECT_DETECTION=true
+hasgit=$(type 'git' > /dev/null 2>&1)${?}
+function waka_filename() {
+    if [ "x${WAKATIME_USE_DIRNAME}" = 'xtrue' ]; then
+        # just use the current working directory
+        echo "${PWD}"
+    else
+        # only command without arguments to avoid senstive information
+        echo "${history[$((HISTCMD-1))]}" | cut -d ' ' -f1
+    fi
+}
+function waka_projectname() {
+    if [ "x${ZSH_WAKATIME_PROJECT_DETECTION}" = 'xtrue' ]; then
+        if [ ${hasgit} ]; then
+            gitproject=$(git config --local remote.origin.url 2> /dev/null | sed 's|.git$||g' | sed -n 's#.*/\([^.]*\)#\1#p')
+            echo ${gitproject:-<<LAST_PROJECT>>}
+        else
+            echo '<<LAST_PROJECT>>'
+        fi
+    else
+        echo 'Terminal'
+    fi
+}
+function send_wakatime_heartbeat() {
+    entity=$(waka_filename);
+    project=$(waka_projectname);
+    if [ "${entity}" ]; then
+        (wakatime --write --plugin 'zsh-wakatime/0.0.1' --entity-type app --project ${project} --entity "${entity}" > /dev/null 2>&1 &)
+    fi
+}
+precmd_functions+=(send_wakatime_heartbeat)
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -329,48 +497,6 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# go
-#--------------------------------------------------------------------------------
-if exists fzf; then
-    function fzf_go_src_search() {
-        local directory
-        directory=$(find ${HOME}/go/*/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 5- | fzf -e +s --height 40%)
-        if [ -n ${directory} ]; then
-            BUFFER+="cd ${HOME}/go/${directory}"
-            CURSOR=${#BUFFER}
-            zle reset-prompt
-        else
-            return 1
-        fi
-    }
-    zle -N fzf_go_src_search
-    bindkey '^G^G' fzf_go_src_search
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# ghq
-#--------------------------------------------------------------------------------
-if exists ghq; then
-    if exists fzf; then
-        function fzf_ghq_search() {
-            local repository
-            repository=$(ghq list | fzf -e +s --height 40%)
-            if [ -n ${repository} ]; then
-                BUFFER+="cd $(ghq root)/${repository}"
-                CURSOR=${#BUFFER}
-                zle reset-prompt
-            else
-                return 1
-            fi
-        }
-        zle -N fzf_ghq_search
-        bindkey '^G^H' fzf_ghq_search
-    fi
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
 # auto-fu.zsh
 #--------------------------------------------------------------------------------
 auto_fu_path=${HOME}/ghq/github.com/hchbaw/auto-fu.zsh/auto-fu.zsh
@@ -381,123 +507,4 @@ if [ -e ${auto_fu_path} ]; then
     # 「-azfu-」を表示させない
     zstyle ':auto-fu:var' postdisplay $''
 fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# hub
-#--------------------------------------------------------------------------------
-if exists hub; then
-    eval "$(hub alias -s)"
-    fpath=($(brew --prefix hub)/share/zsh/site-functions ${fpath})
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# terraform
-#--------------------------------------------------------------------------------
-if exists terraform; then
-    autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C /usr/local/bin/terraform terraform
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# nomad
-#--------------------------------------------------------------------------------
-if exists nomad; then
-    autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C /usr/local/bin/nomad nomad
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# travis gem
-#--------------------------------------------------------------------------------
-[ -e ${HOME}/.travis/travis.sh ] && source ${HOME}/.travis/travis.sh
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# heroku toolbelt
-#--------------------------------------------------------------------------------
-[ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:${PATH}
-[ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# sensuctl
-#--------------------------------------------------------------------------------
-[ -d ${HOME}/.config/sensu/sensuctl ] && source <(sensuctl completion zsh)
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# aws-cli
-#--------------------------------------------------------------------------------
-aws_path=${HOME}/aws-cli
-if [ -d ${aws_path} ]; then
-    export PATH=${aws_path}:${PATH}
-    autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C ${aws_path}/aws_completer aws
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# google-cloud-sdk
-#--------------------------------------------------------------------------------
-gcloud_path=${HOME}/google-cloud-sdk
-if [ -d ${gcloud_path} ]; then
-    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-    source ${gcloud_path}/path.zsh.inc
-    source ${gcloud_path}/completion.zsh.inc
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# wakatime
-#--------------------------------------------------------------------------------
-# https://github.com/wbingli/zsh-wakatime
-# hook function to send wakatime a tick
-export ZSH_WAKATIME_PROJECT_DETECTION=true
-export WAKATIME_USE_DIRNAME=true
-hasgit=$(type 'git' > /dev/null 2>&1)${?}
-function send_wakatime_heartbeat() {
-    entity=$(waka_filename);
-    project=$(waka_projectname);
-    if [ "${entity}" ]; then
-        (wakatime --write --plugin 'zsh-wakatime/0.0.1' --entity-type app --project ${project} --entity "${entity}" > /dev/null 2>&1 &)
-    fi
-}
-function waka_projectname() {
-    if [ "x${ZSH_WAKATIME_PROJECT_DETECTION}" = 'xtrue' ]; then
-        if [ ${hasgit} ]; then
-            gitproject=$(git config --local remote.origin.url 2> /dev/null | sed 's|.git$||g' | sed -n 's#.*/\([^.]*\)#\1#p')
-            echo ${gitproject:-<<LAST_PROJECT>>}
-        else
-            echo '<<LAST_PROJECT>>'
-        fi
-    else
-        echo 'Terminal'
-    fi
-}
-# generate text to report as "filename" to the wakatime API
-function waka_filename() {
-    if [ "x${WAKATIME_USE_DIRNAME}" = 'xtrue' ]; then
-        # just use the current working directory
-        echo "${PWD}"
-    else
-	    # only command without arguments to avoid senstive information
-        echo "${history[$((HISTCMD-1))]}" | cut -d ' ' -f1
-    fi
-}
-precmd_functions+=(send_wakatime_heartbeat)
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# ssh
-#--------------------------------------------------------------------------------
-# https://stackoverflow.com/questions/59940971/zsh-autocomplete-slow-for-ssh
-function refresh_ssh_autocomplete () {
-    host_list=($(cat ~/.ssh/config | grep 'Host ' | grep -v '*' | awk '{s = s $2 " "} END {print s}'))
-    zstyle ':completion:*:(ssh|scp|sftp):*' hosts $host_list
-}
-refresh_ssh_autocomplete
 #--------------------------------------------------------------------------------
