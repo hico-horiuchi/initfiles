@@ -3,7 +3,7 @@
 #--------------------------------------------------------------------------------
 case ${OSTYPE} in
     darwin*)
-        src_hilite_path="${BREW_PREFIX}/bin/src-hilite-lesspipe.sh"
+        src_hilite_path="${HOMEBREW_PREFIX}/bin/src-hilite-lesspipe.sh"
         ;;
     linux*)
         src_hilite_path='/usr/share/source-highlight/src-hilite-lesspipe.sh'
@@ -14,25 +14,24 @@ esac
 #--------------------------------------------------------------------------------
 # 環境変数
 #--------------------------------------------------------------------------------
-export BREW_PREFIX=$(brew --prefix)
 export EDITOR='nano'
 export GREP_OPTIONS='--color=auto'
 export LANG=ja_JP.UTF-8
 export LESS='-fRX'
-export PATH=/usr/local/sbin:${BREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
+export PATH=/usr/local/sbin:${HOMEBREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
 export TERM='xterm-256color'
 bin_formulas=('coreutils' 'gawk' 'gnu-sed');
 for formula in ${bin_formulas}; do
-    export PATH=${BREW_PREFIX}/opt/${formula}/libexec/gnubin:${PATH}
+    export PATH=${HOMEBREW_PREFIX}/opt/${formula}/libexec/gnubin:${PATH}
 done
 lib_formulas=('mysql-client@5.7' 'readline');
 for formula in ${lib_formulas}; do;
-    export CPPFLAGS="-I/opt/homebrew/opt/${formula}/include ${CPPFLAGS}"
-    export LDFLAGS="-L/opt/homebrew/opt/${formula}/lib ${LDFLAGS}"
+    export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/${formula}/include ${CPPFLAGS}"
+    export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/${formula}/lib ${LDFLAGS}"
     if [[ -z ${PKG_CONFIG_PATH} ]]; then
-        export PKG_CONFIG_PATH=/opt/homebrew/opt/${formula}/lib/pkgconfig
+        export PKG_CONFIG_PATH=${HOMEBREW_PREFIX}/opt/${formula}/lib/pkgconfig
     else
-        export PKG_CONFIG_PATH=/opt/homebrew/opt/${formula}/lib/pkgconfig:${PKG_CONFIG_PATH}
+        export PKG_CONFIG_PATH=${HOMEBREW_PREFIX}/opt/${formula}/lib/pkgconfig:${PKG_CONFIG_PATH}
     fi
 done
 # ヒストリの設定
@@ -48,8 +47,8 @@ SAVEHIST=1000000
 autoload -Uz colors
 colors
 # 補完機能を有効にする
-[ -d ${BREW_PREFIX}/share/zsh-completions ] && FPATH=${BREW_PREFIX}/share/zsh-completions:${FPATH}
-[ -d ${BREW_PREFIX}/share/zsh-autosuggestions ] && source ${BREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+[ -d ${HOMEBREW_PREFIX}/share/zsh-completions ] && FPATH=${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}
+[ -d ${HOMEBREW_PREFIX}/share/zsh-autosuggestions ] && source ${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 autoload -Uz compinit && compinit -u
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -244,7 +243,7 @@ fi
 #--------------------------------------------------------------------------------
 if exists fzf; then
     export FZF_DEFAULT_OPTS='--ansi --inline-info --layout=reverse'
-    source ${BREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+    source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
 fi
 #--------------------------------------------------------------------------------
 
