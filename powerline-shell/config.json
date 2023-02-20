@@ -1,6 +1,7 @@
 {
   "segments": [
     "read_only",
+    "k8s_namespace",
     "virtual_env",
     "cwd",
     "root"
