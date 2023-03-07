@@ -159,7 +159,8 @@ alias docker='finch'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
-alias ls="ls -F1 --color=always --show-control-char"
+alias kubectl='kubecolor'
+alias ls='ls -F1 --color=always --show-control-char'
 alias ll="ls -Fl --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
 alias la="ls -Fal --color=always --show-control-char --time-style=+'%Y/%m/%d %H:%M'"
 alias nkf_Lm='nkf -Lm --overwrite'
