@@ -6,7 +6,7 @@ install:
 
 	ghq get github.com/b-ryan/powerline-shell
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
-	cd `ghq root`/github.com/b-ryan/powerline-shell && ./setup.py build && ./setup.py install --user --prefix=
+	cd `ghq root`/github.com/b-ryan/powerline-shell && cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/ && ./setup.py build && ./setup.py install --user --prefix=
 
 	ghq get github.com/hchbaw/auto-fu.zsh
 	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
@@ -16,11 +16,7 @@ install:
 	ghq get github.com/scopatz/nanorc
 	ghq get github.com/supercrabtree/k
 
-	curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-	python3 get-pip.py
-	rm get-pip.py
-
-	pip install iterm2 wakatime
+	pip install -U iterm2 pip setuptools 'wakatime==13.1.0'
 
 	ln -fs $(PWD)/bash/bashrc                        $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                       $(HOME)/.inputrc
