@@ -66,9 +66,10 @@
 # 🧐 - :monocle_face: - Data exploration/inspection.
 # ⚰️ - :coffin: - Remove dead code.
 # 🧪 - :test_tube: - Add a failing test.
-# 👔 - :necktie: - Add or update business logic
+# 👔 - :necktie: - Add or update business logic.
 # 🩺 - :stethoscope: - Add or update healthcheck.
 # 🧱 - :bricks: - Infrastructure related changes.
-# 🧑‍💻 - :technologist: - Improve developer experience
+# 🧑‍💻 - :technologist: - Improve developer experience.
 # 💸 - :money_with_wings: - Add sponsorships or money related infrastructure.
 # 🧵 - :thread: - Add or update code related to multithreading or concurrency.
+# 🦺 - :safety_vest: - Add or update code related to validation.
