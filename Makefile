@@ -6,18 +6,27 @@ install:
 
 	ghq get github.com/b-ryan/powerline-shell
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
-	cd `ghq root`/github.com/b-ryan/powerline-shell && cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/ && ./setup.py build && ./setup.py install --user --prefix=
+	cd `ghq root`/github.com/b-ryan/powerline-shell
+	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
+	sed -i -e 's/\/usr\/bin\/env python$/\/usr\/bin\/env python3/g' **/*.py
+	./setup.py build
+	./setup.py install --user --prefix=
+  cd $(PWD)
 
 	ghq get github.com/hchbaw/auto-fu.zsh
 	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
+	cd $(PWD)
 
 	ghq get github.com/jimeh/tmux-themepack
 	ghq get github.com/rupa/z
 	ghq get github.com/scopatz/nanorc
 	ghq get github.com/supercrabtree/k
 
-	pip install -U iterm2 pip setuptools 'wakatime==13.1.0'
-
+	ln -fs $(PWD)/asdf/asdfrc                        $(HOME)/.asdfrc
+	ln -fs $(PWD)/asdf/default-gems                  $(HOME)/.default-gems
+	ln -fs $(PWD)/asdf/default-golang-pkgs           $(HOME)/.default-golang-pkgs
+	ln -fs $(PWD)/asdf/default-npm-packages          $(HOME)/.default-npm-packages
+	ln -fs $(PWD)/asdf/default-python-packages       $(HOME)/.default-python-packages
 	ln -fs $(PWD)/bash/bashrc                        $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                       $(HOME)/.inputrc
 	ln -fs $(PWD)/emacs/spacemacs                    $(HOME)/.spacemacs

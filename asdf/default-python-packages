@@ -1,0 +1,8 @@
+iterm2
+pip
+poetry
+pyls-black
+pyls-isort
+python-language-server[all]
+setuptools
+wakatime==13.1.0

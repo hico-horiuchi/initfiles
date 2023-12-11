@@ -229,6 +229,21 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
+# asdf
+#--------------------------------------------------------------------------------
+if exists asdf; then
+    source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
+
+    # golang
+    export ASDF_GOLANG_MOD_VERSION_ENABLED=false
+    source ${HOME}/.asdf/plugins/golang/set-env.zsh
+
+    # ruby
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # aws-cli
 #--------------------------------------------------------------------------------
 aws_path=${HOME}/aws-cli
@@ -284,9 +299,9 @@ fi
 if exists fzf; then
     function fzf_go_src_search() {
         local directory
-        directory=$(find ${HOME}/go/*/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 5- | fzf -e +s --height 40%)
+        directory=$(find ${HOME}/.asdf/installs/golang/*/packages/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 7- | fzf -e +s --height 40%)
         if [ -n ${directory} ]; then
-            BUFFER+="cd ${HOME}/go/${directory}"
+            BUFFER+="cd ${HOME}/.asdf/installs/golang/${directory}"
             CURSOR=${#BUFFER}
             zle reset-prompt
         else
@@ -295,16 +310,6 @@ if exists fzf; then
     }
     zle -N fzf_go_src_search
     bindkey '^G^G' fzf_go_src_search
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# goenv
-#--------------------------------------------------------------------------------
-if [ -d ${HOME}/.goenv ]; then
-    export GOENV_ROOT=${HOME}/.goenv
-    export PATH=${GOENV_ROOT}/bin:${PATH}
-    eval "$(goenv init -)"
 fi
 #--------------------------------------------------------------------------------
 
@@ -358,12 +363,6 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# nodenv
-#--------------------------------------------------------------------------------
-[ -d ${HOME}/.nodenv ] && eval "$(nodenv init -)"
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
 # nomad
 #--------------------------------------------------------------------------------
 if exists nomad; then
@@ -388,26 +387,6 @@ if exists powerline-shell; then
     if [ "${TERM}" != 'linux' ]; then
         install_powerline_precmd
     fi
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# pyenv
-#--------------------------------------------------------------------------------
-if [ -d ${HOME}/.pyenv ]; then
-    export PYENV_ROOT=${HOME}/.pyenv
-    export PATH=${PYENV_ROOT}/bin:${PATH}
-    eval "$(pyenv init --path)"
-    source ${HOMEBREW_PREFIX}/opt/pyenv/completions/pyenv.zsh
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# rbenv
-#--------------------------------------------------------------------------------
-if [ -d ${HOME}/.rbenv ]; then
-    eval "$(rbenv init -)"
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
 #--------------------------------------------------------------------------------
 
