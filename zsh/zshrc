@@ -229,21 +229,6 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# asdf
-#--------------------------------------------------------------------------------
-if exists asdf; then
-    source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
-
-    # golang
-    export ASDF_GOLANG_MOD_VERSION_ENABLED=false
-    source ${HOME}/.asdf/plugins/golang/set-env.zsh
-
-    # ruby
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
 # aws-cli
 #--------------------------------------------------------------------------------
 aws_path=${HOME}/aws-cli
@@ -487,6 +472,21 @@ if [ -e ${z_path} ]; then
         zle -N fzf_z_search
         bindkey '^F' fzf_z_search
     fi
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# asdf
+#--------------------------------------------------------------------------------
+if exists asdf; then
+    source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
+
+    # golang
+    export ASDF_GOLANG_MOD_VERSION_ENABLED=false
+    source ${HOME}/.asdf/plugins/golang/set-env.zsh
+
+    # ruby
+    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
 #--------------------------------------------------------------------------------
 

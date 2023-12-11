@@ -8,7 +8,6 @@ install:
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell
 	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
-	sed -i -e 's/\/usr\/bin\/env python$/\/usr\/bin\/env python3/g' **/*.py
 	./setup.py build
 	./setup.py install --user --prefix=
   cd $(PWD)
