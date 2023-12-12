@@ -181,7 +181,6 @@ function set_position() {
     local x=${2:-130} y=${3:-150}
     # local x=${2:-30} y=${3:-980}
     local width=${4:-1400} height=${5:-900}
-
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
     osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
 }
@@ -233,31 +232,24 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 if exists asdf; then
     source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
-
     plugin_list=$(asdf plugin list)
-
     # awscli
     if echo ${plugin_list} | grep 'awscli' > /dev/null; then
         autoload -U +X bashcompinit && bashcompinit
         complete -o nospace -C ${HOME}/.asdf/shims/aws_completer aws
     fi
-
     # gcloud
     if echo ${plugin_list} | grep 'gcloud' > /dev/null; then
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-
         gcloud_version=$(asdf current gcloud | awk '{print $2}')
-
         source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/completion.zsh.inc
         source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/path.zsh.inc
     fi
-
     # golang
     if echo ${plugin_list} | grep 'golang' > /dev/null; then
         export ASDF_GOLANG_MOD_VERSION_ENABLED=false
         source ${HOME}/.asdf/plugins/golang/set-env.zsh
     fi
-
     # ruby
     if echo ${plugin_list} | grep 'ruby' > /dev/null; then
         export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
@@ -325,10 +317,11 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# heroku toolbelt
+# heroku
 #--------------------------------------------------------------------------------
-[ -d /usr/local/heroku ] && export PATH=/usr/local/heroku/bin:${PATH}
-[ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
+if exists heroku; then
+    [ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
+fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -349,7 +342,7 @@ fi
 # k
 #--------------------------------------------------------------------------------
 k_path=${HOME}/ghq/github.com/supercrabtree/k/k.sh
-if [ -e ${k_path} ]; then
+if [ -f ${k_path} ]; then
     source ${k_path}
     alias ll='k -h --no-vcs'
     alias la='k -ah --no-vcs'
