@@ -229,13 +229,39 @@ function get-branch-status() {
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# aws-cli
+# asdf
 #--------------------------------------------------------------------------------
-aws_path=${HOME}/aws-cli
-if [ -d ${aws_path} ]; then
-    export PATH=${aws_path}:${PATH}
-    autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C ${aws_path}/aws_completer aws
+if exists asdf; then
+    source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
+
+    plugin_list=$(asdf plugin list)
+
+    # awscli
+    if echo ${plugin_list} | grep 'awscli' > /dev/null; then
+        autoload -U +X bashcompinit && bashcompinit
+        complete -o nospace -C ${HOME}/.asdf/shims/aws_completer aws
+    fi
+
+    # gcloud
+    if echo ${plugin_list} | grep 'gcloud' > /dev/null; then
+        export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
+        gcloud_version=$(asdf current gcloud | awk '{print $2}')
+
+        source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/completion.zsh.inc
+        source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/path.zsh.inc
+    fi
+
+    # golang
+    if echo ${plugin_list} | grep 'golang' > /dev/null; then
+        export ASDF_GOLANG_MOD_VERSION_ENABLED=false
+        source ${HOME}/.asdf/plugins/golang/set-env.zsh
+    fi
+
+    # ruby
+    if echo ${plugin_list} | grep 'ruby' > /dev/null; then
+        export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+    fi
 fi
 #--------------------------------------------------------------------------------
 
@@ -295,17 +321,6 @@ if exists fzf; then
     }
     zle -N fzf_go_src_search
     bindkey '^G^G' fzf_go_src_search
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# google-cloud-sdk
-#--------------------------------------------------------------------------------
-gcloud_path=${HOME}/google-cloud-sdk
-if [ -d ${gcloud_path} ]; then
-    export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-    source ${gcloud_path}/completion.zsh.inc
-    source ${gcloud_path}/path.zsh.inc
 fi
 #--------------------------------------------------------------------------------
 
@@ -472,21 +487,6 @@ if [ -e ${z_path} ]; then
         zle -N fzf_z_search
         bindkey '^F' fzf_z_search
     fi
-fi
-#--------------------------------------------------------------------------------
-
-#--------------------------------------------------------------------------------
-# asdf
-#--------------------------------------------------------------------------------
-if exists asdf; then
-    source ${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh
-
-    # golang
-    export ASDF_GOLANG_MOD_VERSION_ENABLED=false
-    source ${HOME}/.asdf/plugins/golang/set-env.zsh
-
-    # ruby
-    export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 fi
 #--------------------------------------------------------------------------------
 
