@@ -241,9 +241,7 @@ if exists asdf; then
     # gcloud
     if echo ${plugin_list} | grep 'gcloud' > /dev/null; then
         export USE_GKE_GCLOUD_AUTH_PLUGIN=True
-        gcloud_version=$(asdf current gcloud | awk '{print $2}')
-        source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/completion.zsh.inc
-        source ${HOME}/.asdf/installs/gcloud/${gcloud_version}/path.zsh.inc
+        source ${HOME}/.asdf/installs/gcloud/*/completion.zsh.inc
     fi
     # golang
     if echo ${plugin_list} | grep 'golang' > /dev/null; then
