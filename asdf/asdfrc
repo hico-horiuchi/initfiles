@@ -1,1 +1,2 @@
 legacy_version_file = yes
+post_asdf_plugin_update = $(ghq root)/github.com/hico-horiuchi/initfiles/asdf/post-plugin-update-hook $@

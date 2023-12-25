@@ -1,0 +1,18 @@
+#!/bin/bash -e
+
+readonly SCRIPT_DIR=$(cd $(dirname $0); pwd)
+
+if [ -n "${ASDF_DATA_DIR}" ]; then
+    readonly ASDF_PLUGINS_DIR="${ASDF_DATA_DIR}/plugins"
+else
+    readonly ASDF_PLUGINS_DIR="${HOME}/.asdf/plugins"
+fi
+
+case $1 in
+    python)
+        cp ${SCRIPT_DIR}/python-list-all ${ASDF_PLUGINS_DIR}/python/bin/list-all
+        ;;
+    ruby)
+        cp ${SCRIPT_DIR}/ruby-list-all ${ASDF_PLUGINS_DIR}/ruby/bin/list-all
+        ;;
+esac
