@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+current_script_path="${BASH_SOURCE[0]}"
+plugin_dir="$(dirname "$(dirname "${current_script_path}")")"
+
+source "${plugin_dir}/lib/helpers.bash"
+source "${plugin_dir}/lib/utils.bash"
+
+install_gcloud() {
+	tmp_download_dir=$(mktemp -d -t 'asdf_gcloud_XXXXXX')
+	trap 'rm -rf "${tmp_download_dir}"' EXIT
+
+	gcs_object="$(construct_gcs_object "${ASDF_INSTALL_VERSION}" "$(get_os_name)" "$(get_os_architecture)")"
+
+	if [ -z "${ASDF_DOWNLOAD_PATH:-}" ]; then
+		tmp_download_dir=$(mktemp -d -t 'asdf_gcloud_XXXXXX')
+		trap 'rm -rf "${tmp_download_dir}"' EXIT
+		log_info "ℹ️  run download script for older version of asdf"
+		export ASDF_DOWNLOAD_PATH="${tmp_download_dir}"
+
+		bash "$(dirname "$0")/download"
+	fi
+
+	log_info "📦  extracting..."
+	tar -zxf "${ASDF_DOWNLOAD_PATH}/${gcs_object}" -C "${ASDF_INSTALL_PATH}" --strip-components=1
+	log_success "extracted!"
+
+	log_info "🚧  installing..."
+	# https://github.com/jthegedus/asdf-gcloud/pull/85
+	if [[ "${ASDF_INSTALL_VERSION}" > "352.0.0" ]]; then
+		"${ASDF_INSTALL_PATH}/install.sh" --usage-reporting=false --path-update=false --install-python=false --quiet
+	else
+		"${ASDF_INSTALL_PATH}/install.sh" --usage-reporting=false --path-update=false --quiet
+	fi
+	test -x "${ASDF_INSTALL_PATH}/bin/gcloud" || log_failure_and_exit "Expected ${ASDF_INSTALL_PATH}/bin/gcloud to be executable."
+	log_success "gcloud ${ASDF_INSTALL_VERSION} installed!"
+}
+
+if [ "${ASDF_INSTALL_TYPE}" != "version" ]; then
+	log_failure_and_exit "Please provide the gcloud version number you wish to install. See \`asdf list all gcloud\`"
+fi
+
+check_dependencies "$(dirname "$0")/../lib/dependencies.txt" "failure"
+
+install_gcloud
+
+bash "$(dirname "$0")/post-install"
+
+asdf reshim "$(get_plugin_name)" "${ASDF_INSTALL_VERSION}"
