@@ -9,9 +9,6 @@ else
 fi
 
 case $1 in
-    gcloud)
-        cp ${SCRIPT_DIR}/gcloud-install ${ASDF_PLUGINS_DIR}/gcloud/bin/install
-        ;;
     python)
         cp ${SCRIPT_DIR}/python-list-all ${ASDF_PLUGINS_DIR}/python/bin/list-all
         ;;
