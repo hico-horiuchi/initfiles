@@ -300,7 +300,7 @@ fi
 if exists fzf; then
     function fzf_go_src_search() {
         local directory
-        directory=$(find ${HOME}/.asdf/installs/golang/*/packages/src -type d -maxdepth 3 -mindepth 3 | cut -d / -f 7- | fzf -e +s --height 40%)
+        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e +s --height 40%)
         if [ -n ${directory} ]; then
             BUFFER+="cd ${HOME}/.asdf/installs/golang/${directory}"
             CURSOR=${#BUFFER}

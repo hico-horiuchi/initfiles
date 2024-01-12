@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+if [ -n "${ASDF_DATA_DIR}" ]; then
+    readonly ASDF_INSTALLS_DIR="${ASDF_DATA_DIR}/installs"
+else
+    readonly ASDF_INSTALLS_DIR="${HOME}/.asdf/installs"
+fi
+
+readonly GOLANG_VERSION=${1}
+readonly GOLANG_SRC_DIR="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/packages/src"
+
+mkdir -p ${GOLANG_SRC_DIR}
+ln -fs $(ghq root)/github.com ${GOLANG_SRC_DIR}/github.com
