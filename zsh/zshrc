@@ -155,7 +155,6 @@ alias -g M='`git ls-files -m`'
 # ユーザー定義
 alias bundle_install='bundle install --binstubs vendor/bin --jobs 4 --path vendor/bundle --without doc production'
 alias cat='bat'
-alias docker='finch'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 alias kill_emacs="emacsclient -e '(progn (defun yes-or-no-p (p) t) (kill-emacs))'"
