@@ -40,3 +40,10 @@ install:
 	ln -fs $(PWD)/tmux/tmux.conf                     $(HOME)/.tmux.conf
 	ln -fs $(PWD)/zsh/zshrc                          $(HOME)/.zshrc
 	ln -fs $(PWD)/wakatime/wakatime.cfg              $(HOME)/.wakatime.cfg
+
+	# https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
+	sudo cp macos/limit.max*.plist /Library/LaunchDaemons/
+	sudo chown root:wheel /Library/LaunchDaemons/limit.max*.plist
+	sudo chmod 644 /Library/LaunchDaemons/limit.max*.plist
+	sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
+	sudo launchctl load -w /Library/LaunchDaemons/limit.maxproc.plist
