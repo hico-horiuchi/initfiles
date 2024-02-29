@@ -86,7 +86,7 @@ bindkey -e
 # AquaSKK 用に Ctrl-J を無効化
 bindkey -r '^J'
 # Ctrl-R で履歴検索をするときに * でワイルドカードを使用出来るようにする
-bindkey '^R' history-incremental-pattern-search-backward
+# bindkey '^R' history-incremental-pattern-search-backward
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -266,8 +266,31 @@ fi
 # fzf
 #--------------------------------------------------------------------------------
 if exists fzf; then
-    export FZF_DEFAULT_OPTS='--ansi --inline-info --layout=reverse'
+    export FZF_DEFAULT_OPTS='--ansi --info=hidden --layout=reverse'
     source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# gh
+#--------------------------------------------------------------------------------
+if exists gh; then
+    if exists fzf; then
+        function fzf_gh_pr_search() {
+            local id
+            id=$(gh pr list | awk '{print $1}' | fzf -e +s --no-multi --preview-window='right,90%' --preview='GH_FORCE_TTY=1 gh pr view {}')
+            if [ -n "${id}" ]; then
+                BUFFER="gh pr view ${id} --web"
+                CURSOR=${#BUFFER}
+                zle accept-line
+                zle reset-prompt
+            else
+                return 1
+            fi
+        }
+        zle -N fzf_gh_pr_search
+        bindkey '^G^P' fzf_gh_pr_search
+    fi
 fi
 #--------------------------------------------------------------------------------
 
@@ -278,10 +301,12 @@ if exists ghq; then
     if exists fzf; then
         function fzf_ghq_search() {
             local repository
-            repository=$(ghq list | fzf -e +s --height 40%)
-            if [ -n ${repository} ]; then
-                BUFFER+="cd $(ghq root)/${repository}"
+            ghq_root=$(ghq root)
+            repository=$(ghq list | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${ghq_root}/{}/(#i)readme* | emojify")
+            if [ -n "${repository}" ]; then
+                BUFFER="cd ${ghq_root}/${repository}"
                 CURSOR=${#BUFFER}
+                zle accept-line
                 zle reset-prompt
             else
                 return 1
@@ -294,15 +319,52 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
+# git
+#--------------------------------------------------------------------------------
+if exists ghq; then
+    function fzf_git_branch_search() {
+        local branch
+        branch=$(git branch -a | grep -v HEAD | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify' | perl -pe 's/\s//g; s/\*//g; s/remotes\/origin\///g')
+        if [ -n "${branch}" ]; then
+            BUFFER="git checkout ${branch}"
+            CURSOR=${#BUFFER}
+            zle accept-line
+            zle reset-prompt
+        else
+            return 1
+        fi
+    }
+    zle -N fzf_git_branch_search
+    bindkey '^G^B' fzf_git_branch_search
+
+    function fzf_git_tag_search() {
+        local tag
+        tag=$(git tag | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')
+        if [ -n "${tag}" ]; then
+            BUFFER="git checkout ${tag}"
+            CURSOR=${#BUFFER}
+            zle accept-line
+            zle reset-prompt
+        else
+            return 1
+        fi
+    }
+    zle -N fzf_git_tag_search
+    bindkey '^G^T' fzf_git_tag_search
+fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # go
 #--------------------------------------------------------------------------------
 if exists fzf; then
     function fzf_go_src_search() {
         local directory
-        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e +s --height 40%)
-        if [ -n ${directory} ]; then
-            BUFFER+="cd ${HOME}/.asdf/installs/golang/${directory}"
+        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${HOME}/.asdf/installs/golang/{}/(#i)readme* | emojify")
+        if [ -n "${directory}" ]; then
+            BUFFER="cd ${HOME}/.asdf/installs/golang/${directory}"
             CURSOR=${#BUFFER}
+            zle accept-line
             zle reset-prompt
         else
             return 1
@@ -465,10 +527,11 @@ if [ -e ${z_path} ]; then
     if exists fzf; then
         function fzf_z_search() {
             local directory
-            directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf +s --tac --height 40%)
-            if [ -n ${directory} ]; then
-                BUFFER+="cd ${directory}"
+            directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf +s --no-multi --tac --prompt='cd > ' --height='40%')
+            if [ -n "${directory}" ]; then
+                BUFFER="cd ${directory}"
                 CURSOR=${#BUFFER}
+                zle accept-line
                 zle reset-prompt
             else
                 return 1
