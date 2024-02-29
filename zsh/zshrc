@@ -267,7 +267,12 @@ fi
 #--------------------------------------------------------------------------------
 if exists fzf; then
     export FZF_DEFAULT_OPTS='--ansi --info=hidden --layout=reverse'
-    source ${HOMEBREW_PREFIX}/opt/fzf/shell/key-bindings.zsh
+    zsh_fzf_history_search_path=${HOME}/ghq/github.com/joshskidmore/zsh-fzf-history-search/zsh-fzf-history-search.zsh
+    if [ -f ${zsh_fzf_history_search_path} ]; then
+        export ZSH_FZF_HISTORY_SEARCH_FZF_ARGS='-e +s --no-multi --height=40%'
+        export ZSH_FZF_HISTORY_SEARCH_REMOVE_DUPLICATES=1
+        source ${zsh_fzf_history_search_path}
+    fi
 fi
 #--------------------------------------------------------------------------------
 
@@ -336,7 +341,6 @@ if exists ghq; then
     }
     zle -N fzf_git_branch_search
     bindkey '^G^B' fzf_git_branch_search
-
     function fzf_git_tag_search() {
         local tag
         tag=$(git tag | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')

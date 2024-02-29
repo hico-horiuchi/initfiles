@@ -17,6 +17,7 @@ install:
 	cd $(PWD)
 
 	ghq get github.com/jimeh/tmux-themepack
+	ghq get github.com/joshskidmore/zsh-fzf-history-search
 	ghq get github.com/rupa/z
 	ghq get github.com/scopatz/nanorc
 	ghq get github.com/supercrabtree/k
