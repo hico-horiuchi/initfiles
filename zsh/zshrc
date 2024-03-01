@@ -189,29 +189,29 @@ function set_position() {
 # プロンプト
 #--------------------------------------------------------------------------------
 # RPROMPT
-RPROMPT=$'$(branch-status-check)'
+RPROMPT=$'$(_branch_status_check)'
 # 表示毎にPROMPTで設定されている文字列を評価する
 setopt prompt_subst
 # fg[color]表記と$reset_colorを使いたい
 # @see https://wiki.archlinux.org/index.php/zsh
-function branch-status-check() {
+function _branch_status_check() {
     local branchname suffix
     # .gitの中だから除外
     [[ "${PWD}" =~ '/\.git(/.*)?$' ]] && return
-    branchname=$(get-branch-name)
+    branchname=$(_get_branch_name)
     # ブランチ名が無いので除外
     [[ -z ${branchname} ]] && return
     suffix='%{'${reset_color}'%}'
-    echo $(get-branch-status)${suffix}
+    echo $(_get_branch_status)${suffix}
 }
-function get-branch-name() {
+function _get_branch_name() {
     local git==git
     # gitディレクトリじゃない場合のエラーは捨てます
     echo $(${git} rev-parse --abbrev-ref HEAD 2> /dev/null)
 }
-function get-branch-status() {
+function _get_branch_status() {
     local git==git branchstatus branchname
-    branchname=$(get-branch-name)
+    branchname=$(_get_branch_name)
     output=$(${git} status 2> /dev/null)
     if [[ -n $(echo ${output} | grep '^nothing to commit') ]]; then
         branchstatus='%{'${fg[green]}'%}%{'${fg[black]}${bg[green]}'%}  '${branchname}
@@ -274,7 +274,7 @@ fi
 if exists fzf; then
     export FZF_DEFAULT_OPTS='--ansi --info=hidden --layout=reverse'
     zsh_fzf_history_search_path=${HOME}/ghq/github.com/joshskidmore/zsh-fzf-history-search/zsh-fzf-history-search.zsh
-    if [ -f ${zsh_fzf_history_search_path} ]; then
+    if [ -e ${zsh_fzf_history_search_path} ]; then
         export ZSH_FZF_HISTORY_SEARCH_FZF_ARGS='-e +s --no-multi --height=40%'
         export ZSH_FZF_HISTORY_SEARCH_REMOVE_DUPLICATES=1
         source ${zsh_fzf_history_search_path}
@@ -287,9 +287,9 @@ fi
 #--------------------------------------------------------------------------------
 if exists gh; then
     if exists fzf; then
-        function fzf_gh_pr_search() {
+        function _fzf_gh_pr_search() {
             local id
-            id=$(gh pr list | awk '{print $1}' | fzf -e +s --no-multi --preview-window='right,90%' --preview='GH_FORCE_TTY=1 gh pr view {}')
+            id=$(gh pr list | awk '{print $1}' | fzf -e --no-multi --preview-window='right,90%' --preview='GH_FORCE_TTY=1 gh pr view {}')
             if [ -n "${id}" ]; then
                 BUFFER="gh pr view ${id} --web"
                 CURSOR=${#BUFFER}
@@ -299,8 +299,8 @@ if exists gh; then
                 return 1
             fi
         }
-        zle -N fzf_gh_pr_search
-        bindkey '^G^P' fzf_gh_pr_search
+        zle -N _fzf_gh_pr_search
+        bindkey '^G^P' _fzf_gh_pr_search
     fi
 fi
 #--------------------------------------------------------------------------------
@@ -310,10 +310,10 @@ fi
 #--------------------------------------------------------------------------------
 if exists ghq; then
     if exists fzf; then
-        function fzf_ghq_search() {
+        function _fzf_ghq_search() {
             local repository
             ghq_root=$(ghq root)
-            repository=$(ghq list | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${ghq_root}/{}/(#i)readme* | emojify")
+            repository=$(ghq list | fzf -e --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${ghq_root}/{}/(#i)readme* | emojify")
             if [ -n "${repository}" ]; then
                 BUFFER="cd ${ghq_root}/${repository}"
                 CURSOR=${#BUFFER}
@@ -323,8 +323,8 @@ if exists ghq; then
                 return 1
             fi
         }
-        zle -N fzf_ghq_search
-        bindkey '^G^H' fzf_ghq_search
+        zle -N _fzf_ghq_search
+        bindkey '^G^H' _fzf_ghq_search
     fi
 fi
 #--------------------------------------------------------------------------------
@@ -333,9 +333,9 @@ fi
 # git
 #--------------------------------------------------------------------------------
 if exists ghq; then
-    function fzf_git_branch_search() {
+    function _fzf_git_branch_search() {
         local branch
-        branch=$(git branch -a | grep -v HEAD | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify' | perl -pe 's/\s//g; s/\*//g; s/remotes\/origin\///g')
+        branch=$(git branch -a | grep -v HEAD | fzf -e --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify' | perl -pe 's/\s//g; s/\*//g; s/remotes\/origin\///g')
         if [ -n "${branch}" ]; then
             BUFFER="git checkout ${branch}"
             CURSOR=${#BUFFER}
@@ -345,11 +345,11 @@ if exists ghq; then
             return 1
         fi
     }
-    zle -N fzf_git_branch_search
-    bindkey '^G^B' fzf_git_branch_search
-    function fzf_git_tag_search() {
+    zle -N _fzf_git_branch_search
+    bindkey '^G^B' _fzf_git_branch_search
+    function _fzf_git_tag_search() {
         local tag
-        tag=$(git tag | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')
+        tag=$(git tag | fzf -e --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')
         if [ -n "${tag}" ]; then
             BUFFER="git checkout ${tag}"
             CURSOR=${#BUFFER}
@@ -359,8 +359,8 @@ if exists ghq; then
             return 1
         fi
     }
-    zle -N fzf_git_tag_search
-    bindkey '^G^T' fzf_git_tag_search
+    zle -N _fzf_git_tag_search
+    bindkey '^G^T' _fzf_git_tag_search
 fi
 #--------------------------------------------------------------------------------
 
@@ -368,9 +368,9 @@ fi
 # go
 #--------------------------------------------------------------------------------
 if exists fzf; then
-    function fzf_go_src_search() {
+    function _fzf_go_src_search() {
         local directory
-        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${HOME}/.asdf/installs/golang/{}/(#i)readme* | emojify")
+        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${HOME}/.asdf/installs/golang/{}/(#i)readme* | emojify")
         if [ -n "${directory}" ]; then
             BUFFER="cd ${HOME}/.asdf/installs/golang/${directory}"
             CURSOR=${#BUFFER}
@@ -380,8 +380,8 @@ if exists fzf; then
             return 1
         fi
     }
-    zle -N fzf_go_src_search
-    bindkey '^G^G' fzf_go_src_search
+    zle -N _fzf_go_src_search
+    bindkey '^G^G' _fzf_go_src_search
 fi
 #--------------------------------------------------------------------------------
 
@@ -389,7 +389,7 @@ fi
 # heroku
 #--------------------------------------------------------------------------------
 if exists heroku; then
-    [ ! -f ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
+    [ ! -e ${HOME}/Library/Caches/heroku/autocomplete/commands ] && heroku autocomplete > /dev/null 2>&1
 fi
 #--------------------------------------------------------------------------------
 
@@ -411,7 +411,7 @@ fi
 # k
 #--------------------------------------------------------------------------------
 k_path=${HOME}/ghq/github.com/supercrabtree/k/k.sh
-if [ -f ${k_path} ]; then
+if [ -e ${k_path} ]; then
     source ${k_path}
     alias ll='k -h --no-vcs'
     alias la='k -ah --no-vcs'
@@ -437,17 +437,17 @@ fi
 # powerline-shell
 #--------------------------------------------------------------------------------
 if exists powerline-shell; then
-    function powerline_precmd() {
+    function _powerline_precmd() {
         PS1=$'\n'"$(powerline-shell --shell zsh $?) "
     }
-    function install_powerline_precmd() {
+    function _install_powerline_precmd() {
         for s in "${precmd_functions[@]}"; do
-            [ "${s}" = 'powerline_precmd' ] && return
+            [ "${s}" = '_powerline_precmd' ] && return
         done
-        precmd_functions+=(powerline_precmd)
+        precmd_functions+=(_powerline_precmd)
     }
     if [ "${TERM}" != 'linux' ]; then
-        install_powerline_precmd
+        _install_powerline_precmd
     fi
 fi
 #--------------------------------------------------------------------------------
@@ -468,11 +468,11 @@ fi
 # ssh
 #--------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/59940971/zsh-autocomplete-slow-for-ssh
-function refresh_ssh_autocomplete () {
+function _refresh_ssh_autocomplete () {
     host_list=($(cat ~/.ssh/config | grep 'Host ' | grep -v '*' | awk '{s = s $2 " "} END {print s}'))
     zstyle ':completion:*:(ssh|scp|sftp):*' hosts $host_list
 }
-refresh_ssh_autocomplete
+_refresh_ssh_autocomplete
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -497,7 +497,7 @@ fi
 export WAKATIME_USE_DIRNAME=true
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 hasgit=$(type 'git' > /dev/null 2>&1)${?}
-function waka_filename() {
+function _waka_filename() {
     if [ "x${WAKATIME_USE_DIRNAME}" = 'xtrue' ]; then
         # just use the current working directory
         echo "${PWD}"
@@ -506,7 +506,7 @@ function waka_filename() {
         echo "${history[$((HISTCMD-1))]}" | cut -d ' ' -f1
     fi
 }
-function waka_projectname() {
+function _waka_projectname() {
     if [ "x${ZSH_WAKATIME_PROJECT_DETECTION}" = 'xtrue' ]; then
         if [ ${hasgit} ]; then
             gitproject=$(git config --local remote.origin.url 2> /dev/null | sed 's|.git$||g' | sed -n 's#.*/\([^.]*\)#\1#p')
@@ -518,14 +518,14 @@ function waka_projectname() {
         echo 'Terminal'
     fi
 }
-function send_wakatime_heartbeat() {
-    entity=$(waka_filename);
-    project=$(waka_projectname);
+function _send_wakatime_heartbeat() {
+    entity=$(_waka_filename);
+    project=$(_waka_projectname);
     if [ "${entity}" ]; then
         (wakatime --write --plugin 'zsh-wakatime/0.0.1' --entity-type app --project ${project} --entity "${entity}" > /dev/null 2>&1 &)
     fi
 }
-precmd_functions+=(send_wakatime_heartbeat)
+precmd_functions+=(_send_wakatime_heartbeat)
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -535,7 +535,7 @@ z_path=${HOME}/ghq/github.com/rupa/z/z.sh
 if [ -e ${z_path} ]; then
     source ${z_path}
     if exists fzf; then
-        function fzf_z_search() {
+        function _fzf_z_search() {
             local directory
             directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf +s --no-multi --tac --prompt='cd > ' --height='40%')
             if [ -n "${directory}" ]; then
@@ -547,8 +547,8 @@ if [ -e ${z_path} ]; then
                 return 1
             fi
         }
-        zle -N fzf_z_search
-        bindkey '^F' fzf_z_search
+        zle -N _fzf_z_search
+        bindkey '^F' _fzf_z_search
     fi
 fi
 #--------------------------------------------------------------------------------
