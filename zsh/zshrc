@@ -183,6 +183,21 @@ function set_position() {
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
     osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
 }
+# https://gist.github.com/bmhatfield/f613c10e360b4f27033761bbee4404fd
+function get-keychain-environment-variable() {
+    security find-generic-password -w -a ${USER} -D 'environment variable' -s "${1}"
+}
+function set-keychain-environment-variable() {
+    local secret
+    [ -n "${1}" ] || echo 'Missing environment variable name'
+    if [ ${#} -lt 2 ]; then
+        read -s '?Environment variable value: ' secret
+        echo ''
+    else
+        secret="${2}"
+    fi
+    security add-generic-password -U -a ${USER} -D 'environment variable' -s "${1}" -w "${secret}"
+}
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
