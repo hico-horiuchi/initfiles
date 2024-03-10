@@ -177,9 +177,13 @@ alias nkf_w='nkf -w --overwrite'
 function docker-ssh() { docker exec -i -t ${1} /bin/bash }
 function exists() { which ${1} &> /dev/null }
 function set_position() {
-    local x=${2:-130} y=${3:-150}
-    # local x=${2:-30} y=${3:-980}
+    local resolution=$(system_profiler SPDisplaysDataType | grep Resolution | awk '{print $2,$3,$4}')
     local width=${4:-1400} height=${5:-900}
+    if [ "${resolution}" = '3840 x 2160' ]; then
+        local x=${2:-30} y=${3:-980}
+    else
+        local x=${2:-130} y=${3:-150}
+    fi
     osascript -e "tell application \"System Events\" to set position of first window of application process \"${1}\" to {${x}, ${y}}"
     osascript -e "tell application \"System Events\" to set size of first window of application process \"${1}\" to {${width}, ${height}}"
 }
