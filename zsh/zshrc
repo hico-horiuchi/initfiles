@@ -308,7 +308,7 @@ if exists gh; then
     if exists fzf; then
         function _fzf_gh_pr_search() {
             local id
-            id=$(gh pr list | awk '{print $1}' | fzf -e +s --no-multi --preview-window='right,90%' --preview='GH_FORCE_TTY=1 gh pr view {}')
+            id=$(gh pr list | awk '{print $1}' | fzf -e -i +s --no-multi --preview-window='right,90%' --preview='GH_FORCE_TTY=1 gh pr view {}')
             if [ -n "${id}" ]; then
                 BUFFER="gh pr view ${id} --web"
                 CURSOR=${#BUFFER}
@@ -332,7 +332,7 @@ if exists ghq; then
         function _fzf_ghq_search() {
             local repository
             ghq_root=$(ghq root)
-            repository=$(ghq list | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${ghq_root}/{}/(#i)readme* | emojify")
+            repository=$(ghq list | fzf -e -i +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${ghq_root}/{}/(#i)readme* | emojify")
             if [ -n "${repository}" ]; then
                 BUFFER="cd ${ghq_root}/${repository}"
                 CURSOR=${#BUFFER}
@@ -354,7 +354,7 @@ fi
 if exists ghq; then
     function _fzf_git_branch_search() {
         local branch
-        branch=$(git branch -a | grep -v HEAD | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify' | perl -pe 's/\s//g; s/\*//g; s/remotes\/origin\///g')
+        branch=$(git branch -a | grep -v HEAD | fzf -e -i +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify' | perl -pe 's/\s//g; s/\*//g; s/remotes\/origin\///g')
         if [ -n "${branch}" ]; then
             BUFFER="git checkout ${branch}"
             CURSOR=${#BUFFER}
@@ -368,7 +368,7 @@ if exists ghq; then
     bindkey '^G^B' _fzf_git_branch_search
     function _fzf_git_tag_search() {
         local tag
-        tag=$(git tag | fzf -e +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')
+        tag=$(git tag | fzf -e -i +s --no-multi --prompt='git checkout > ' --preview-window='right,75%' --preview='echo {} | tr -d " *" | xargs git graph --color=always | emojify')
         if [ -n "${tag}" ]; then
             BUFFER="git checkout ${tag}"
             CURSOR=${#BUFFER}
@@ -389,7 +389,7 @@ fi
 if exists fzf; then
     function _fzf_go_src_search() {
         local directory
-        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${HOME}/.asdf/installs/golang/{}/(#i)readme* | emojify")
+        directory=$(find -L ${HOME}/.asdf/installs/golang/*/packages/src -name .go-version -type f -maxdepth 4 -mindepth 4 | cut -d / -f 7-12 | fzf -e -i +s --no-multi --prompt='cd > ' --preview-window='right,67%' --preview="setopt extended_glob; bat --color=always --style=plain ${HOME}/.asdf/installs/golang/{}/(#i)readme* | emojify")
         if [ -n "${directory}" ]; then
             BUFFER="cd ${HOME}/.asdf/installs/golang/${directory}"
             CURSOR=${#BUFFER}
@@ -556,7 +556,7 @@ if [ -e ${z_path} ]; then
     if exists fzf; then
         function _fzf_z_search() {
             local directory
-            directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf -e +s --no-multi --tac --prompt='cd > ' --height='40%')
+            directory=$(_z -l 2>&1 | sed 's/^[0-9,.]* *//g' | fzf -e -i +s --no-multi --tac --prompt='cd > ' --height='40%')
             if [ -n "${directory}" ]; then
                 BUFFER="cd ${directory}"
                 CURSOR=${#BUFFER}
