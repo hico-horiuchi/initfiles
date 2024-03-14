@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+source "$(dirname $(dirname ${0}))/lib/utils.bash"
+
+gcs_bucket_name='cloud-sdk-release'
+gcs_object_prefix='google-cloud-sdk'
+gcs_object_fields='kind,nextPageToken,items(name)'
+
+function fetch() {
+    curl -s "https://storage.googleapis.com/storage/v1/b/${gcs_bucket_name}/o?pageToken=${1}&prefix=${gcs_object_prefix}&fields=${gcs_object_fields}"
+}
+
+function list_all() {
+    local more=true
+    local nextPageToken=''
+    local list=''
+    while "${more}"; do
+        res=$(fetch "${nextPageToken}")
+        if [[ "${res}" =~ nextPageToken\"\:\ \"([a-zA-Z0-9=]+) ]]; then
+            nextPageToken="${BASH_REMATCH[1]}"
+        else
+            more=false
+        fi
+        additions=$(echo "${res}" | grep -Eo 'name.*google-cloud-sdk-[0-9]+\.[0-9]+\.[0-9]+-(linux)-x86_64' | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+' || [[ ${?} = 1 ]])
+        if [[ -n "${additions}" ]]; then
+            list="${list}\n${additions}"
+        fi
+    done
+    echo -e "${list}"
+}
+
+list_all | sort_versions | xargs echo

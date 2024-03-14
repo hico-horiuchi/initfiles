@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-readonly SCRIPT_DIR=$(cd $(dirname $0); pwd)
+readonly SCRIPT_DIR=$(cd $(dirname ${0}); pwd)
 
 if [ -n "${ASDF_DATA_DIR}" ]; then
     readonly ASDF_PLUGINS_DIR="${ASDF_DATA_DIR}/plugins"
@@ -8,7 +8,10 @@ else
     readonly ASDF_PLUGINS_DIR="${HOME}/.asdf/plugins"
 fi
 
-case $1 in
+case ${1} in
+    gcloud)
+        cp ${SCRIPT_DIR}/gcloud-list-all ${ASDF_PLUGINS_DIR}/gcloud/bin/list-all
+        ;;
     python)
         cp ${SCRIPT_DIR}/python-list-all ${ASDF_PLUGINS_DIR}/python/bin/list-all
         ;;
