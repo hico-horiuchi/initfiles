@@ -448,7 +448,7 @@ fi
 #--------------------------------------------------------------------------------
 if exists nomad; then
     autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C /usr/local/bin/nomad nomad
+    complete -o nospace -C ${HOMEBREW_PREFIX}/bin/nomad nomad
 fi
 #--------------------------------------------------------------------------------
 
@@ -499,7 +499,7 @@ _refresh_ssh_autocomplete
 #--------------------------------------------------------------------------------
 if exists terraform; then
     autoload -U +X bashcompinit && bashcompinit
-    complete -o nospace -C /usr/local/bin/terraform terraform
+    complete -o nospace -C ${HOMEBREW_PREFIX}/bin/terraform terraform
 fi
 #--------------------------------------------------------------------------------
 
