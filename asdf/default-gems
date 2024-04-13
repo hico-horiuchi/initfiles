@@ -1,2 +1,7 @@
+debug
 rubocop
+rubocop-performance
+rubocop-rake
+rubocop-rspec
+ruby-lsp
 solargraph

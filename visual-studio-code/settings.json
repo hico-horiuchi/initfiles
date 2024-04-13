@@ -1,0 +1,149 @@
+{
+  "[dockercompose]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+  },
+  "[go]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  },
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.tabSize": 4
+  },
+  "[ruby]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "[terraform-vars]": {
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": "explicit"
+    },
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "[terraform]": {
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": "explicit"
+    },
+    "editor.defaultFormatter": "hashicorp.terraform"
+  },
+  "black-formatter.args": ["--line-length=120", "--target-version=py310"],
+  "code-runner.enableAppInsights": false,
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "debug.openDebug": "openOnSessionStart",
+  "diffEditor.renderSideBySide": false,
+  "editor.copyWithSyntaxHighlighting": false,
+  "editor.cursorBlinking": "smooth",
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.fontFamily": "LigaRictyforPowerline-Regular",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 15,
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.letterSpacing": 0.5,
+  "editor.lineHeight": 1.5,
+  "editor.minimap.renderCharacters": false,
+  "editor.minimap.showSlider": "always",
+  "editor.multiCursorModifier": "ctrlCmd",
+  "editor.renderLineHighlight": "all",
+  "editor.renderWhitespace": "all",
+  "editor.semanticHighlighting.enabled": true,
+  "editor.showFoldingControls": "always",
+  "editor.tabSize": 2,
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.wordSeparators": "`~!@#$%^&*()-=+[{]}\\|;:'\",.<>/?　、。，．・：；？！‘’“”（）〔〕［］｛｝〈〉《》「」『』【】",
+  "explorer.compactFolders": false,
+  "explorer.confirmDelete": false,
+  "explorer.incrementalNaming": "smart",
+  "extensions.ignoreRecommendations": true,
+  "files.associations": {
+    "**/defaults/*.yaml": "ansible",
+    "**/defaults/*.yml": "ansible",
+    "**/group_vars/*.yaml": "ansible",
+    "**/group_vars/*.yml": "ansible",
+    "**/handlers/*.yaml": "ansible",
+    "**/handlers/*.yml": "ansible",
+    "**/host_vars/*.yaml": "ansible",
+    "**/host_vars/*.yml": "ansible",
+    "**/meta/*.yaml": "ansible",
+    "**/meta/*.yml": "ansible",
+    "**/tasks/*.yaml": "ansible",
+    "**/tasks/*.yml": "ansible",
+    "**/vars/*.yaml": "ansible",
+    "**/vars/*.yml": "ansible",
+    "*.slm": "slim"
+  },
+  "files.autoGuessEncoding": true,
+  "files.autoSave": "onFocusChange",
+  "files.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/node_modules": true,
+    "**/vendor": true
+  },
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "git.autofetch": true,
+  "githubPullRequests.fileListLayout": "tree",
+  "gopls": {
+    "formatting.gofumpt": true,
+    "ui.semanticTokens": true
+  },
+  "isort.args": [
+    "--combine-as",
+    "--force-grid-wrap=0",
+    "--lines-after-imports=2",
+    "--line-length=120",
+    "--multi-line=3",
+    "--profile=black",
+    "--thirdparty=ansible,pytest,qmonus_sdk_plugins,requests",
+    "--trailing-comma"
+  ],
+  "liveServer.settings.donotShowInfoMsg": true,
+  "python.testing.pytestArgs": ["--exitfirst", "--showlocals", "--verbose"],
+  "python.testing.pytestEnabled": true,
+  "python.venvFolders": [".venv"],
+  "redhat.telemetry.enabled": false,
+  "search.exclude": {
+    "**/.venv": true,
+    "**/__pycache__": true,
+    "**/vendor": true
+  },
+  "security.workspace.trust.enabled": false,
+  "telemetry.telemetryLevel": "off",
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.copyOnSelection": true,
+  "terminal.integrated.defaultLocation": "editor",
+  "terminal.integrated.fontSize": 15,
+  "terminal.integrated.scrollback": 200000,
+  "vs-kubernetes": {
+    "vscode-kubernetes.helm-path-mac": "/Users/hiconyan/.vs-kubernetes/tools/helm/darwin-arm64/helm",
+    "vscode-kubernetes.minikube-path-mac": "/Users/hiconyan/.vs-kubernetes/tools/minikube/darwin-arm64/minikube"
+  },
+  "window.autoDetectColorScheme": true,
+  "window.openFoldersInNewWindow": "on",
+  "window.restoreWindows": "none",
+  "workbench.colorTheme": "GitHub Light Default",
+  "workbench.editor.pinnedTabSizing": "compact",
+  "workbench.editor.tabSizing": "shrink",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.preferredDarkColorTheme": "GitHub Dark Default",
+  "workbench.preferredLightColorTheme": "GitHub Light Default",
+  "workbench.startupEditor": "none",
+  "workbench.tree.renderIndentGuides": "always"
+}
