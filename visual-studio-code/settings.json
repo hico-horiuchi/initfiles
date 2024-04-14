@@ -115,6 +115,7 @@
     "--trailing-comma"
   ],
   "liveServer.settings.donotShowInfoMsg": true,
+  "python.terminal.activateEnvironment": false,
   "python.testing.pytestArgs": ["--exitfirst", "--showlocals", "--verbose"],
   "python.testing.pytestEnabled": true,
   "python.venvFolders": [".venv"],
