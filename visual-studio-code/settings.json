@@ -98,6 +98,11 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
+  "flake8.args": [
+    "--exclude=.git,.venv",
+    "--ignore=B,E203,E266,E303,E304,E402,E501,E741,F401,F403,F405,F541,F723,F821,F841,W503",
+    "--max-line-length=120"
+  ],
   "git.autofetch": true,
   "githubPullRequests.fileListLayout": "tree",
   "gopls": {
