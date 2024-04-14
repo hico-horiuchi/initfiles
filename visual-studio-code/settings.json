@@ -125,6 +125,7 @@
     "**/vendor": true
   },
   "security.workspace.trust.enabled": false,
+  "settingsSync.ignoredSettings": ["workbench.colorTheme"],
   "telemetry.telemetryLevel": "off",
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.copyOnSelection": true,
@@ -142,7 +143,9 @@
   "workbench.editor.pinnedTabSizing": "compact",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.preferredDarkColorTheme": "GitHub Dark Default",
+  "workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
+  "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
+  "workbench.preferredHighContrastLightColorTheme": "GitHub Light High Contrast",
   "workbench.preferredLightColorTheme": "GitHub Light Default",
   "workbench.startupEditor": "none",
   "workbench.tree.renderIndentGuides": "always"
