@@ -104,6 +104,7 @@
     "--max-line-length=120"
   ],
   "git.autofetch": true,
+  "github.copilot.chat.localeOverride": "en",
   "githubPullRequests.fileListLayout": "tree",
   "gopls": {
     "formatting.gofumpt": true,
