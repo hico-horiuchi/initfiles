@@ -9,7 +9,9 @@
     "editor.codeActionsOnSave": {
       "source.organizeImports": "explicit"
     },
-    "editor.defaultFormatter": "golang.go"
+    "editor.defaultFormatter": "golang.go",
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4
   },
   "[markdown]": {
     "files.trimTrailingWhitespace": false
@@ -106,6 +108,11 @@
   "git.autofetch": true,
   "github.copilot.chat.localeOverride": "en",
   "githubPullRequests.fileListLayout": "tree",
+  "go.testEnvVars": {
+    "OS_AUTH_TOKEN": 1,
+    "TF_ACC": 1
+  },
+  "go.testTimeout": "120s",
   "gopls": {
     "formatting.gofumpt": true,
     "ui.semanticTokens": true
