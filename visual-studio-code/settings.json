@@ -111,11 +111,70 @@
   "git.autofetch": true,
   "github.copilot.chat.localeOverride": "en",
   "githubPullRequests.fileListLayout": "tree",
-  "go.testEnvVars": {
-    "OS_AUTH_TOKEN": 1,
-    "TF_ACC": 1
-  },
-  "go.testTimeout": "120s",
+  "gitmoji.addCustomEmoji": [
+    {
+      "code": ":sparkles:",
+      "description": "機能追加による変更",
+      "emoji": "✨"
+    },
+    {
+      "code": ":bug:",
+      "description": "バグ修正による変更",
+      "emoji": "🐛"
+    },
+    {
+      "code": ":pencil:",
+      "description": "ドキュメントのみの変更",
+      "emoji": "📝"
+    },
+    {
+      "code": ":art:",
+      "description": "コードスタイルの変更 / typo の修正",
+      "emoji": "🎨"
+    },
+    {
+      "code": ":recycle:",
+      "description": "リファクタリングによる変更",
+      "emoji": "♻️"
+    },
+    {
+      "code": ":zap:",
+      "description": "パフォーマンス改善のための変更",
+      "emoji": "⚡"
+    },
+    {
+      "code": ":white_check_mark:",
+      "description": "テストの追加や修正による変更",
+      "emoji": "✅"
+    },
+    {
+      "code": ":arrow_up:",
+      "description": "外部依存パッケージやビルドツールに関する変更",
+      "emoji": "⬆️"
+    },
+    {
+      "code": ":construction_worker:",
+      "description": "CI 用の設定やスクリプトに関する変更",
+      "emoji": "👷"
+    },
+    {
+      "code": ":wrench:",
+      "description": "その他の変更 (コードやテストの変更を含まない)",
+      "emoji": "🔧"
+    },
+    {
+      "code": ":rewind:",
+      "description": "過去のコミットを取消すための変更",
+      "emoji": "⏪"
+    },
+    {
+      "code": ":construction:",
+      "description": "作業中 (Work In Progress)",
+      "emoji": "🚧"
+    }
+  ],
+  "gitmoji.onlyUseCustomEmoji": true,
+  "gitmoji.outputType": "code",
   "gopls": {
     "formatting.gofumpt": true,
     "ui.semanticTokens": true
@@ -137,6 +196,7 @@
   "python.testing.pytestEnabled": true,
   "python.venvFolders": [".venv"],
   "redhat.telemetry.enabled": false,
+  "rubyLsp.bundleGemfile": "Gemfile",
   "rubyTestExplorer.logpanel": true,
   "search.exclude": {
     "**/.venv": true,
