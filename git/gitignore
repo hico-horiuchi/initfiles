@@ -2,6 +2,7 @@
 /.envrc
 /.rake_tasks
 /.nova
+/.vscode
 /vendor/bin
 /vendor/bundler
 

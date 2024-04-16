@@ -26,7 +26,6 @@ install:
 	ln -fs $(PWD)/asdf/asdfrc                       $(HOME)/.asdfrc
 	ln -fs $(PWD)/asdf/default-cloud-sdk-components $(HOME)/.default-cloud-sdk-components
 	ln -fs $(PWD)/asdf/default-gems                 $(HOME)/.default-gems
-	ln -fs $(PWD)/asdf/default-golang-pkgs          $(HOME)/.default-golang-pkgs
 	ln -fs $(PWD)/asdf/default-npm-packages         $(HOME)/.default-npm-packages
 	ln -fs $(PWD)/asdf/default-python-packages      $(HOME)/.default-python-packages
 	ln -fs $(PWD)/bash/bashrc                       $(HOME)/.bashrc
