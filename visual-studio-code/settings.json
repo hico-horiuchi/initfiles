@@ -10,6 +10,7 @@
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "golang.go",
+    "editor.indentSize": 4,
     "editor.insertSpaces": false,
     "editor.tabSize": 4
   },
@@ -21,6 +22,7 @@
       "source.organizeImports": "explicit"
     },
     "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.indentSize": 4,
     "editor.tabSize": 4
   },
   "[ruby]": {
@@ -56,6 +58,7 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "editor.formatOnType": true,
+  "editor.indentSize": 2,
   "editor.letterSpacing": 0.5,
   "editor.lineHeight": 1.5,
   "editor.minimap.renderCharacters": false,
