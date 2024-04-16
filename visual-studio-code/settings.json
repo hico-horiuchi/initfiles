@@ -120,6 +120,7 @@
     "formatting.gofumpt": true,
     "ui.semanticTokens": true
   },
+  "indentRainbow.includedLanguages": ["go", "python", "ruby"],
   "isort.args": [
     "--combine-as",
     "--force-grid-wrap=0",
