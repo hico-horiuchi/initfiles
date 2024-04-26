@@ -606,9 +606,15 @@ if exists bw; then
         set-keychain-environment-variable BW_SESSION ${BW_SESSION}
     fi
     if [ -z "${BW_LAST_SYNC}" ] || [ $(expr $(date +%s) - $(date -d ${BW_LAST_SYNC} +%s)) -ge 86400 ]; then
+        # sync
         bw sync 2> /dev/null
         export BW_LAST_SYNC=$(date --iso-8601=seconds)
         set-keychain-environment-variable BW_LAST_SYNC ${BW_LAST_SYNC}
+        # export
+        tempfile=$(mktemp)
+        bw export --format encrypted_json --output ${tempfile} 2> /dev/null
+        set-keychain-environment-variable BW_ENCRYPTED_EXPORT $(cat ${tempfile} | jq -c)
+        rm ${tempfile}
     fi
 fi
 #------------------------------------------------------------------------------
