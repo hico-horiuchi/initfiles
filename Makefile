@@ -2,6 +2,7 @@ PWD=$(shell pwd)
 
 install:
 	mkdir -p $(HOME)/.config/powerline-shell
+	mkdir -p $(HOME)/.docker
 	mkdir -p $(HOME)/.local
 
 	ghq get github.com/b-ryan/powerline-shell
@@ -30,6 +31,7 @@ install:
 	ln -fs $(PWD)/asdf/default-python-packages      $(HOME)/.default-python-packages
 	ln -fs $(PWD)/bash/bashrc                       $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                      $(HOME)/.inputrc
+	ln -fs $(PWD)/docker/config.json                $(HOME)/.docker/config.json
 	ln -fs $(PWD)/emacs/spacemacs                   $(HOME)/.spacemacs
 	ln -fs $(PWD)/gem/gemrc                         $(HOME)/.gemrc
 	ln -fs $(PWD)/git/gitconfig                     $(HOME)/.gitconfig
