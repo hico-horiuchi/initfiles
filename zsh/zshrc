@@ -61,7 +61,7 @@ zstyle ':completion:*' ignore-parents parent pwd ..
 # 補完で展開時にプレフィクスを保持する
 zstyle ':completion:*' keep-prefix
 # GNU ls の色定義を流用
-eval `dircolors ${HOME}/ghq/github.com/hico-horiuchi/initfiles/terminal/dircolors.256dark`
+eval $(dircolors ${HOME}/ghq/github.com/hico-horiuchi/initfiles/terminal/dircolors.256dark)
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # 補完で小文字でも大文字にマッチさせる
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
