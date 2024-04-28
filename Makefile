@@ -22,6 +22,7 @@ install:
 	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_monterey.go.patch
 	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_ventura.go.patch
 	cd `ghq root`/github.com/justjanne/powerline-go
+	gsed -i 's|⎈ ||g' segment-kube.go
 	go build
 	mv powerline-go $(HOME)/.local/bin/
 	cd $(PWD)

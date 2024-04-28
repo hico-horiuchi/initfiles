@@ -457,7 +457,7 @@ fi
 #--------------------------------------------------------------------------------
 if exists powerline-go; then
     function _powerline_precmd() {
-        PS1=$'\n'"$(powerline-go -error ${?} -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -shell zsh)"
+        PS1=$'\n'"$(powerline-go -error ${?} -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -shell zsh -shorten-eks-names -shorten-gke-names)"
     }
     function _install_powerline_precmd() {
         for s in "${precmd_functions[@]}"; do
