@@ -6,6 +6,7 @@ install:
 	mkdir -p $(HOME)/.local/bin
 
 	ghq get github.com/b-ryan/powerline-shell
+	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_monterey.py.patch
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_ventura.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell
 	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
@@ -18,6 +19,7 @@ install:
 	cd $(PWD)
 
 	ghq get github.com/justjanne/powerline-go
+	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_monterey.go.patch
 	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_ventura.go.patch
 	cd `ghq root`/github.com/justjanne/powerline-go
 	go build
