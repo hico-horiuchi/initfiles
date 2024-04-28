@@ -453,11 +453,11 @@ fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
-# powerline-shell
+# powerline-go
 #--------------------------------------------------------------------------------
-if exists powerline-shell; then
+if exists powerline-go; then
     function _powerline_precmd() {
-        PS1=$'\n'"$(powerline-shell --shell zsh $?) "
+        PS1=$'\n'"$(powerline-go -error ${?} -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -shell zsh)"
     }
     function _install_powerline_precmd() {
         for s in "${precmd_functions[@]}"; do
@@ -469,6 +469,25 @@ if exists powerline-shell; then
         _install_powerline_precmd
     fi
 fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# powerline-shell
+#--------------------------------------------------------------------------------
+# if exists powerline-shell; then
+#     function _powerline_precmd() {
+#         PS1=$'\n'"$(powerline-shell --shell zsh ${?}) "
+#     }
+#     function _install_powerline_precmd() {
+#         for s in "${precmd_functions[@]}"; do
+#             [ "${s}" = '_powerline_precmd' ] && return
+#         done
+#         precmd_functions+=(_powerline_precmd)
+#     }
+#     if [ "${TERM}" != 'linux' ]; then
+#         _install_powerline_precmd
+#     fi
+# fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------

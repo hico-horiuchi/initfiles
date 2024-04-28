@@ -3,10 +3,10 @@ PWD=$(shell pwd)
 install:
 	mkdir -p $(HOME)/.config/powerline-shell
 	mkdir -p $(HOME)/.docker
-	mkdir -p $(HOME)/.local
+	mkdir -p $(HOME)/.local/bin
 
 	ghq get github.com/b-ryan/powerline-shell
-	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/__init__.py $(PWD)/powerline-shell/powerline_shell_init.py.patch
+	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_ventura.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell
 	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
 	./setup.py build
@@ -15,6 +15,13 @@ install:
 
 	ghq get github.com/hchbaw/auto-fu.zsh
 	cd `ghq root`/github.com/hchbaw/auto-fu.zsh && git checkout pu
+	cd $(PWD)
+
+	ghq get github.com/justjanne/powerline-go
+	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_ventura.go.patch
+	cd `ghq root`/github.com/justjanne/powerline-go
+	go build
+	mv powerline-go $(HOME)/.local/bin/
 	cd $(PWD)
 
 	ghq get github.com/github/copilot.vim
