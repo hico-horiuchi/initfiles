@@ -208,7 +208,7 @@ function set-keychain-environment-variable() {
 # プロンプト
 #--------------------------------------------------------------------------------
 # RPROMPT
-RPROMPT=$'$(_branch_status_check)'
+# RPROMPT=$'$(_branch_status_check)'
 # 表示毎にPROMPTで設定されている文字列を評価する
 setopt prompt_subst
 # fg[color]表記と$reset_colorを使いたい
@@ -457,7 +457,8 @@ fi
 #--------------------------------------------------------------------------------
 if exists powerline-go; then
     function _powerline_precmd() {
-        PS1=$'\n'"$(powerline-go -error ${?} -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -shell zsh -shorten-eks-names -shorten-gke-names)"
+        # PS1=$'\n'"$(powerline-go -error ${?} -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -shell zsh -shorten-eks-names -shorten-gke-names)"
+        eval $(powerline-go -error ${?} -eval -jobs ${${(%):%j}:-0} -modules perms,kube,venv,cwd,root -modules-right git -shell zsh -shorten-eks-names -shorten-gke-names)
     }
     function _install_powerline_precmd() {
         for s in "${precmd_functions[@]}"; do
