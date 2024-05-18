@@ -18,6 +18,7 @@ export EDITOR='nano'
 export GREP_OPTIONS='--color=auto'
 export LANG=ja_JP.UTF-8
 export LESS='-fRX'
+export NODE_OPTIONS='--no-deprecation'
 export PATH=/usr/local/sbin:${HOMEBREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
 export TERM='xterm-256color'
 bin_formulas=('coreutils' 'gawk' 'gnu-sed');
@@ -623,7 +624,7 @@ if exists bw; then
     export BW_SESSION=$(get-keychain-environment-variable BW_SESSION)
     function _bw_export() {
         tempfile=$(mktemp)
-        bw export --format encrypted_json --output ${tempfile} 2> /dev/null
+        bw export --format encrypted_json --output ${tempfile}
         set-keychain-environment-variable BW_ENCRYPTED_EXPORT $(cat ${tempfile} | jq -c)
         rm ${tempfile}
     }
@@ -631,12 +632,12 @@ if exists bw; then
         bw login
     }
     function _bw_sync() {
-        bw sync 2> /dev/null
+        bw sync
         export BW_LAST_SYNC=$(date --iso-8601=seconds)
         set-keychain-environment-variable BW_LAST_SYNC ${BW_LAST_SYNC}
     }
     function _bw_unlock() {
-        export BW_SESSION=$(bw unlock --raw --passwordenv BW_PASSWORD 2> /dev/null)
+        export BW_SESSION=$(bw unlock --raw --passwordenv BW_PASSWORD)
         set-keychain-environment-variable BW_SESSION ${BW_SESSION}
     }
     if [ -z "${BW_SESSION}" ]; then
@@ -644,7 +645,7 @@ if exists bw; then
         _bw_unlock
     fi
     if [ -z "${BW_LAST_SYNC}" ] || [ $(expr $(date +%s) - $(date -d ${BW_LAST_SYNC} +%s)) -ge 86400 ]; then
-        case $(bw status 2> /dev/null | jq -r '.status') in
+        case $(bw status | jq -r '.status') in
             'locked')
                 _bw_unlock
                 ;;
