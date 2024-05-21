@@ -28,7 +28,7 @@ install:
 	mv powerline-go $(HOME)/.local/bin/
 	cd $(PWD)
 
-  ghq get github.com/cdalvaro/github-vscode-theme-iterm
+	ghq get github.com/cdalvaro/github-vscode-theme-iterm
 	ghq get github.com/jimeh/tmux-themepack
 	ghq get github.com/joshskidmore/zsh-fzf-history-search
 	ghq get github.com/rupa/z
