@@ -2,3 +2,4 @@ http-proxy-to-socks
 newman
 socks-proxy-agent
 @bitwarden/cli
+@marp-team/marp-cli
