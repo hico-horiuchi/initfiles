@@ -114,6 +114,7 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "github.copilot.chat.localeOverride": "en",
+  "github.copilot.editor.enableAutoCompletions": true,
   "githubPullRequests.fileListLayout": "flat",
   "gitmoji.addCustomEmoji": [
     {
