@@ -115,19 +115,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# git
-if [ -f ~/.git-completion.bash ]; then
-  source ~/.git-completion.bash
-fi
-
-if [ -f ~/.git-prompt.sh ]; then
-  source ~/.git-prompt.sh
-fi
-
-PS1='\n[\w$(__git_ps1 "\[\033[32m\](%s)\[\033[0m\]")]\$ '
-
-alias emacs='emacs -nw'
-
-### Added by the rbenv
-eval "$(rbenv init -)"
