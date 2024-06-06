@@ -227,6 +227,7 @@
   "window.openFoldersInNewWindow": "on",
   "window.restoreWindows": "none",
   "workbench.colorTheme": "GitHub Light Default",
+  "workbench.editor.alwaysShowEditorActions": true,
   "workbench.editor.pinnedTabSizing": "compact",
   "workbench.editor.tabSizing": "shrink",
   "workbench.iconTheme": "material-icon-theme",
