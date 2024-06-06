@@ -1,4 +1,5 @@
 debug
+plist
 rubocop
 rubocop-performance
 rubocop-rake
