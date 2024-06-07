@@ -9,3 +9,9 @@ curl -s https://raw.githubusercontent.com/carloscuesta/gitmoji/master/packages/g
   | sed -e 's/"//g' -e 's/^/# /g' -e 's/,:/ - :/g' -e 's/:,/: - /g' \
   >> git/templates/commit_template
 ```
+
+### terminal/dircolors.256dark
+
+```
+curl -s -o terminal/dircolors.256dark https://raw.githubusercontent.com/seebi/dircolors-solarized/master/dircolors.256dark
+```

@@ -34,6 +34,7 @@ install:
 	ghq get github.com/joshskidmore/zsh-fzf-history-search
 	ghq get github.com/rupa/z
 	ghq get github.com/scopatz/nanorc
+	ghq get github.com/seebi/dircolors-solarized
 	ghq get github.com/supercrabtree/k
 
 	ln -fs $(PWD)/asdf/asdfrc                       $(HOME)/.asdfrc
