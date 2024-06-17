@@ -116,6 +116,7 @@
   "github.copilot.chat.localeOverride": "en",
   "github.copilot.editor.enableAutoCompletions": true,
   "githubPullRequests.fileListLayout": "flat",
+  "githubPullRequests.pullBranch": "never",
   "gitmoji.addCustomEmoji": [
     {
       "code": ":sparkles:",
@@ -203,6 +204,7 @@
   "redhat.telemetry.enabled": false,
   "rubyLsp.bundleGemfile": "Gemfile",
   "rubyTestExplorer.logpanel": true,
+  "scm.alwaysShowActions": true,
   "search.exclude": {
     "**/.venv": true,
     "**/__pycache__": true,
@@ -237,5 +239,6 @@
   "workbench.preferredLightColorTheme": "GitHub Light Default",
   "workbench.productIconTheme": "material-product-icons",
   "workbench.startupEditor": "none",
-  "workbench.tree.renderIndentGuides": "always"
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.view.alwaysShowHeaderActions": true
 }
