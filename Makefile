@@ -1,18 +1,22 @@
 PWD=$(shell pwd)
 
 install:
-	mkdir -p $(HOME)/.bundle
-	mkdir -p $(HOME)/.config/powerline-shell
-	mkdir -p $(HOME)/.docker
-	mkdir -p $(HOME)/.local/bin
+	asdf plugin add awscli https://github.com/MetricMike/asdf-awscli.git
+	asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud.git
+	asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
+	asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+	asdf plugin add trivy https://github.com/zufardhiyaulhaq/asdf-trivy.git
+
+	gh extension install github/gh-copilot
 
 	ghq get github.com/b-ryan/powerline-shell
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_monterey.py.patch
 	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_ventura.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell
 	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
-	./setup.py build
-	./setup.py install --user --prefix=
+	# ./setup.py build
+	# ./setup.py install --user --prefix=
 	cd $(PWD)
 
 	ghq get github.com/hchbaw/auto-fu.zsh
@@ -25,8 +29,8 @@ install:
 	cd `ghq root`/github.com/justjanne/powerline-go
 	gsed -i -e "s|\`PS1=|\`PS1=$'\\\\n'|g" -e "s|\`PROMPT=|\`PROMPT=$'\\\\n'|g" defaults.go
 	gsed -i 's|⎈ ||g' segment-kube.go
-	go build
-	mv powerline-go $(HOME)/.local/bin/
+	# go build
+	# mv powerline-go $(HOME)/.local/bin/
 	cd $(PWD)
 
 	ghq get github.com/cdalvaro/github-vscode-theme-iterm
@@ -36,6 +40,11 @@ install:
 	ghq get github.com/scopatz/nanorc
 	ghq get github.com/seebi/dircolors-solarized
 	ghq get github.com/supercrabtree/k
+
+	mkdir -p $(HOME)/.bundle
+	mkdir -p $(HOME)/.config/powerline-shell
+	mkdir -p $(HOME)/.docker
+	mkdir -p $(HOME)/.local/bin
 
 	ln -fs $(PWD)/asdf/asdfrc                       $(HOME)/.asdfrc
 	ln -fs $(PWD)/asdf/default-cloud-sdk-components $(HOME)/.default-cloud-sdk-components
@@ -65,5 +74,3 @@ install:
 	sudo chmod 644 /Library/LaunchDaemons/limit.max*.plist
 	sudo launchctl load -w /Library/LaunchDaemons/limit.maxfiles.plist
 	sudo launchctl load -w /Library/LaunchDaemons/limit.maxproc.plist
-
-	gh extension install github/gh-copilot
