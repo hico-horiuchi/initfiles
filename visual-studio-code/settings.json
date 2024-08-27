@@ -104,8 +104,8 @@
   "files.trimFinalNewlines": true,
   "files.trimTrailingWhitespace": true,
   "flake8.args": [
-    "--exclude=.git,.venv",
-    "--ignore=B,E203,E266,E303,E304,E402,E501,E741,F401,F403,F405,F541,F723,F821,F841,W503",
+    "--exclude=.git,.venv,plugin-builder/src/qmonus_sdk_plugins/libs/",
+    "--ignore=B006,B007,B008,B011,B015,B018,B904,B905,E203,E226,E266,E303,E304,E402,E501,E741,F401,F403,F405,F541,F723,F821,F841,W503",
     "--max-line-length=120"
   ],
   "git.allowForcePush": true,
@@ -193,7 +193,7 @@
     "--line-length=120",
     "--multi-line=3",
     "--profile=black",
-    "--thirdparty=ansible,pytest,qmonus_sdk_plugins,requests",
+    "--thirdparty=ansible,pytest,qmonus_plugin_builder,qmonus_sdk_plugins,requests,tests",
     "--trailing-comma"
   ],
   "liveServer.settings.donotShowInfoMsg": true,
