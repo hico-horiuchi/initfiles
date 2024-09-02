@@ -6,7 +6,6 @@ install:
 	asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
 	asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
-	asdf plugin add trivy https://github.com/zufardhiyaulhaq/asdf-trivy.git
 
 	gh extension install github/gh-copilot
 
