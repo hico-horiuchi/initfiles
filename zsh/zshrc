@@ -295,7 +295,7 @@ if exists fzf; then
     export FZF_DEFAULT_OPTS='--ansi --info=hidden --layout=reverse'
     zsh_fzf_history_search_path=${HOME}/ghq/github.com/joshskidmore/zsh-fzf-history-search/zsh-fzf-history-search.zsh
     if [ -e ${zsh_fzf_history_search_path} ]; then
-        export ZSH_FZF_HISTORY_SEARCH_FZF_ARGS='-e +s --no-multi --height=40%'
+        export ZSH_FZF_HISTORY_SEARCH_FZF_ARGS='-e -i +s --no-multi --height=40%'
         export ZSH_FZF_HISTORY_SEARCH_REMOVE_DUPLICATES=1
         source ${zsh_fzf_history_search_path}
     fi
