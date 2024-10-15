@@ -21,7 +21,7 @@ export LESS='-fRX'
 export NODE_OPTIONS='--no-deprecation'
 export PATH=/usr/local/sbin:${HOMEBREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}
 export TERM='xterm-256color'
-bin_formulas=('coreutils' 'gawk' 'gnu-sed');
+bin_formulas=('coreutils' 'gawk' 'gnu-sed' 'grep');
 for formula in ${bin_formulas}; do
     export PATH=${HOMEBREW_PREFIX}/opt/${formula}/libexec/gnubin:${PATH}
 done
