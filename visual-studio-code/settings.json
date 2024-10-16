@@ -31,6 +31,12 @@
     },
     "editor.defaultFormatter": "Shopify.ruby-lsp"
   },
+  "[shellscript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.shellcheck": "explicit"
+    },
+    "editor.defaultFormatter": "timonwong.shellcheck"
+  },
   "[terraform-vars]": {
     "editor.codeActionsOnSave": {
       "source.formatAll.terraform": "explicit"
