@@ -12,6 +12,9 @@ case ${1} in
     gcloud)
         cp ${SCRIPT_DIR}/gcloud-list-all ${ASDF_PLUGINS_DIR}/gcloud/bin/list-all
         ;;
+    nodejs)
+        cp ${SCRIPT_DIR}/nodejs-list-all ${ASDF_PLUGINS_DIR}/nodejs/bin/list-all
+        ;;
     python)
         cp ${SCRIPT_DIR}/python-list-all ${ASDF_PLUGINS_DIR}/python/bin/list-all
         ;;
