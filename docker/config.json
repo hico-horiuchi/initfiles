@@ -1,15 +1,11 @@
 {
-  "auths": {},
-  "cliPluginsExtraDirs": [
-    "/opt/homebrew/lib/docker/cli-plugins"
-  ],
-  "credHelpers": {
-    "asia.gcr.io": "gcloud",
-    "eu.gcr.io": "gcloud",
-    "gcr.io": "gcloud",
-    "marketplace.gcr.io": "gcloud",
-    "staging-k8s.gcr.io": "gcloud",
-    "us.gcr.io": "gcloud"
-  },
-  "currentContext": "colima"
+	"auths": {},
+	"credHelpers": {
+		"asia-northeast1-docker.pkg.dev": "gcloud",
+		"asia.gcr.io": "gcloud"
+	},
+	"currentContext": "colima",
+	"cliPluginsExtraDirs": [
+		"/opt/homebrew/lib/docker/cli-plugins"
+	]
 }
