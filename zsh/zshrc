@@ -51,6 +51,12 @@ colors
 # 補完機能を有効にする
 [ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ] && FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
 [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+if type asdf > /dev/null; then
+    FPATH="${ASDF_DATA_DIR:-${HOME}/.asdf}/completions:${FPATH}"
+    asdf_completions="${ASDF_DATA_DIR:-${HOME}/.asdf}/completions"
+    [ ! -d "${asdf_completions}" ] && mkdir -p "${asdf_completions}"
+    [ ! -e "${asdf_completions}/_asdf" ] && asdf completion zsh > "${asdf_completions}/_asdf"
+fi
 autoload -Uz compinit && compinit -u
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
@@ -180,7 +186,7 @@ function docker-ssh() {
     docker exec -i -t "${1}" /bin/bash
 }
 function exists() {
-    which "${1}" &> /dev/null
+    type "${1}" > /dev/null
 }
 function set_position() {
     local resolution width=${4:-1400} height=${5:-900}
@@ -254,7 +260,7 @@ function _get_branch_status() {
 # asdf
 #--------------------------------------------------------------------------------
 if exists asdf; then
-    source "${HOMEBREW_PREFIX}/opt/asdf/libexec/asdf.sh"
+    export PATH="${ASDF_DATA_DIR:-${HOME}/.asdf}/shims:${PATH}"
     plugin_list=$(asdf plugin list)
     # awscli
     if echo "${plugin_list}" | grep -q 'awscli'; then
