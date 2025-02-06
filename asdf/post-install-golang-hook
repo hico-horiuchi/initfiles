@@ -25,7 +25,7 @@ TEMP_DIR=$(mktemp -d)
 
 cd ${TEMP_DIR}
 
-asdf local golang ${GOLANG_VERSION}
+asdf set golang ${GOLANG_VERSION}
 
 export GOROOT="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/go"
 export GOPATH="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/packages"

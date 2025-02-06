@@ -14,9 +14,11 @@ case ${1} in
         ;;
     nodejs)
         cp ${SCRIPT_DIR}/nodejs-list-all ${ASDF_PLUGINS_DIR}/nodejs/bin/list-all
+        rm -fr ${ASDF_PLUGINS_DIR}/nodejs/.node-build
         ;;
     python)
         cp ${SCRIPT_DIR}/python-list-all ${ASDF_PLUGINS_DIR}/python/bin/list-all
+        rm -fr ${ASDF_PLUGINS_DIR}/python/pyenv
         ;;
     ruby)
         cp ${SCRIPT_DIR}/ruby-list-all ${ASDF_PLUGINS_DIR}/ruby/bin/list-all

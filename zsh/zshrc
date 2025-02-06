@@ -49,14 +49,9 @@ SAVEHIST=1000000
 autoload -Uz colors
 colors
 # 補完機能を有効にする
+[ -d "${HOMEBREW_PREFIX}/opt/asdf" ] && FPATH="${HOMEBREW_PREFIX}/opt/asdf/share/zsh/site-functions:${FPATH}"
 [ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ] && FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
 [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-if type asdf > /dev/null; then
-    FPATH="${ASDF_DATA_DIR:-${HOME}/.asdf}/completions:${FPATH}"
-    asdf_completions="${ASDF_DATA_DIR:-${HOME}/.asdf}/completions"
-    [ ! -d "${asdf_completions}" ] && mkdir -p "${asdf_completions}"
-    [ ! -e "${asdf_completions}/_asdf" ] && asdf completion zsh > "${asdf_completions}/_asdf"
-fi
 autoload -Uz compinit && compinit -u
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
