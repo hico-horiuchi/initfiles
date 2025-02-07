@@ -79,6 +79,7 @@ TERM xterm-256color-italic
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
+TERM xterm-ghostty
 TERM xterm-kitty
 TERM xterm-termite
 
@@ -232,6 +233,7 @@ EXEC 01;38;5;64
 .objc            01;38;5;245
 .sqlite          01;38;5;245
 .go              01;38;5;245
+.lua             01;38;5;245
 .sql             01;38;5;245
 .csv             01;38;5;245
 
