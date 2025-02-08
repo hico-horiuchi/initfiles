@@ -124,6 +124,7 @@
   "git.ignoreMissingGitWarning": true,
   "github.copilot.chat.localeOverride": "en",
   "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.nextEditSuggestions.enabled": true,
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
   "gitmoji.addCustomEmoji": [
