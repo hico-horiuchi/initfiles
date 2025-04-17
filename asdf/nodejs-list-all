@@ -18,8 +18,8 @@ function print_only_fully_numeric_items() {
 
 function filter_by_latest_lts_version() {
   local version_numbers="$(cat /dev/stdin)"
-  local latest_lts_version='22'
-  grep -E "^${latest_lts_version}\." <<< "${version_numbers}"
+  local lts_versions='(18|22)'
+  grep -E "^${lts_versions}\." <<< "${version_numbers}"
 }
 
 try_to_update_nodebuild >&2
