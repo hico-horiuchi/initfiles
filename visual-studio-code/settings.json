@@ -197,6 +197,8 @@
     "ui.semanticTokens": true
   },
   "indentRainbow.includedLanguages": ["go", "python", "ruby"],
+  "inlineChat.enableV2": true,
+  "inlineChat.hideOnRequest": true,
   "isort.args": [
     "--combine-as",
     "--force-grid-wrap=0",
@@ -207,7 +209,6 @@
     "--thirdparty=ansible,pytest,qmonus_plugin_builder,qmonus_sdk_plugins,requests,tests",
     "--trailing-comma"
   ],
-  "liveServer.settings.donotShowInfoMsg": true,
   "python.terminal.activateEnvironment": false,
   "python.testing.pytestArgs": ["--exitfirst", "--showlocals", "--verbose"],
   "python.testing.pytestEnabled": true,
@@ -227,7 +228,7 @@
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.copyOnSelection": true,
   "terminal.integrated.defaultLocation": "editor",
-  "terminal.integrated.fontLigatures": true,
+  "terminal.integrated.fontLigatures.enabled": true,
   "terminal.integrated.fontSize": 15,
   "terminal.integrated.letterSpacing": 1,
   "terminal.integrated.lineHeight": 1.25,
