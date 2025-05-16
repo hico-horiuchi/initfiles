@@ -18,7 +18,7 @@ function print_only_fully_numeric_items() {
 
 function filter_by_latest_lts_version() {
   local version_numbers="$(cat /dev/stdin)"
-  local lts_versions='(18|22)'
+  local lts_versions='(18|20|22)'
   grep -E "^${lts_versions}\." <<< "${version_numbers}"
 }
 
