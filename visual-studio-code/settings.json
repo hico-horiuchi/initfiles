@@ -1,9 +1,9 @@
 {
   "[dockercompose]": {
-    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
   },
   "[dockerfile]": {
-    "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    "editor.defaultFormatter": "ms-azuretools.vscode-containers"
   },
   "[go]": {
     "editor.codeActionsOnSave": {
@@ -50,6 +50,9 @@
     "editor.defaultFormatter": "hashicorp.terraform"
   },
   "black-formatter.args": ["--line-length=120", "--target-version=py310"],
+  "chat.instructionsFilesLocations": {
+    ".github/instructions": true
+  },
   "code-runner.enableAppInsights": false,
   "debug.internalConsoleOptions": "openOnSessionStart",
   "debug.openDebug": "openOnSessionStart",
