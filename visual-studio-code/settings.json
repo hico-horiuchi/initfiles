@@ -212,6 +212,7 @@
     "--thirdparty=ansible,pytest,qmonus_plugin_builder,qmonus_sdk_plugins,requests,tests",
     "--trailing-comma"
   ],
+  "postman.mcp.notifications.postmanMCP": false,
   "python.terminal.activateEnvironment": false,
   "python.testing.pytestArgs": ["--exitfirst", "--showlocals", "--verbose"],
   "python.testing.pytestEnabled": true,
