@@ -59,6 +59,7 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": false,
   "docker.extension.dockerEngineAvailabilityPrompt": false,
+  "docker.extension.enableComposeLanguageServer": true,
   "docker.lsp.telemetry": "off",
   "editor.copyWithSyntaxHighlighting": false,
   "editor.cursorBlinking": "smooth",
@@ -258,5 +259,11 @@
   "workbench.productIconTheme": "material-product-icons",
   "workbench.startupEditor": "none",
   "workbench.tree.renderIndentGuides": "always",
-  "workbench.view.alwaysShowHeaderActions": true
+  "workbench.view.alwaysShowHeaderActions": true,
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/docker/vscode-extension/main/misc/empty.json": [
+      "compose*y*ml",
+      "docker-compose*y*ml"
+    ]
+  }
 }
