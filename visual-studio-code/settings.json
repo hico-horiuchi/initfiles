@@ -239,6 +239,8 @@
   "terminal.integrated.lineHeight": 1.25,
   "terminal.integrated.scrollback": 200000,
   "terminal.integrated.stickyScroll.enabled": true,
+  "terraform.languageServer.ignoreSingleFileWarning": true,
+  "terraform.mcp.server.enable": false,
   "testExplorer.useNativeTesting": true,
   "vs-kubernetes": {
     "vscode-kubernetes.helm-path-mac": "/Users/hiconyan/.vs-kubernetes/tools/helm/darwin-arm64/helm",
