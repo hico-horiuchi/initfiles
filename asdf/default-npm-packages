@@ -2,4 +2,5 @@ http-proxy-to-socks
 newman
 socks-proxy-agent
 @bitwarden/cli
+@github/copilot
 @marp-team/marp-cli
