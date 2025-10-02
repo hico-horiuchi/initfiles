@@ -42,6 +42,7 @@ install:
 
 	mkdir -p $(HOME)/.bundle
 	mkdir -p $(HOME)/.config/powerline-shell
+	mkdir -p $(HOME)/.copilot
 	mkdir -p $(HOME)/.docker
 	mkdir -p $(HOME)/.local/bin
 
@@ -59,6 +60,7 @@ install:
 	ln -fs $(PWD)/git/gitconfig                     $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                     $(HOME)/.gitignore
 	ln -fs $(PWD)/git/templates                     $(HOME)/.git-templates
+	ln -fs $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fs $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                       $(HOME)/.nanorc
 	ln -fs $(PWD)/powerline-shell/config.json       $(HOME)/.config/powerline-shell/config.json
