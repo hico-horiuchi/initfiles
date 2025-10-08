@@ -1265,6 +1265,8 @@
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<true/>
+	<key>RememberWindowPositions</key>
+	<true/>
 	<key>SetCookie</key>
 	<true/>
 	<key>ShowFullScreenTabBar</key>
