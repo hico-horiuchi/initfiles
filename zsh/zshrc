@@ -156,7 +156,7 @@ alias -g G='| grep'
 alias -g N='> /dev/null 2> /dev/null &'
 alias -g M='`git ls-files -m`'
 # ユーザー定義
-alias bundle_install='bundle install --binstubs vendor/bin --jobs 4 --path vendor/bundle --without doc production'
+alias bundle_install='bundle config set --local bin vendor/bin; bundle config set --local jobs 4; bundle config set --local path vendor/bundle; bundle config set --local without doc production; bundle install'
 alias cat='bat'
 alias emacs='emacsclient -nw'
 alias emacs_daemon='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
