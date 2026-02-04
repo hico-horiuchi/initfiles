@@ -1,3 +1,4 @@
 gke-gcloud-auth-plugin
 kubectl
+local-extract
 minikube
