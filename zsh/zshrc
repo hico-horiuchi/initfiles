@@ -274,7 +274,7 @@ if exists asdf; then
     fi
     # ruby
     if echo "${plugin_list}" | grep -q 'ruby'; then
-        RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+        RUBY_CONFIGURE_OPTS="--with-openssl-dir=${HOMEBREW_PREFIX}/opt/openssl@1.1"
         export RUBY_CONFIGURE_OPTS
     fi
 fi
