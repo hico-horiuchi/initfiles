@@ -20,13 +20,13 @@ export GREP_OPTIONS='--color=auto'
 export LANG='ja_JP.UTF-8'
 export LESS='-fRX'
 export NODE_OPTIONS='--no-deprecation'
-export PATH="/usr/local/sbin:${HOMEBREW_PREFIX}/opt/mysql-client@5.7/bin:${HOME}/.local/bin:${PATH}"
+export PATH="/usr/local/sbin:${HOMEBREW_PREFIX}/opt/mysql-client@8.0/bin:${HOME}/.local/bin:${PATH}"
 export TERM='xterm-256color'
 bin_formulas=('coreutils' 'gawk' 'gnu-sed' 'grep')
 for formula in "${bin_formulas[@]}"; do
     export PATH="${HOMEBREW_PREFIX}/opt/${formula}/libexec/gnubin:${PATH}"
 done
-lib_formulas=('mysql-client@5.7' 'readline')
+lib_formulas=('mysql-client@8.0' 'readline')
 for formula in "${lib_formulas[@]}"; do
     export CPPFLAGS="-I${HOMEBREW_PREFIX}/opt/${formula}/include ${CPPFLAGS}"
     export LDFLAGS="-L${HOMEBREW_PREFIX}/opt/${formula}/lib ${LDFLAGS}"
@@ -274,7 +274,7 @@ if exists asdf; then
     fi
     # ruby
     if echo "${plugin_list}" | grep -q 'ruby'; then
-        RUBY_CONFIGURE_OPTS="--with-openssl-dir=${HOMEBREW_PREFIX}/opt/openssl@1.1"
+        RUBY_CONFIGURE_OPTS="--with-openssl-dir=${HOMEBREW_PREFIX}/opt/openssl@3"
         export RUBY_CONFIGURE_OPTS
     fi
 fi
