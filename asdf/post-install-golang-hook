@@ -27,13 +27,14 @@ cd ${TEMP_DIR}
 
 asdf set golang ${GOLANG_VERSION}
 
+export GOBIN="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/bin"
 export GOROOT="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/go"
 export GOPATH="${ASDF_INSTALLS_DIR}/golang/${GOLANG_VERSION}/packages"
 
 go install golang.org/x/tools/cmd/goimports@${GOIMPORTS_VERSION}
 go install golang.org/x/tools/gopls@${GOPLS_VERSION}
 
-unset GOPATH
+unset GOBIN GOROOT GOPATH
 
 cd ${CUR_DIR}
 rm -rf ${TEMP_DIR}
