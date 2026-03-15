@@ -5,6 +5,7 @@ install:
 	asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud.git
 	asdf plugin add golang https://github.com/asdf-community/asdf-golang.git
 	asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+	asdf plugin add python https://github.com/asdf-community/asdf-python.git
 	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
 
 	gh extension install github/gh-copilot
