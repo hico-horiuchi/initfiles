@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>local.yaskkserv2</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/hiconyan/.local/bin/yaskkserv2</string>
+    <string>--config-filename=/Users/hiconyan/.local/share/yaskkserv2/yaskkserv2.conf</string>
+    <string>--no-daemonize</string>
+    <string>/Users/hiconyan/.local/share/yaskkserv2/dictionary.yaskkserv2</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>StandardErrorPath</key>
+  <string>/dev/null</string>
+  <key>StandardOutPath</key>
+  <string>/Users/hiconyan/.local/share/yaskkserv2/yaskkserv2.log</string>
+</dict>
+</plist>

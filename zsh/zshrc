@@ -277,6 +277,11 @@ if exists asdf; then
         RUBY_CONFIGURE_OPTS="--with-openssl-dir=${HOMEBREW_PREFIX}/opt/openssl@3"
         export RUBY_CONFIGURE_OPTS
     fi
+    # rust
+    if echo "${plugin_list}" | grep -q 'rust'; then
+        RUST_WITHOUT='rust-docs'
+        export RUST_WITHOUT
+    fi
 fi
 #--------------------------------------------------------------------------------
 

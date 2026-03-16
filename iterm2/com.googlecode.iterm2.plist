@@ -38,6 +38,8 @@
 	<false/>
 	<key>EnableProxyIcon</key>
 	<false/>
+	<key>ExperimentalKeyHandling</key>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideScrollbar</key>

@@ -7,14 +7,15 @@ install:
 	asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
 	asdf plugin add python https://github.com/asdf-community/asdf-python.git
 	asdf plugin add ruby https://github.com/asdf-vm/asdf-ruby.git
+	asdf plugin add rust https://github.com/asdf-community/asdf-rust.git
 
 	gh extension install github/gh-copilot
 
 	ghq get github.com/b-ryan/powerline-shell
-	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_monterey.py.patch
-	# patch `ghq root`/github.com/b-ryan/powerline-shell/powerline_shell/themes/default.py $(PWD)/powerline-shell/default_ventura.py.patch
 	cd `ghq root`/github.com/b-ryan/powerline-shell
 	cp $(PWD)/powerline-shell/k8s_namespace.py powerline_shell/segments/
+	# patch powerline_shell/themes/default.py $(PWD)/powerline-shell/default_monterey.py.patch
+	# patch powerline_shell/themes/default.py $(PWD)/powerline-shell/default_ventura.py.patch
 	# ./setup.py build
 	# ./setup.py install --user --prefix=
 	cd $(PWD)
@@ -24,14 +25,23 @@ install:
 	cd $(PWD)
 
 	ghq get github.com/justjanne/powerline-go
-	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_monterey.go.patch
-	# patch `ghq root`/github.com/justjanne/powerline-go/defaults.go $(PWD)/powerline-go/defaults_ventura.go.patch
 	cd `ghq root`/github.com/justjanne/powerline-go
+	# patch defaults.go $(PWD)/powerline-go/defaults_monterey.go.patch
+	# patch defaults.go $(PWD)/powerline-go/defaults_ventura.go.patch
 	gsed -i -e "s|\`PS1=|\`PS1=$'\\\\n'|g" -e "s|\`PROMPT=|\`PROMPT=$'\\\\n'|g" defaults.go
 	gsed -i 's|⎈ ||g' segment-kube.go
 	# go build
 	# mv powerline-go $(HOME)/.local/bin/
 	cd $(PWD)
+
+	ghq get github.com/skk-dev/dict
+	cd `ghq root`/github.com/skk-dev/dict
+	mkdir -p $(HOME)/.local/share/yaskkserv2
+	yaskkserv2_make_dictionary --dictionary-filename=$(HOME)/.local/share/yaskkserv2/dictionary.yaskkserv2 \
+		SKK-JISYO.L SKK-JISYO.jinmei SKK-JISYO.fullname SKK-JISYO.geo SKK-JISYO.propernoun SKK-JISYO.station
+	cd $(PWD)
+	cp skk/local.yaskkserv2.plist $(HOME)/Library/LaunchAgents/
+	launchctl load -w $(HOME)/Library/LaunchAgents/local.yaskkserv2.plist
 
 	ghq get github.com/cdalvaro/github-vscode-theme-iterm
 	ghq get github.com/jimeh/tmux-themepack
@@ -65,6 +75,7 @@ install:
 	ln -fs $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                       $(HOME)/.nanorc
 	ln -fs $(PWD)/powerline-shell/config.json       $(HOME)/.config/powerline-shell/config.json
+	ln -fs $(PWD)/skk/yaskkserv2.conf               $(HOME)/.local/share/yaskkserv2/yaskkserv2.conf
 	ln -fs $(PWD)/tmux/tmux.conf                    $(HOME)/.tmux.conf
 	ln -fs $(PWD)/visual-studio-code/settings.json  $(HOME)/Library/Application\ Support/Code/User/settings.json
 	ln -fs $(PWD)/wakatime/wakatime.cfg             $(HOME)/.wakatime.cfg
