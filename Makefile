@@ -52,6 +52,8 @@ install:
 	ghq get github.com/supercrabtree/k
 
 	mkdir -p $(HOME)/.bundle
+	mkdir -p $(HOME)/.config/gh
+	mkdir -p $(HOME)/.config/gh-copilot
 	mkdir -p $(HOME)/.config/powerline-shell
 	mkdir -p $(HOME)/.copilot
 	mkdir -p $(HOME)/.docker
@@ -71,6 +73,8 @@ install:
 	ln -fs $(PWD)/git/gitconfig                     $(HOME)/.gitconfig
 	ln -fs $(PWD)/git/gitignore                     $(HOME)/.gitignore
 	ln -fs $(PWD)/git/templates                     $(HOME)/.git-templates
+	ln -fs $(PWD)/github/gh_config.yml              $(HOME)/.config/gh/config.yml
+	ln -fs $(PWD)/github/gh-copilot_config.yml      $(HOME)/.config/gh-copilot/config.yml
 	ln -fs $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fs $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                       $(HOME)/.nanorc
