@@ -21,7 +21,7 @@ index 1202e9a..069ccda 100644
  			EvalPromptRightPrefix: `RPROMPT="`,
  			EvalPromptRightSuffix: `"`,
 @@ -180,7 +180,7 @@ var defaults = Config{
- 
+
  			HomeSpecialDisplay: true,
  			HomeFg:             15,  // white
 -			HomeBg:             31,  // blueish

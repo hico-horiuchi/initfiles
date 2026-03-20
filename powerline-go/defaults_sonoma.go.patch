@@ -1,5 +1,5 @@
 diff --git a/defaults.go b/defaults.go
-index 1202e9a..d6766fa 100644
+index 1202e9a..069ccda 100644
 --- a/defaults.go
 +++ b/defaults.go
 @@ -142,7 +142,7 @@ var defaults = Config{
@@ -25,7 +25,7 @@ index 1202e9a..d6766fa 100644
  			HomeSpecialDisplay: true,
  			HomeFg:             15,  // white
 -			HomeBg:             31,  // blueish
-+			HomeBg:             141,
++			HomeBg:             107,
  			AliasFg:            15,  // white
  			AliasBg:            31,  // blueish
  			PathFg:             250, // light grey
