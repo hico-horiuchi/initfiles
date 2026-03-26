@@ -251,6 +251,8 @@
   "terraform.mcp.server.enable": false,
   "testExplorer.useNativeTesting": true,
   "vs-kubernetes": {
+    "vs-kubernetes.suppress-helm-not-found-alerts": true,
+    "vs-kubernetes.suppress-kubectl-not-found-alerts": true,
     "vscode-kubernetes.helm-path-mac": "/Users/hiconyan/.vs-kubernetes/tools/helm/darwin-arm64/helm",
     "vscode-kubernetes.minikube-path-mac": "/Users/hiconyan/.vs-kubernetes/tools/minikube/darwin-arm64/minikube"
   },
