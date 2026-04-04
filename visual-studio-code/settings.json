@@ -134,7 +134,7 @@
   "git.enableSmartCommit": true,
   "git.ignoreLegacyWarning": true,
   "git.ignoreMissingGitWarning": true,
-  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.chat.agent.autoFix": true,
   "github.copilot.nextEditSuggestions.enabled": true,
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
