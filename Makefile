@@ -78,6 +78,7 @@ install:
 	ln -fs $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fs $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fs $(PWD)/nano/nanorc                       $(HOME)/.nanorc
+	ln -fs $(PWD)/npm/npmrc                         $(HOME)/.npmrc
 	ln -fs $(PWD)/powerline-shell/config.json       $(HOME)/.config/powerline-shell/config.json
 	ln -fs $(PWD)/skk/yaskkserv2.conf               $(HOME)/.local/share/yaskkserv2/yaskkserv2.conf
 	ln -fs $(PWD)/tmux/tmux.conf                    $(HOME)/.tmux.conf
