@@ -1,7 +1,8 @@
 iterm2
 pip
-poetry
+poetry~=2.1.0
 pyls-black
 pyls-isort
 python-language-server[all]
 setuptools
+uv~=0.11.0
