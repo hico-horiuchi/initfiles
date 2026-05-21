@@ -52,6 +52,7 @@ install:
 	ghq get github.com/supercrabtree/k
 
 	mkdir -p $(HOME)/.bundle
+	mkdir -p $(HOME)/.claude
 	mkdir -p $(HOME)/.config/gh
 	mkdir -p $(HOME)/.config/gh-copilot
 	mkdir -p $(HOME)/.config/powerline-shell
@@ -67,6 +68,8 @@ install:
 	ln -fs $(PWD)/bash/bashrc                       $(HOME)/.bashrc
 	ln -fs $(PWD)/bash/inputrc                      $(HOME)/.inputrc
 	ln -fs $(PWD)/bundle/config                     $(HOME)/.bundle/config
+	ln -fs $(PWD)/claude/settings.json              $(HOME)/.claude/settings.json
+	ln -fs $(PWD)/claude/statusline.sh              $(HOME)/.claude/statusline.sh
 	ln -fs $(PWD)/docker/config.json                $(HOME)/.docker/config.json
 	ln -fs $(PWD)/emacs/spacemacs                   $(HOME)/.spacemacs
 	ln -fs $(PWD)/gem/gemrc                         $(HOME)/.gemrc
