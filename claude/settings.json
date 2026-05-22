@@ -16,11 +16,24 @@
     ]
   },
   "language": "japanese",
+  "permissions": {
+    "deny": [
+      "Bash(rm:*)",
+      "Bash(sudo:*)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ]
+  },
   "sandbox": {
     "allowUnsandboxedCommands": false,
     "autoAllowBashIfSandboxed": true,
     "enableWeakerNetworkIsolation": true,
     "enabled": true,
+    "excludedCommands": [
+      "docker",
+      "nerdctl",
+      "podman"
+    ],
     "filesystem": {
       "denyRead": [
         "~/"
@@ -29,7 +42,7 @@
     "network": {
       "allowedDomains": [
         "github.com",
-        "*.github.com",
+        "api.github.com",
         "raw.githubusercontent.com"
       ]
     }
