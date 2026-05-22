@@ -3,14 +3,14 @@
 
 input=$(cat)
 
-IFS=$'\t' read -r MODEL WORKSPACE CONTEXT_WINDOW FIVE_HOUR_RATE SEVEN_DAY_RATE SESSION_ID < <(
+IFS=$'\t' read -r MODEL WORKSPACE SESSION_ID CONTEXT_WINDOW FIVE_HOUR_RATE SEVEN_DAY_RATE < <(
     echo "${input}" | jq -r '[
         .model.display_name,
         .workspace.current_dir,
+        .session_id,
         (.context_window.used_percentage // 0),
         (.rate_limits.five_hour.used_percentage // ""),
-        (.rate_limits.seven_day.used_percentage // ""),
-        .session_id
+        (.rate_limits.seven_day.used_percentage // "")
     ] | @tsv'
 )
 
