@@ -137,9 +137,12 @@
   "git.ignoreLegacyWarning": true,
   "git.ignoreMissingGitWarning": true,
   "github.copilot.chat.agent.autoFix": true,
+  "github.copilot.chat.localeOverride": "ja",
   "github.copilot.nextEditSuggestions.enabled": true,
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "gitmoji.addCustomEmoji": [
     {
       "code": ":sparkles:",
