@@ -3,12 +3,16 @@
 
 input=$(cat)
 
-MODEL=$(echo "${input}" | jq -r '.model.display_name')
-WORKSPACE=$(echo "${input}" | jq -r '.workspace.current_dir')
-COST=$(echo "${input}" | jq -r '.cost.total_cost_usd // 0')
-CONTEXT_WINDOW=$(echo "${input}" | jq -r '.context_window.used_percentage // 0' | cut -d. -f1)
-DURATION_MS=$(echo "${input}" | jq -r '.cost.total_duration_ms // 0')
-SESSION_ID=$(echo "$input" | jq -r '.session_id')
+IFS=$'\t' read -r MODEL WORKSPACE CONTEXT_WINDOW FIVE_HOUR_RATE SEVEN_DAY_RATE SESSION_ID < <(
+    echo "${input}" | jq -r '[
+        .model.display_name,
+        .workspace.current_dir,
+        (.context_window.used_percentage // 0),
+        (.rate_limits.five_hour.used_percentage // ""),
+        (.rate_limits.seven_day.used_percentage // ""),
+        .session_id
+    ] | @tsv'
+)
 
 CACHE_FILE="/tmp/statusline-git-cache-${SESSION_ID}"
 CACHE_MAX_AGE=5
@@ -17,7 +21,6 @@ RESET='\033[0m'
 RED='\033[31m';
 GREEN='\033[32m';
 YELLOW='\033[33m';
-CYAN='\033[36m';
 
 cache_is_stale() {
     [ ! -f "${CACHE_FILE}" ] || \
@@ -37,28 +40,32 @@ fi
 
 IFS='|' read -r BRANCH STAGED MODIFIED < "${CACHE_FILE}"
 
-if [ "${CONTEXT_WINDOW}" -ge 90 ]; then
-    BAR_COLOR="${RED}"
-elif [ "${CONTEXT_WINDOW}" -ge 70 ]; then
-    BAR_COLOR="${YELLOW}"
-else
-    BAR_COLOR="${GREEN}"
-fi
+usage_bar() {
+    local USAGE=${1%.*}
+    local BAR_COLOR FILLED EMPTY FILL PAD BAR
 
-FILLED=$((CONTEXT_WINDOW / 10));
-EMPTY=$((10 - FILLED))
-printf -v FILL "%${FILLED}s";
-printf -v PAD "%${EMPTY}s"
-BAR="${FILL// /█}${PAD// /░}"
+    if [ "${USAGE}" -ge 90 ]; then
+        BAR_COLOR="${RED}"
+    elif [ "${USAGE}" -ge 70 ]; then
+        BAR_COLOR="${YELLOW}"
+    else
+        BAR_COLOR="${GREEN}"
+    fi
 
-DURATION_MINS=$((DURATION_MS / 60000));
-DURATION_SECS=$(((DURATION_MS % 60000) / 1000))
+    FILLED=$((USAGE / 10))
+    EMPTY=$((10 - FILLED))
+    printf -v FILL "%${FILLED}s"
+    printf -v PAD "%${EMPTY}s"
 
-COST_FMT=$(printf '%.2f' "${COST}")
+    BAR="${FILL// /█}${PAD// /░}"
+    echo -e "${BAR_COLOR}${BAR}${RESET}"
+}
 
-if [ -n "$BRANCH" ]; then
-    echo -e "${CYAN}[$MODEL]${RESET} 📁 ${WORKSPACE##*/} | 🌿 ${BRANCH} +${STAGED} ~${MODIFIED}"
-else
-    echo -e "${CYAN}[$MODEL]${RESET} 📁 ${WORKSPACE##*/}"
-fi
-echo -e "${BAR_COLOR}${BAR}${RESET} ${CONTEXT_WINDOW}% | 💰 ${COST_FMT} | ⏱️ ${DURATION_MINS}m ${DURATION_SECS}s"
+INFO_LINE="🤖 ${MODEL} | 📁 ${WORKSPACE##*/}"
+[ -n "${BRANCH}" ] && INFO_LINE="${INFO_LINE} | 🌿 ${BRANCH} +${STAGED} ~${MODIFIED}"
+echo -e "${INFO_LINE}"
+
+RATE_LINE="🧠 $(usage_bar "${CONTEXT_WINDOW}") ${CONTEXT_WINDOW%.*}%"
+[ -n "${FIVE_HOUR_RATE}" ] && RATE_LINE="${RATE_LINE} | ⏱️ $(usage_bar "${FIVE_HOUR_RATE}") ${FIVE_HOUR_RATE%.*}%"
+[ -n "${SEVEN_DAY_RATE}" ] && RATE_LINE="${RATE_LINE} | 📅 $(usage_bar "${SEVEN_DAY_RATE}") ${SEVEN_DAY_RATE%.*}%"
+echo -e "${RATE_LINE}"
