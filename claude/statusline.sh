@@ -3,12 +3,14 @@
 
 input=$(cat)
 
-IFS=$'\t' read -r MODEL WORKSPACE SESSION_ID CONTEXT_WINDOW FIVE_HOUR_RATE SEVEN_DAY_RATE < <(
+IFS=$'\t' read -r MODEL WORKSPACE SESSION_ID CONTEXT_WINDOW COST DURATION_MS FIVE_HOUR_RATE SEVEN_DAY_RATE < <(
     echo "${input}" | jq -r '[
         .model.display_name,
         .workspace.current_dir,
         .session_id,
         (.context_window.used_percentage // 0),
+        (.cost.total_cost_usd // 0),
+        (.cost.total_duration_ms // 0),
         (.rate_limits.five_hour.used_percentage // ""),
         (.rate_limits.seven_day.used_percentage // "")
     ] | @tsv'
@@ -65,7 +67,14 @@ INFO_LINE="🤖 ${MODEL} | 📁 ${WORKSPACE##*/}"
 [ -n "${BRANCH}" ] && INFO_LINE="${INFO_LINE} | 🌿 ${BRANCH} +${STAGED} ~${MODIFIED}"
 echo -e "${INFO_LINE}"
 
-RATE_LINE="🧠 $(usage_bar "${CONTEXT_WINDOW}") ${CONTEXT_WINDOW%.*}%"
-[ -n "${FIVE_HOUR_RATE}" ] && RATE_LINE="${RATE_LINE} | ⏱️ $(usage_bar "${FIVE_HOUR_RATE}") ${FIVE_HOUR_RATE%.*}%"
-[ -n "${SEVEN_DAY_RATE}" ] && RATE_LINE="${RATE_LINE} | 📅 $(usage_bar "${SEVEN_DAY_RATE}") ${SEVEN_DAY_RATE%.*}%"
-echo -e "${RATE_LINE}"
+USAGE_LINE="🧠 $(usage_bar "${CONTEXT_WINDOW}") ${CONTEXT_WINDOW%.*}%"
+if [ "${CLAUDE_CODE_STATUSLINE_MODE}" = 'cost' ]; then
+    COST_FMT=$(printf '$%.2f' "${COST}")
+    DURATION_MINS=$((DURATION_MS / 60000))
+    DURATION_SECS=$(((DURATION_MS % 60000) / 1000))
+    USAGE_LINE="${USAGE_LINE} | 💰 ${COST_FMT} | ⏱️ ${DURATION_MINS}m ${DURATION_SECS}s"
+else
+    [ -n "${FIVE_HOUR_RATE}" ] && USAGE_LINE="${USAGE_LINE} | ⏱️ $(usage_bar "${FIVE_HOUR_RATE}") ${FIVE_HOUR_RATE%.*}%"
+    [ -n "${SEVEN_DAY_RATE}" ] && USAGE_LINE="${USAGE_LINE} | 📅 $(usage_bar "${SEVEN_DAY_RATE}") ${SEVEN_DAY_RATE%.*}%"
+fi
+echo -e "${USAGE_LINE}"

@@ -6,7 +6,8 @@
   },
   "disableDeepLinkRegistration": "disable",
   "env": {
-    "CLAUDE_CODE_NO_FLICKER": "1"
+    "CLAUDE_CODE_NO_FLICKER": "1",
+    "GIT_CONFIG_GLOBAL": ""
   },
   "hooks": {
     "Notification": [
@@ -28,6 +29,8 @@
       "WebFetch(domain:raw.githubusercontent.com)"
     ],
     "deny": [
+      "Read(~/.config/gh/)",
+      "Read(~/.local/state/gh/)",
       "Bash(rm:*)",
       "Bash(sudo:*)",
       "Bash(curl:*)",
@@ -50,9 +53,15 @@
         "~/ghq/github.com/hico-horiuchi/initfiles",
         "~/.asdf/",
         "~/.asdfrc",
+        "~/.config/gh/",
+        "~/.local/state/gh/",
         "~/.git-templates/",
         "~/.gitconfig",
         "~/.gitignore"
+      ],
+      "allowWrite": [
+        "~/.config/gh/",
+        "~/.local/state/gh/"
       ],
       "denyRead": ["~/"]
     },
