@@ -31,6 +31,7 @@ make install
 | `tmux/` | `~/.tmux.conf` |
 | `visual-studio-code/` | `~/Library/Application Support/Code/User/settings.json` |
 | `homebrew/` | `~/.Brewfile` |
+| `lazygit/` | `~/Library/Application Support/lazygit/config.yml` |
 | `asdf/` | `~/.asdfrc`, `~/.default-*` 各ファイル |
 | `github/` | `~/.config/gh/config.yml`, `~/.config/gh-copilot/config.yml`, `~/.copilot/config.json` |
 | `powerline-go/` | パッチファイル群 (Makefile で手動適用) |

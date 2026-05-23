@@ -1,0 +1,9 @@
+git:
+  allBranchesLogCmds:
+    - git log --all --graph --oneline --color=always --date=short --decorate=short --pretty='%C(yellow)<%h>%C(reset) %C(magenta)[%ad]%C(reset)%C(auto)%d%C(reset) %s %C(cyan)@%an%C(reset)'
+  branchLogCmd: git log --graph --oneline --color=always --date=short --decorate=short --pretty='%C(yellow)<%h>%C(reset) %C(magenta)[%ad]%C(reset)%C(auto)%d%C(reset) %s %C(cyan)@%an%C(reset)' {{branchName}} --
+  pagers:
+    - colorArg: always
+      pager: delta --features=lazygit
+gui:
+  language: en

@@ -52,6 +52,8 @@ install:
 	mkdir -p $(HOME)/.copilot
 	mkdir -p $(HOME)/.docker
 	mkdir -p $(HOME)/.local/bin
+	mkdir -p $(HOME)/Library/Application\ Support/Code/User/
+	mkdir -p $(HOME)/Library/Application\ Support/lazygit
 
 	ln -fns $(PWD)/asdf/asdfrc                       $(HOME)/.asdfrc
 	ln -fns $(PWD)/asdf/default-cloud-sdk-components $(HOME)/.default-cloud-sdk-components
@@ -73,6 +75,7 @@ install:
 	ln -fns $(PWD)/github/gh-copilot_config.yml      $(HOME)/.config/gh-copilot/config.yml
 	ln -fns $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fns $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
+	ln -fns $(PWD)/lazygit/config.yml                $(HOME)/Library/Application\ Support/lazygit/config.yml
 	ln -fns $(PWD)/nano/nanorc                       $(HOME)/.nanorc
 	ln -fns $(PWD)/npm/npmrc                         $(HOME)/.npmrc
 	ln -fns $(PWD)/powerline-shell/config.json       $(HOME)/.config/powerline-shell/config.json

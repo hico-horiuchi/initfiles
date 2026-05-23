@@ -1,7 +1,7 @@
 [alias]
   ci = !hub ci-status -v | awk '{ print $3 }' | xargs open
   develop = !git checkout develop && git pull origin develop && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
-  graph = log --graph --oneline --date=short --decorate=short --pretty=format:\"%C(yellow)<%h>%C(reset) %C(magenta)[%ad]%C(reset)%C(auto)%d%C(reset) %s %C(cyan)@%an%C(reset)\"
+  graph = log --graph --oneline --date=short --decorate=short --pretty=\"%C(yellow)<%h>%C(reset) %C(magenta)[%ad]%C(reset)%C(auto)%d%C(reset) %s %C(cyan)@%an%C(reset)\"
   main = !git checkout main && git pull origin main && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
   master = !git checkout master && git pull origin master && git fetch -p origin && git branch -d $(git branch --merged | grep -v -e develop -e main -e master)
   sed =  "!f() { git ls-files | xargs sed -i '' -e \"s/${1}/${2}/g\"; }; f"
@@ -37,16 +37,23 @@
   features = decorations
   line-numbers = true
   line-numbers-zero-style = gray
-  navigate = true
-  side-by-side = true
-  width = 220
 
 [delta "decorations"]
   file-style = omit
   hunk-header-style = file syntax
+  navigate = true
+  side-by-side = true
+  width = 220
 
 [delta "interactive"]
+  color-only = true
   keep-plus-minus-markers = false
+
+[delta "lazygit"]
+  file-style = omit
+  hunk-header-style = omit
+  keep-plus-minus-markers = false
+  pager = never
 
 [diff]
   colorMoved = default
@@ -74,7 +81,7 @@
   templatedir = ~/.git-templates/init_template
 
 [interactive]
-  diffFilter = delta --color-only --features=interactive
+  diffFilter = delta --features=interactive
 
 [merge]
   ff = false
