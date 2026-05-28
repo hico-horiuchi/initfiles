@@ -225,10 +225,12 @@
     "--trailing-comma"
   ],
   "postman.mcp.notifications.postmanMCP": false,
+  "postman.settings.dotenv-detection-notification-visibility": false,
   "prettier.trailingComma": "none",
   "python.terminal.activateEnvironment": false,
   "python.testing.pytestArgs": ["--exitfirst", "--showlocals", "--verbose"],
   "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
   "python.useEnvironmentsExtension": true,
   "python.venvFolders": [".venv"],
   "redhat.telemetry.enabled": false,
