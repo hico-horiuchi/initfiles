@@ -48,12 +48,15 @@ install:
 	mkdir -p $(HOME)/.claude
 	mkdir -p $(HOME)/.config/gh
 	mkdir -p $(HOME)/.config/gh-copilot
+	mkdir -p $(HOME)/.config/pip
 	mkdir -p $(HOME)/.config/powerline-shell
+	mkdir -p $(HOME)/.config/uv
 	mkdir -p $(HOME)/.copilot
 	mkdir -p $(HOME)/.docker
 	mkdir -p $(HOME)/.local/bin
 	mkdir -p $(HOME)/Library/Application\ Support/Code/User/
 	mkdir -p $(HOME)/Library/Application\ Support/lazygit
+	mkdir -p $(HOME)/Library/Application\ Support/pypoetry
 
 	ln -fns $(PWD)/asdf/asdfrc                       $(HOME)/.asdfrc
 	ln -fns $(PWD)/asdf/default-cloud-sdk-components $(HOME)/.default-cloud-sdk-components
@@ -79,9 +82,12 @@ install:
 	ln -fns $(PWD)/lazygit/config.yml                $(HOME)/Library/Application\ Support/lazygit/config.yml
 	ln -fns $(PWD)/nano/nanorc                       $(HOME)/.nanorc
 	ln -fns $(PWD)/npm/npmrc                         $(HOME)/.npmrc
+	ln -fns $(PWD)/pip/pip.conf                      $(HOME)/.config/pip/pip.conf
+	ln -fns $(PWD)/poetry/config.toml                $(HOME)/Library/Application\ Support/pypoetry/config.toml
 	ln -fns $(PWD)/powerline-shell/config.json       $(HOME)/.config/powerline-shell/config.json
 	ln -fns $(PWD)/skk/yaskkserv2.conf               $(HOME)/.local/share/yaskkserv2/yaskkserv2.conf
 	ln -fns $(PWD)/tmux/tmux.conf                    $(HOME)/.tmux.conf
+	ln -fns $(PWD)/uv/uv.toml                        $(HOME)/.config/uv/uv.toml
 	ln -fns $(PWD)/visual-studio-code/settings.json  $(HOME)/Library/Application\ Support/Code/User/settings.json
 	ln -fns $(PWD)/wakatime/wakatime.cfg             $(HOME)/.wakatime.cfg
 	ln -fns $(PWD)/zsh/zshrc                         $(HOME)/.zshrc
