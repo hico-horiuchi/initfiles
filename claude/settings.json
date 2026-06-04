@@ -53,6 +53,7 @@
         "~/ghq/github.com/hico-horiuchi/initfiles",
         "~/.asdf/",
         "~/.asdfrc",
+        "~/.config/git/",
         "~/.config/gh/",
         "~/.local/state/gh/",
         "~/.git-templates/",
