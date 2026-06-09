@@ -65,7 +65,7 @@ install:
 	ln -fns $(PWD)/asdf/default-python-packages      $(HOME)/.default-python-packages
 	ln -fns $(PWD)/bash/bashrc                       $(HOME)/.bashrc
 	ln -fns $(PWD)/bash/inputrc                      $(HOME)/.inputrc
-	ln -fns $(PWD)/bundle/config                     $(HOME)/.bundle/config
+	ln -fns $(PWD)/bundler/config                    $(HOME)/.bundle/config
 	ln -fns $(PWD)/claude/CLAUDE.md                  $(HOME)/.claude/CLAUDE.md
 	ln -fns $(PWD)/claude/settings.json              $(HOME)/.claude/settings.json
 	ln -fns $(PWD)/claude/statusline.sh              $(HOME)/.claude/statusline.sh
