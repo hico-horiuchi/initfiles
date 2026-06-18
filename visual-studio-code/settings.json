@@ -95,6 +95,7 @@
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "explorer.incrementalNaming": "smart",
+  "extensions.autoUpdateDelay": 168,
   "extensions.ignoreRecommendations": true,
   "files.associations": {
     "**/defaults/*.yaml": "ansible",
