@@ -1,67 +1,126 @@
-tap "argoproj/tap"
-tap "dokku/repo"
-tap "hashicorp/tap"
-tap "heroku/brew"
-tap "hidetatz/tap"
-tap "kreuzwerker/taps"
-tap "teamookla/speedtest"
-tap "ynqa/tap"
+tap "argoproj/tap", trusted: true
+tap "dokku/repo", trusted: true
+tap "hashicorp/tap", trusted: true
+tap "heroku/brew", trusted: true
+tap "hidetatz/tap", trusted: true
+tap "kreuzwerker/taps", trusted: true
+tap "teamookla/speedtest", trusted: true
+tap "ynqa/tap", trusted: true
+# Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
+# Library for command-line editing
 brew "readline"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cloudflared"
+# Container runtimes on MacOS (and Linux) with minimal setup
 brew "colima"
+# GNU File, Shell, and Text utilities
 brew "coreutils"
+# Load/unload environment variables based on $PWD
 brew "direnv"
+# Pack, ship and run any application as a lightweight container
 brew "docker"
+# Docker CLI plugin for extended build capabilities with BuildKit
 brew "docker-buildx"
+# Isolated development environments using Docker
 brew "docker-compose"
+# Create Docker hosts locally and on cloud providers
 brew "docker-machine"
+# Emoji on the command-line :scream:
 brew "emojify"
+# Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GNU awk utility
 brew "gawk"
+# GitHub command-line tool
 brew "gh"
+# Interpreter for PostScript and PDF
 brew "ghostscript"
+# Remote repository management made easy
 brew "ghq"
+# Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
+# Prevents you from committing sensitive information to a git repo
 brew "git-secrets"
+# Declarative configuration for Gmail filters
 brew "gmailctl"
+# GNU implementation of the famous stream editor
 brew "gnu-sed"
+# Open source programming language to build simple/reliable/efficient software
+brew "go"
+# GNU grep, egrep and fgrep
 brew "grep"
+# Make JSON greppable
 brew "gron"
+# Add GitHub support to git on the command-line
 brew "hub"
+# Tools and libraries to manipulate images in select formats
 brew "imagemagick"
+# JSON output from a shell
 brew "jo"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# Simple terminal UI for git commands
 brew "lazygit"
+# Pager program similar to more
 brew "less"
+# YAML Parser
 brew "libyaml"
+# Open source relational database management system
 brew "mysql-client@8.0"
+# Free (GNU) replacement for the Pico text editor
 brew "nano"
+# Network Kanji code conversion Filter (NKF)
 brew "nkf"
+# Draw UML diagrams
 brew "plantuml"
+# QR Code generation
 brew "qrencode"
+# Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
+# Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# Source-code syntax highlighter
 brew "source-highlight"
+# Terminal multiplexer
 brew "tmux"
+# Vulnerability scanner for container images, file systems, and Git repos
 brew "trivy"
+# Command-line interface to the WakaTime api
 brew "wakatime-cli"
+# Internet file retriever
 brew "wget"
+# Why is this running?
 brew "witr"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# UNIX shell (command interpreter)
 brew "zsh"
+# Fish-like fast/unobtrusive autosuggestions for zsh
 brew "zsh-autosuggestions"
+# Additional completion definitions for zsh
 brew "zsh-completions"
+# Kubectl Argo Rollouts Plugin.
 brew "argoproj/tap/kubectl-argo-rollouts"
+# Command-line client for the Dokku PaaS
 brew "dokku/repo/dokku"
+# Terraform
 brew "hashicorp/tap/terraform"
+# Everything you need to get started with Heroku
 brew "heroku/brew/heroku"
+# Colorize your kubectl output
 brew "hidetatz/tap/kubecolor"
+# CLI to support with downloading and compiling terraform providers for Mac with M1 chip.
 brew "kreuzwerker/taps/m1-terraform-provider-helper"
+# Ookla Speedtest
 brew "teamookla/speedtest/speedtest"
+# JSON navigator and interactive filter leveraging jq
 brew "ynqa/tap/jnv"
 vscode "anthropic.claude-code"
 vscode "bierner.github-markdown-preview"
