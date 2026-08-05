@@ -53,6 +53,7 @@
     "editor.defaultFormatter": "hashicorp.terraform"
   },
   "black-formatter.args": ["--line-length=120", "--target-version=py310"],
+  "breadcrumbs.showEditorType": true,
   "chat.instructionsFilesLocations": {
     ".github/instructions": true,
     ".claude/rules": true,
