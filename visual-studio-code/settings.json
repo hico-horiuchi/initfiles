@@ -273,6 +273,7 @@
   "workbench.editor.alwaysShowEditorActions": true,
   "workbench.editor.pinnedTabSizing": "compact",
   "workbench.editor.tabSizing": "shrink",
+  "workbench.experimental.modernUI": true,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.preferredDarkColorTheme": "GitHub Dark Dimmed",
   "workbench.preferredHighContrastColorTheme": "GitHub Dark High Contrast",
