@@ -143,8 +143,6 @@
   "github.copilot.nextEditSuggestions.enabled": true,
   "githubPullRequests.fileListLayout": "flat",
   "githubPullRequests.pullBranch": "never",
-  "gitlens.ai.model": "vscode",
-  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
   "gitmoji.addCustomEmoji": [
     {
       "code": ":sparkles:",
