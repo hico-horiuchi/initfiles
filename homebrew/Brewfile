@@ -4,6 +4,7 @@ tap "hashicorp/tap", trusted: true
 tap "heroku/brew", trusted: true
 tap "hidetatz/tap", trusted: true
 tap "kreuzwerker/taps", trusted: true
+tap "macpaw/taps", trusted: true
 tap "teamookla/speedtest", trusted: true
 tap "ynqa/tap", trusted: true
 # Extendable version manager with support for Ruby, Node.js, Erlang & more
@@ -122,6 +123,8 @@ brew "kreuzwerker/taps/m1-terraform-provider-helper"
 brew "teamookla/speedtest/speedtest"
 # JSON navigator and interactive filter leveraging jq
 brew "ynqa/tap/jnv"
+# Command-line interface for CleanMyMac
+cask "macpaw/taps/cleanmymac-cli", trusted: true
 vscode "anthropic.claude-code"
 vscode "bierner.github-markdown-preview"
 vscode "bierner.markdown-checkbox"
