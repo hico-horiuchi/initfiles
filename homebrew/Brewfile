@@ -1,4 +1,5 @@
 tap "argoproj/tap", trusted: true
+tap "atlassian/acli", trusted: true
 tap "dokku/repo", trusted: true
 tap "hashicorp/tap", trusted: true
 tap "heroku/brew", trusted: true
@@ -109,6 +110,8 @@ brew "zsh-autosuggestions"
 brew "zsh-completions"
 # Kubectl Argo Rollouts Plugin.
 brew "argoproj/tap/kubectl-argo-rollouts"
+# Software to interact with Atlassian Cloud from the terminal
+brew "atlassian/acli/acli"
 # Command-line client for the Dokku PaaS
 brew "dokku/repo/dokku"
 # Terraform

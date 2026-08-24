@@ -56,6 +56,7 @@
       "mcp__github__pull_request_read"
     ],
     "deny": [
+      "Read(~/.config/acli/)",
       "Read(~/.config/gh/)",
       "Read(~/.local/state/gh/)",
       "Bash(rm:*)",
@@ -80,6 +81,7 @@
         "~/ghq/github.com/hico-horiuchi/initfiles",
         "~/.asdf/",
         "~/.asdfrc",
+        "~/.config/acli/",
         "~/.config/git/",
         "~/.config/gh/",
         "~/.local/state/gh/",
@@ -88,6 +90,7 @@
         "~/.gitignore"
       ],
       "allowWrite": [
+        "~/.config/acli/",
         "~/.config/gh/",
         "~/.local/state/gh/"
       ],
