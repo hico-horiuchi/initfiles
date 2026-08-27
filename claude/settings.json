@@ -100,12 +100,14 @@
       "allowedDomains": [
         "github.com",
         "api.github.com",
+        "gist.github.com",
         "raw.githubusercontent.com"
       ]
     }
   },
   "statusLine": {
     "command": "~/.claude/statusline.sh",
+    "refreshInterval": 60,
     "type": "command"
   },
   "theme": "auto"

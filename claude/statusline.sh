@@ -3,23 +3,30 @@
 
 input=$(cat)
 
-IFS=$'\t' read -r MODEL WORKSPACE SESSION_ID CONTEXT_WINDOW COST DURATION_MS FIVE_HOUR_RATE SEVEN_DAY_RATE < <(
-    echo "${input}" | jq -r '[
-        .model.display_name,
-        .workspace.current_dir,
-        .session_id,
-        (.context_window.used_percentage // 0),
-        (.cost.total_cost_usd // 0),
-        (.cost.total_duration_ms // 0),
-        (.rate_limits.five_hour.used_percentage // ""),
-        (.rate_limits.seven_day.used_percentage // "")
-    ] | @tsv'
+IFS=$'\t' read -r MODEL EFFORT WORKSPACE SESSION_ID CONTEXT_WINDOW COST DURATION_MS FIVE_HOUR_RATE FIVE_HOUR_RESET SEVEN_DAY_RATE SEVEN_DAY_RESET < <(
+    echo "${input}" | jq -r '
+        def secs_left: if . == null then "" else (. - now | floor) end;
+        [
+            .model.display_name,
+            .effort.level,
+            .workspace.current_dir,
+            .session_id,
+            (.context_window.used_percentage // 0),
+            (.cost.total_cost_usd // 0),
+            (.cost.total_duration_ms // 0),
+            (.rate_limits.five_hour.used_percentage // ""),
+            (.rate_limits.five_hour.resets_at | secs_left),
+            (.rate_limits.seven_day.used_percentage // ""),
+            (.rate_limits.seven_day.resets_at | secs_left)
+        ] | @tsv
+    '
 )
 
 CACHE_FILE="/tmp/statusline-git-cache-${SESSION_ID}"
 CACHE_MAX_AGE=5
 
-RESET='\033[0m'
+RESET='\033[0m';
+BOLD='\033[1m';
 RED='\033[31m';
 GREEN='\033[32m';
 YELLOW='\033[33m';
@@ -63,7 +70,21 @@ usage_bar() {
     echo -e "${BAR_COLOR}${BAR}${RESET}"
 }
 
-INFO_LINE="🤖 ${MODEL} | 📁 ${WORKSPACE##*/}"
+remaining_time() {
+    local LEFT=${1}
+    local UNIT=${2}
+
+    [ -n "${LEFT}" ] || return
+    [ "${LEFT}" -lt 0 ] && LEFT=0
+
+    if [ "${UNIT}" = 'dh' ]; then
+        printf '%dd%dh' $((LEFT / 86400)) $(((LEFT % 86400) / 3600))
+    else
+        printf '%dh%dm' $((LEFT / 3600)) $(((LEFT % 3600) / 60))
+    fi
+}
+
+INFO_LINE="🤖 ${MODEL} ${BOLD}${EFFORT}${RESET} | 📁 ${WORKSPACE##*/}"
 [ -n "${BRANCH}" ] && INFO_LINE="${INFO_LINE} | 🌿 ${BRANCH} +${STAGED} ~${MODIFIED}"
 echo -e "${INFO_LINE}"
 
@@ -74,7 +95,9 @@ if [ "${CLAUDE_CODE_STATUSLINE_MODE}" = 'cost' ]; then
     DURATION_SECS=$(((DURATION_MS % 60000) / 1000))
     USAGE_LINE="${USAGE_LINE} | 💰 ${COST_FMT} | ⏱️ ${DURATION_MINS}m ${DURATION_SECS}s"
 else
-    [ -n "${FIVE_HOUR_RATE}" ] && USAGE_LINE="${USAGE_LINE} | ⏱️ $(usage_bar "${FIVE_HOUR_RATE}") ${FIVE_HOUR_RATE%.*}%"
-    [ -n "${SEVEN_DAY_RATE}" ] && USAGE_LINE="${USAGE_LINE} | 📅 $(usage_bar "${SEVEN_DAY_RATE}") ${SEVEN_DAY_RATE%.*}%"
+    FIVE_HOUR_LEFT=$(remaining_time "${FIVE_HOUR_RESET}" 'hm')
+    SEVEN_DAY_LEFT=$(remaining_time "${SEVEN_DAY_RESET}" 'dh')
+    [ -n "${FIVE_HOUR_RATE}" ] && USAGE_LINE="${USAGE_LINE} | ⏱️ $(usage_bar "${FIVE_HOUR_RATE}") ${FIVE_HOUR_RATE%.*}%${FIVE_HOUR_LEFT:+ ${BOLD}(${FIVE_HOUR_LEFT})${RESET}}"
+    [ -n "${SEVEN_DAY_RATE}" ] && USAGE_LINE="${USAGE_LINE} | 📅 $(usage_bar "${SEVEN_DAY_RATE}") ${SEVEN_DAY_RATE%.*}%${SEVEN_DAY_LEFT:+ ${BOLD}(${SEVEN_DAY_LEFT})${RESET}}"
 fi
 echo -e "${USAGE_LINE}"
