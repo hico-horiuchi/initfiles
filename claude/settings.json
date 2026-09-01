@@ -25,6 +25,7 @@
   "model": "opus",
   "permissions": {
     "allow": [
+      "Artifact",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:api.github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
@@ -45,6 +46,10 @@
       "mcp__claude_ai_Google_Drive__list_*",
       "mcp__claude_ai_Google_Drive__read_*",
       "mcp__claude_ai_Google_Drive__search_*",
+      "mcp__claude_ai_Slack__slack_get_*",
+      "mcp__claude_ai_Slack__slack_list_*",
+      "mcp__claude_ai_Slack__slack_read_*",
+      "mcp__claude_ai_Slack__slack_search_*",
       "mcp__esa__esa_get_*",
       "mcp__esa__esa_search_*",
       "mcp__github__get_*",
@@ -55,6 +60,7 @@
       "mcp__github__issue_read",
       "mcp__github__pull_request_read"
     ],
+    "defaultMode": "auto",
     "deny": [
       "Read(~/.config/acli/)",
       "Read(~/.config/gh/)",
@@ -110,5 +116,6 @@
     "refreshInterval": 60,
     "type": "command"
   },
-  "theme": "auto"
+  "theme": "auto",
+  "viewMode": "focus"
 }
