@@ -1,12 +1,15 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "askUserQuestionTimeout": "10m",
   "attribution": {
     "commit": "Co-authored-by: Claude <noreply@anthropic.com>",
     "pr": "Generated with Claude Code"
   },
+  "cleanupPeriodDays": 365,
   "disableDeepLinkRegistration": "disable",
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1",
+    "CLAUDE_CODE_THRIFTY_SONIC": "0",
     "GIT_CONFIG_GLOBAL": ""
   },
   "hooks": {
@@ -28,6 +31,7 @@
       "Artifact",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:api.github.com)",
+      "WebFetch(domain:gist.github.com)",
       "WebFetch(domain:raw.githubusercontent.com)",
       "mcp__claude_ai_Atlassian_Rovo__atlassian*",
       "mcp__claude_ai_Atlassian_Rovo__fetch*",
@@ -60,6 +64,17 @@
       "mcp__github__issue_read",
       "mcp__github__pull_request_read"
     ],
+    "ask": [
+      "mcp__claude_ai_Atlassian_Rovo__delete*",
+      "mcp__claude_ai_gmail__delete_*",
+      "mcp__claude_ai_gmail__trash_*",
+      "mcp__claude_ai_Google_Calendar__delete_*",
+      "mcp__claude_ai_Google_Drive__trash_*",
+      "mcp__claude_ai_Slack__slack_delete_*",
+      "mcp__esa__esa_archive_*",
+      "mcp__esa__esa_delete_*",
+      "mcp__github__delete_*"
+    ],
     "defaultMode": "auto",
     "deny": [
       "Read(~/.config/acli/)",
@@ -69,17 +84,43 @@
       "Bash(sudo:*)",
       "Bash(curl:*)",
       "Bash(wget:*)"
-    ]
+    ],
+    "disableBypassPermissionsMode": "disable"
   },
   "sandbox": {
     "allowUnsandboxedCommands": false,
     "autoAllowBashIfSandboxed": true,
+    "credentials": {
+      "envVars": [
+        {
+          "mode": "deny",
+          "name": "BW_PASSWORD"
+        },
+        {
+          "mode": "deny",
+          "name": "BW_SESSION"
+        },
+        {
+          "mode": "deny",
+          "name": "GIT_TOKEN"
+        },
+        {
+          "mode": "deny",
+          "name": "GITHUB_TOKEN"
+        },
+        {
+          "mode": "deny",
+          "name": "GH_TOKEN"
+        }
+      ]
+    },
     "enableWeakerNetworkIsolation": true,
     "enabled": true,
     "excludedCommands": [
       "docker",
       "nerdctl",
-      "podman"
+      "podman",
+      "kubectl"
     ],
     "failIfUnavailable": true,
     "filesystem": {
@@ -108,7 +149,8 @@
         "api.github.com",
         "gist.github.com",
         "raw.githubusercontent.com"
-      ]
+      ],
+      "strictAllowlist": true
     }
   },
   "statusLine": {
