@@ -125,7 +125,7 @@
     "failIfUnavailable": true,
     "filesystem": {
       "allowRead": [
-        "~/ghq/github.com/hico-horiuchi/initfiles",
+        "~/ghq/",
         "~/.asdf/",
         "~/.asdfrc",
         "~/.config/acli/",
@@ -141,7 +141,9 @@
         "~/.config/gh/",
         "~/.local/state/gh/"
       ],
-      "denyRead": ["~/"]
+      "denyRead": [
+        "~/"
+      ]
     },
     "network": {
       "allowedDomains": [

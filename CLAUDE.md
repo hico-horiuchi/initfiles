@@ -38,27 +38,29 @@ make install
 
 ## 主要ファイル
 
-- **`Makefile`** — 唯一のエントリポイント。全シンボリックリンク定義と外部依存のクローン手順がある。
-- **`git/gitconfig`** — `delta` をページャとして使用、`git graph` エイリアスあり、commit template に gitmoji 使用。
-- **`zsh/zshrc`** — asdf / fzf / ghq / powerline-go / z / auto-fu.zsh / wakatime の統合、各種 fzf キーバインド (`^G^H` ghq, `^G^B` git branch, `^G^P` gh Pull Request, `^F` z) を定義。
-- **`claude/settings.json`** — Claude Code の共有設定。サンドボックス有効、言語設定 `japanese`、Notification フックで `Glass.aiff` を再生。
+- **`Makefile`** — 唯一のエントリポイントであり、全シンボリックリンク定義と外部依存のクローン手順を持つ
+- **`git/gitconfig`** — `delta` をページャとして使用し、`git graph` エイリアスと gitmoji の commit template を設定
+- **`zsh/zshrc`** — asdf / fzf / ghq / powerline-go / z / auto-fu.zsh / wakatime の統合と各種 fzf キーバインド (`^G^H` ghq, `^G^B` git branch, `^G^P` gh Pull Request, `^F` z) を定義
+- **`claude/settings.json`** — サンドボックス有効、言語設定 `japanese`、Notification フックでの `Glass.aiff` 再生を含む Claude Code の共有設定
 
 ## Claude Code 設定
 
 `claude/settings.json` は `~/.claude/settings.json` にリンクされる共有設定で、`.claude/settings.json` (プロジェクトローカル) とは別物。
 
-- `GIT_CONFIG_GLOBAL=""` を env に設定しており、Claude Code 実行中は `~/.gitconfig` のエイリアスが無効化される。
-- 許可ドメイン: `github.com`, `api.github.com`, `raw.githubusercontent.com` のみ。
-- `rm`, `sudo`, `curl`, `wget` の Bash 実行は deny されている。
+- `GIT_CONFIG_GLOBAL=""` を env に設定しており、Claude Code 実行中は `~/.gitconfig` のエイリアスが無効化される
+- 許可ドメインは `github.com`, `api.github.com`, `raw.githubusercontent.com` のみ
+- `rm`, `sudo`, `curl`, `wget` の Bash 実行は deny されている
 
 ## ファイルの更新
 
-設定ファイルを編集した場合、シンボリックリンクのため即時反映される (再リンク不要)。  
+設定ファイルを編集した場合、シンボリックリンクのため即時反映される (再リンク不要)。
+
 新しいツール設定を追加する場合は `Makefile` に `mkdir -p` と `ln -fs` の行を追加する。
 
 ## コミット規約
 
-`git/templates/commit_template` に gitmoji の一覧がコメントとして埋め込まれており、コミットメッセージの先頭に emoji を付ける慣習。  
+`git/templates/commit_template` に gitmoji の一覧がコメントとして埋め込まれており、コミットメッセージの先頭に emoji を付ける慣習。
+
 テンプレートの再生成:
 
 ```bash

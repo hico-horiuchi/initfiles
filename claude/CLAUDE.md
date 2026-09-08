@@ -33,3 +33,9 @@ Markdown ファイルの編集やソースコードへのコメント記述時�
 - 用語は省略しない (例: `PR` → `Pull Request`, `VS Code` → `Visual Studio Code`)
 - 長音を適切に使用する (例: `ユーザー`, `サーバー`)
 - 句読点を適切に使用する (箇条書きでは句点を使用しない、など)
+- 1 段落 1 行で書く、箇条書きは 1 項目 1 文にする
+
+下記は日本語技術文書の規範として有用だが、本ファイルと矛盾する場合は本ファイルを優先すること。
+
+- [japanese-tech-writing](https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d)
+- [natural-japanese](https://github.com/coji/natural-japanese)
