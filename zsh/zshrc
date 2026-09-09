@@ -300,6 +300,13 @@ function _get_branch_status() {
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
+# ローカル設定 (前)
+#--------------------------------------------------------------------------------
+# 各ツールの設定が参照する変数を定義する (bw_login_options, powerline_go_modules など)
+[ -e "${HOME}/.zshrc.local.pre" ] && source "${HOME}/.zshrc.local.pre"
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
 # acli
 #--------------------------------------------------------------------------------
 if exists acli; then
@@ -363,7 +370,7 @@ if exists bw; then
         rm "${tempfile}"
     }
     function _bw_login() {
-        bw login
+        bw login ${=bw_login_options}
     }
     function _bw_sync() {
         bw sync
@@ -584,9 +591,10 @@ fi
 # powerline-go
 #--------------------------------------------------------------------------------
 if exists powerline-go; then
+    powerline_go_modules="${powerline_go_modules:-perms,kube,venv,cwd,root}"
     function _powerline_precmd() {
-        # PS1=$'\n'"$(powerline-go -error "${?}" -jobs "${${(%):%j}:-0}" -modules perms,kube,venv,cwd,root -shell zsh -shorten-eks-names -shorten-gke-names)"
-        eval "$(powerline-go -error "${?}" -eval -jobs "${${(%):%j}:-0}" -modules perms,kube,venv,cwd,root -modules-right git -shell zsh -shorten-eks-names -shorten-gke-names)"
+        # PS1=$'\n'"$(powerline-go -error "${?}" -jobs "${${(%):%j}:-0}" -modules "${powerline_go_modules}" -shell zsh -shorten-eks-names -shorten-gke-names)"
+        eval "$(powerline-go -error "${?}" -eval -jobs "${${(%):%j}:-0}" -modules "${powerline_go_modules}" -modules-right git -shell zsh -shorten-eks-names -shorten-gke-names)"
     }
     function _install_powerline_precmd() {
         for s in "${precmd_functions[@]}"; do
@@ -773,4 +781,11 @@ if [ -e "${auto_fu_path}" ]; then
     # 「-azfu-」を表示させない
     zstyle ':auto-fu:var' postdisplay $''
 fi
+#--------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------
+# ローカル設定 (後)
+#--------------------------------------------------------------------------------
+# リポジトリで管理しない設定を読み込む (関数の上書きもここで行う)
+[ -e "${HOME}/.zshrc.local.post" ] && source "${HOME}/.zshrc.local.post"
 #--------------------------------------------------------------------------------

@@ -92,6 +92,10 @@ install:
 	ln -fns $(PWD)/wakatime/wakatime.cfg             $(HOME)/.wakatime.cfg
 	ln -fns $(PWD)/zsh/zshrc                         $(HOME)/.zshrc
 
+	# ローカル設定は存在する場合のみリンクする
+	[ ! -e $(PWD)/zsh/zshrc.local.pre ]  || ln -fns $(PWD)/zsh/zshrc.local.pre  $(HOME)/.zshrc.local.pre
+	[ ! -e $(PWD)/zsh/zshrc.local.post ] || ln -fns $(PWD)/zsh/zshrc.local.post $(HOME)/.zshrc.local.post
+
 	# https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
 	sudo cp macos/limit.max*.plist /Library/LaunchDaemons/
 	sudo chown root:wheel /Library/LaunchDaemons/limit.max*.plist
