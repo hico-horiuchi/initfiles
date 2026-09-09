@@ -210,6 +210,25 @@ function set-keychain-environment-variable() {
     fi
     security add-generic-password -U -a "${USER}" -D 'environment variable' -s "${1}" -w "${secret}"
 }
+# https://github.com/otoyo/dotfiles/blob/master/.zsh/tmux-attach-or-new-session.sh
+function tmux-attach-or-new-session() {
+    local session
+    session="${${PWD/#${HOME}/}#/}"
+    session="${${session:-home}//[.:\/]/_}"
+    if tmux has-session -t "=${session}" > /dev/null 2>&1; then
+        tmux attach -t "=${session}"
+    else
+        tmux new -s "${session}"
+    fi
+}
+function _tmux_attach_or_new_session() {
+    BUFFER='tmux-attach-or-new-session'
+    CURSOR="${#BUFFER}"
+    zle accept-line
+    zle reset-prompt
+}
+zle -N _tmux_attach_or_new_session
+bindkey '^G^Y' _tmux_attach_or_new_session
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
