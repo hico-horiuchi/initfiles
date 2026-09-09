@@ -41,6 +41,13 @@ done
 HISTFILE=~/.zsh_history
 HISTSIZE=1000000
 SAVEHIST=1000000
+# 起動高速化用のキャッシュ置き場
+zsh_cache_dir="${HOME}/.cache/zsh"
+[ -d "${zsh_cache_dir}" ] || mkdir -p "${zsh_cache_dir}"
+# このファイル自身を zcompile して次回以降のパースを省く
+if [ -e "${HOME}/.zshrc" ] && [ ! "${HOME}/.zshrc.zwc" -nt "${HOME}/.zshrc" ]; then
+    zcompile -R -- "${HOME}/.zshrc.zwc" "${HOME}/.zshrc"
+fi
 #--------------------------------------------------------------------------------
 
 #--------------------------------------------------------------------------------
@@ -53,7 +60,18 @@ colors
 [ -d "${HOMEBREW_PREFIX}/opt/asdf" ] && FPATH="${HOMEBREW_PREFIX}/opt/asdf/share/zsh/site-functions:${FPATH}"
 [ -d "${HOMEBREW_PREFIX}/share/zsh-completions" ] && FPATH="${HOMEBREW_PREFIX}/share/zsh-completions:${FPATH}"
 [ -d "${HOMEBREW_PREFIX}/share/zsh-autosuggestions" ] && source "${HOMEBREW_PREFIX}/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-autoload -Uz compinit && compinit -u
+autoload -Uz compinit
+# ダンプが 24 時間以内なら再検証を省略し、そうでなければ作り直す
+zcompdump="${zsh_cache_dir}/zcompdump"
+zcompdump_recent=("${zcompdump}"(Nmh-24))
+if (( ${#zcompdump_recent} )); then
+    compinit -C -d "${zcompdump}"
+else
+    compinit -u -d "${zcompdump}"
+fi
+# ダンプ自体も zcompile して読み込みを速くする
+[ "${zcompdump}.zwc" -nt "${zcompdump}" ] || zcompile -R -- "${zcompdump}.zwc" "${zcompdump}"
+unset zcompdump_recent
 # 単語の区切り文字を指定する
 autoload -Uz select-word-style
 select-word-style default
@@ -182,7 +200,17 @@ function docker-ssh() {
     docker exec -i -t "${1}" /bin/bash
 }
 function exists() {
-    type "${1}" > /dev/null
+    (( ${+commands[${1}]} ))
+}
+# コマンドの出力をキャッシュして読み込む (コマンド本体が更新されたら作り直す)
+function eval_cached() {
+    local cache name="${1}"
+    shift
+    cache="${zsh_cache_dir}/${name}.zsh"
+    if [ ! -s "${cache}" ] || [ "${commands[${name}]}" -nt "${cache}" ]; then
+        "${@}" > "${cache}"
+    fi
+    source "${cache}"
 }
 function set_position() {
     local resolution width=${4:-1400} height=${5:-900}
@@ -285,29 +313,29 @@ fi
 #--------------------------------------------------------------------------------
 if exists asdf; then
     export PATH="${ASDF_DATA_DIR:-${HOME}/.asdf}/shims:${PATH}"
-    plugin_list=$(asdf plugin list)
+    plugin_list=(${(f)"$(asdf plugin list)"})
     # awscli
-    if echo "${plugin_list}" | grep -q 'awscli'; then
+    if (( ${plugin_list[(I)*awscli*]} )); then
         autoload -U +X bashcompinit && bashcompinit
         complete -o nospace -C "${HOME}/.asdf/shims/aws_completer" aws
     fi
     # gcloud
-    if echo "${plugin_list}" | grep -q 'gcloud'; then
+    if (( ${plugin_list[(I)*gcloud*]} )); then
         export USE_GKE_GCLOUD_AUTH_PLUGIN='True'
         source "${HOME}"/.asdf/installs/gcloud/*/completion.zsh.inc
     fi
     # golang
-    if echo "${plugin_list}" | grep -q 'golang'; then
+    if (( ${plugin_list[(I)*golang*]} )); then
         export ASDF_GOLANG_MOD_VERSION_ENABLED=false
         source "${HOME}/.asdf/plugins/golang/set-env.zsh"
     fi
     # ruby
-    if echo "${plugin_list}" | grep -q 'ruby'; then
+    if (( ${plugin_list[(I)*ruby*]} )); then
         RUBY_CONFIGURE_OPTS="--with-openssl-dir=${HOMEBREW_PREFIX}/opt/openssl@3"
         export RUBY_CONFIGURE_OPTS
     fi
     # rust
-    if echo "${plugin_list}" | grep -q 'rust'; then
+    if (( ${plugin_list[(I)*rust*]} )); then
         RUST_WITHOUT='rust-docs'
         export RUST_WITHOUT
     fi
@@ -333,7 +361,7 @@ fi
 # direnv
 #--------------------------------------------------------------------------------
 if exists direnv; then
-    eval "$(direnv hook zsh)"
+    eval_cached direnv direnv hook zsh
 fi
 #--------------------------------------------------------------------------------
 
@@ -466,7 +494,7 @@ fi
 # hub
 #--------------------------------------------------------------------------------
 if exists hub; then
-    eval "$(hub alias -s)"
+    eval_cached hub hub alias -s
 fi
 #--------------------------------------------------------------------------------
 
@@ -558,8 +586,16 @@ fi
 #--------------------------------------------------------------------------------
 # https://stackoverflow.com/questions/59940971/zsh-autocomplete-slow-for-ssh
 function _refresh_ssh_autocomplete () {
-    host_list=($(cat ~/.ssh/config | grep 'Host ' | grep -v '*' | awk '{s = s $2 " "} END {print s}'))
-    zstyle ':completion:*:(ssh|scp|sftp):*' hosts "${host_list}"
+    local line
+    local -a fields host_list
+    [ -r "${HOME}/.ssh/config" ] || return
+    for line in ${(f)"$(<${HOME}/.ssh/config)"}; do
+        [[ "${line}" == *'Host '* ]] || continue
+        [[ "${line}" == *'*'* ]] && continue
+        fields=(${=line})
+        [ -n "${fields[2]}" ] && host_list+=("${fields[2]}")
+    done
+    zstyle ':completion:*:(ssh|scp|sftp):*' hosts "${host_list[@]}"
 }
 _refresh_ssh_autocomplete
 #--------------------------------------------------------------------------------
@@ -664,8 +700,22 @@ fi
 # auto-fu.zsh
 #--------------------------------------------------------------------------------
 auto_fu_path="${HOME}/ghq/github.com/hchbaw/auto-fu.zsh/auto-fu.zsh"
+auto_fu_compiled="${zsh_cache_dir}/auto-fu"
 if [ -e "${auto_fu_path}" ]; then
-    source "${auto_fu_path}"
+    # eval を展開済みの zcompile 版を使う (初回と auto-fu.zsh 更新時のみ生成)
+    # select-word-style と組み合わせる widget は zcompile 時に指定する必要がある
+    if [ ! -e "${auto_fu_compiled}" ] || [ "${auto_fu_path}" -nt "${auto_fu_compiled}" ]; then
+        zsh -c "source '${auto_fu_path}' && \
+                AUTO_FU_ZCOMPILE_KILLWORDMATCH=t \
+                AUTO_FU_ZCOMPILE_BACKWARDKILLWORDMATCH=t \
+                auto-fu-zcompile '${auto_fu_path}' '${zsh_cache_dir}'" > /dev/null 2>&1
+    fi
+    if [ -e "${auto_fu_compiled}" ]; then
+        source "${auto_fu_compiled}"
+        auto-fu-install
+    else
+        source "${auto_fu_path}"
+    fi
     function zle-line-init() {
         auto-fu-init
     }
@@ -707,7 +757,9 @@ if exists bw; then
         _bw_login
         _bw_unlock
     fi
-    if [ -z "${BW_LAST_SYNC}" ] || [ $(expr $(date +%s) - $(date -d "${BW_LAST_SYNC}" +%s)) -ge 86400 ]; then
+    zmodload zsh/datetime
+    bw_last_sync_epoch=$(date -d "${BW_LAST_SYNC}" +%s 2> /dev/null)
+    if [ -z "${BW_LAST_SYNC}" ] || (( EPOCHSECONDS - ${bw_last_sync_epoch:-0} >= 86400 )); then
         case $(bw status | jq -r '.status') in
             'locked')
                 _bw_unlock
@@ -717,8 +769,8 @@ if exists bw; then
                 _bw_unlock
                 ;;
         esac
-        _bw_sync
-        _bw_export
+        # 同期とエクスポートはプロンプトを待たせないようバックグラウンドで実行する
+        { _bw_sync; _bw_export } > /dev/null 2>&1 &!
     fi
 fi
 #------------------------------------------------------------------------------
