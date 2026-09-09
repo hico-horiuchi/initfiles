@@ -1280,7 +1280,7 @@
 	<integer>5</integer>
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Profiles</string>
+		<string>Session Status</string>
 	</array>
 	<key>UseBorder</key>
 	<false/>
