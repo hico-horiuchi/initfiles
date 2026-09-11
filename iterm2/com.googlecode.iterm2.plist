@@ -30,6 +30,8 @@
 	<true/>
 	<key>CheckTestRelease</key>
 	<false/>
+	<key>ClaudeCodeWorkgroupUpsellSuppressed</key>
+	<true/>
 	<key>Custom Color Presets</key>
 	<dict/>
 	<key>Default Bookmark Guid</key>
