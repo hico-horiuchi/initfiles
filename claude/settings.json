@@ -8,12 +8,21 @@
   "cleanupPeriodDays": 365,
   "disableDeepLinkRegistration": "disable",
   "enabledPlugins": {
+    "esa@esa-skills": true,
     "ruby-lsp@claude-plugins-official": true
   },
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1",
     "CLAUDE_CODE_THRIFTY_SONIC": "0",
     "GIT_CONFIG_GLOBAL": ""
+  },
+  "extraKnownMarketplaces": {
+    "esa-skills": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/esaio/esa-skills.git"
+      }
+    }
   },
   "hooks": {
     "Notification": [

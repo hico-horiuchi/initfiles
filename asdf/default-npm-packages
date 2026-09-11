@@ -2,6 +2,7 @@ http-proxy-to-socks
 newman
 socks-proxy-agent
 @bitwarden/cli
+@esaio/esa-cli
 @esaio/esa-mcp-server
 @github/copilot
 @marp-team/marp-cli
