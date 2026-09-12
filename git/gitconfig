@@ -43,7 +43,7 @@
   hunk-header-style = file syntax
   navigate = true
   side-by-side = true
-  width = 220
+  width = 190
 
 [delta "interactive"]
   color-only = true
