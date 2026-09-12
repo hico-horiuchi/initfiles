@@ -1,0 +1,92 @@
+# https://herdr.dev/ja/docs/configuration/
+# https://herdr.dev/ja/docs/config-reference/
+
+onboarding = false
+
+[theme]
+name = "catppuccin"
+auto_switch = true
+dark_name = "catppuccin"
+light_name = "catppuccin-latte"
+
+# [theme.custom]
+# monterey
+# accent = "#af87ff"
+# ventura
+# accent = "#af5f00"
+# sonoma
+# accent = "#87af5f"
+# sequoia
+# accent = "#0087af"
+
+[keys]
+prefix = "ctrl+z"
+detach = "prefix+d"
+open_notification_target = "prefix+ctrl+o"
+previous_agent = "prefix+ctrl+p"
+next_agent = "prefix+ctrl+n"
+focus_agent = "prefix+alt+1..9"
+rename_tab = ["prefix+shift+t", "prefix+comma"]
+switch_tab = ""
+switch_workspace = "prefix+shift+1..9"
+close_tab = "prefix+k"
+cycle_pane_next = ["prefix+tab", "prefix+o"]
+last_pane = "prefix+semicolon"
+split_vertical = "prefix+3"
+split_horizontal = "prefix+2"
+close_pane = "prefix+ctrl+k"
+zoom = "prefix+1"
+
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "popup"
+command = "lazygit"
+width = "80%"
+height = "80%"
+
+[[keys.command]]
+key = "prefix+y"
+type = "pane"
+command = "claude"
+
+[ui]
+prompt_new_tab_name = false
+show_agent_labels_on_pane_borders = true
+tab_bar_right = [
+  { type = "zoom" },
+  { type = "datetime", format = "%Y-%m-%d %H:%M" },
+  { type = "hostname" },
+]
+tab_bar_right_separator = " · "
+agent_panel_sort = "priority"
+
+[ui.sidebar.agents]
+row_gap = 1
+rows = [
+  ["state_icon", "agent", "state_text"],
+  ["workspace", "tab"],
+]
+
+[ui.sidebar.agents.rows_by_agent]
+claude = [
+  ["state_icon", "agent", "state_text"],
+  ["terminal_title_stripped"],
+  ["workspace", "tab"],
+]
+
+[ui.sidebar.spaces]
+row_gap = 1
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.toast.clipboard]
+enabled = false
+
+[advanced]
+scrollback_limit_bytes = 33554432
+
+[experimental]
+reveal_hidden_cursor_for_cjk_ime = true
+cjk_ime_agents = ["claude"]
+switch_ascii_input_source_in_prefix = true

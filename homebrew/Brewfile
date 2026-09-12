@@ -60,6 +60,8 @@ brew "go"
 brew "grep"
 # Make JSON greppable
 brew "gron"
+# Agent multiplexer that lives in your terminal
+brew "herdr"
 # Add GitHub support to git on the command-line
 brew "hub"
 # Tools and libraries to manipulate images in select formats

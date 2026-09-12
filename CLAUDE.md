@@ -15,9 +15,10 @@ make install
 `make install` は以下を実行する:
 
 1. asdf プラグイン (awscli / gcloud / golang / nodejs / python / ruby / rust) を追加
-2. gh extension、ghq 管理の外部リポジトリ (powerline-shell, auto-fu.zsh, powerline-go, skk-dict, etc.) をクローン
+2. gh extension、ghq 管理の外部リポジトリ (auto-fu.zsh, powerline-go, powerline-shell, skk-dict, etc.) をクローン
 3. 各設定ファイルを `~/` へシンボリックリンクで配置
-4. macOS の fd/proc 上限を上げる plist を `/Library/LaunchDaemons/` へコピー (sudo が必要)
+4. `herdr integration install claude` で herdr の agent 状態検知フックを導入
+5. macOS の fd/proc 上限を上げる plist を `/Library/LaunchDaemons/` へコピー (sudo が必要)
 
 ## リポジトリ構造
 
@@ -25,31 +26,33 @@ make install
 
 | ディレクトリ | リンク先 |
 |---|---|
+| `asdf/` | `~/.asdfrc`, `~/.default-*` 各ファイル |
 | `claude/` | `~/.claude/settings.json`, `~/.claude/statusline.sh` |
 | `git/` | `~/.gitconfig`, `~/.gitignore`, `~/.git-templates/` |
-| `zsh/` | `~/.zshrc` |
-| `tmux/` | `~/.tmux.conf` |
-| `visual-studio-code/` | `~/Library/Application Support/Code/User/settings.json` |
+| `github/` | `~/.config/gh/config.yml`, `~/.config/gh-copilot/config.yml`, `~/.copilot/config.json` |
+| `herdr/` | `~/.config/herdr/config.toml` |
 | `homebrew/` | `~/.Brewfile` |
 | `lazygit/` | `~/Library/Application Support/lazygit/config.yml` |
-| `asdf/` | `~/.asdfrc`, `~/.default-*` 各ファイル |
-| `github/` | `~/.config/gh/config.yml`, `~/.config/gh-copilot/config.yml`, `~/.copilot/config.json` |
 | `powerline-go/` | パッチファイル群 (Makefile で手動適用) |
+| `tmux/` | `~/.tmux.conf` |
+| `visual-studio-code/` | `~/Library/Application Support/Code/User/settings.json` |
+| `zsh/` | `~/.zshrc` |
 
 ## 主要ファイル
 
-- **`Makefile`** — 唯一のエントリポイントであり、全シンボリックリンク定義と外部依存のクローン手順を持つ
+- **`claude/settings.json`** — サンドボックス有効、言語設定 `japanese`、herdr の agent 状態検知フックを含む Claude Code の共有設定
 - **`git/gitconfig`** — `delta` をページャとして使用し、`git graph` エイリアスと gitmoji の commit template を設定
-- **`zsh/zshrc`** — asdf / fzf / ghq / powerline-go / z / auto-fu.zsh / wakatime の統合と各種 fzf キーバインド (`^G^H` ghq, `^G^B` git branch, `^G^P` gh Pull Request, `^F` z) を定義
-- **`claude/settings.json`** — サンドボックス有効、言語設定 `japanese`、Notification フックでの `Glass.aiff` 再生を含む Claude Code の共有設定
+- **`herdr/config.toml`** — Claude Code 用のターミナルワークスペース管理ツール herdr の設定で、prefix や分割キーを `tmux/tmux.conf` に揃え、テーマは catppuccin を Light/Dark 自動切り替えで使う (`herdr config check` で検証、`herdr server reload-config` で再読み込み)
+- **`zsh/zshrc`** — asdf / auto-fu.zsh / fzf / ghq / powerline-go / wakatime / z の統合と各種 fzf キーバインド (`^F` z, `^G^B` git branch, `^G^H` ghq, `^G^P` gh Pull Request) を定義
+- **`Makefile`** — 唯一のエントリポイントであり、全シンボリックリンク定義と外部依存のクローン手順を持つ
 
 ## Claude Code 設定
 
 `claude/settings.json` は `~/.claude/settings.json` にリンクされる共有設定で、`.claude/settings.json` (プロジェクトローカル) とは別物。
 
+- `curl`, `rm`, `sudo`, `wget` の Bash 実行は deny されている
 - `GIT_CONFIG_GLOBAL=""` を env に設定しており、Claude Code 実行中は `~/.gitconfig` のエイリアスが無効化される
-- 許可ドメインは `github.com`, `api.github.com`, `raw.githubusercontent.com` のみ
-- `rm`, `sudo`, `curl`, `wget` の Bash 実行は deny されている
+- 許可ドメインは `api.github.com`, `gist.github.com`, `github.com`, `raw.githubusercontent.com` のみ
 
 ## ファイルの更新
 

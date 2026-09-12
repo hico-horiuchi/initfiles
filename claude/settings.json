@@ -25,110 +25,14 @@
     }
   },
   "hooks": {
-    "Notification": [
-      {
-        "hooks": [
-          {
-            "command": "afplay /System/Library/Sounds/Glass.aiff",
-            "type": "command"
-          }
-        ]
-      },
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "PermissionRequest": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "PostToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "PreToolUse": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "SessionEnd": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
     "SessionStart": [
       {
+        "matcher": "*",
         "hooks": [
           {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "Stop": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "StopFailure": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "SubagentStop": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
-          }
-        ]
-      }
-    ],
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "command": "/Users/hiconyan/.config/iterm2/cc-status",
-            "type": "command"
+            "type": "command",
+            "command": "bash '/Users/hiconyan/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }

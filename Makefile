@@ -45,9 +45,10 @@ install:
 	ghq get github.com/supercrabtree/k
 
 	mkdir -p $(HOME)/.bundle
-	mkdir -p $(HOME)/.claude
+	mkdir -p $(HOME)/.claude/skills/herdr
 	mkdir -p $(HOME)/.config/gh
 	mkdir -p $(HOME)/.config/gh-copilot
+	mkdir -p $(HOME)/.config/herdr
 	mkdir -p $(HOME)/.config/pip
 	mkdir -p $(HOME)/.config/powerline-shell
 	mkdir -p $(HOME)/.config/uv
@@ -78,6 +79,7 @@ install:
 	ln -fns $(PWD)/github/gh_config.yml              $(HOME)/.config/gh/config.yml
 	ln -fns $(PWD)/github/gh-copilot_config.yml      $(HOME)/.config/gh-copilot/config.yml
 	ln -fns $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
+	ln -fns $(PWD)/herdr/config.toml                 $(HOME)/.config/herdr/config.toml
 	ln -fns $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fns $(PWD)/lazygit/config.yml                $(HOME)/Library/Application\ Support/lazygit/config.yml
 	ln -fns $(PWD)/nano/nanorc                       $(HOME)/.nanorc
@@ -92,9 +94,14 @@ install:
 	ln -fns $(PWD)/wakatime/wakatime.cfg             $(HOME)/.wakatime.cfg
 	ln -fns $(PWD)/zsh/zshrc                         $(HOME)/.zshrc
 
-	# ローカル設定は存在する場合のみリンクする
 	[ ! -e $(PWD)/zsh/zshrc.local.pre ]  || ln -fns $(PWD)/zsh/zshrc.local.pre  $(HOME)/.zshrc.local.pre
 	[ ! -e $(PWD)/zsh/zshrc.local.post ] || ln -fns $(PWD)/zsh/zshrc.local.post $(HOME)/.zshrc.local.post
+
+	# https://herdr.dev/ja/docs/session-state/
+	# https://herdr.dev/ja/docs/integrations/
+	herdr integration install claude
+	# https://herdr.dev/ja/docs/agent-skill/
+	herdr --skill > $(HOME)/.claude/skills/herdr/SKILL.md
 
 	# https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
 	sudo cp macos/limit.max*.plist /Library/LaunchDaemons/
