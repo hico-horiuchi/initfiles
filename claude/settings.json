@@ -14,6 +14,10 @@
   "env": {
     "CLAUDE_CODE_NO_FLICKER": "1",
     "CLAUDE_CODE_THRIFTY_SONIC": "0",
+    "GIT_AUTHOR_EMAIL": "12ff5b8@gmail.com",
+    "GIT_AUTHOR_NAME": "Akihiko Horiuchi",
+    "GIT_COMMITTER_EMAIL": "12ff5b8@gmail.com",
+    "GIT_COMMITTER_NAME": "Akihiko Horiuchi",
     "GIT_CONFIG_GLOBAL": ""
   },
   "extraKnownMarketplaces": {
@@ -27,14 +31,14 @@
   "hooks": {
     "SessionStart": [
       {
-        "matcher": "*",
         "hooks": [
           {
-            "type": "command",
             "command": "bash '/Users/hiconyan/.claude/hooks/herdr-agent-state.sh' session",
-            "timeout": 10
+            "timeout": 10,
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "*"
       }
     ]
   },
@@ -79,6 +83,9 @@
       "mcp__github__pull_request_read"
     ],
     "ask": [
+      "Bash(acli:*)",
+      "Bash(esa:*)",
+      "Bash(gh:*)",
       "mcp__claude_ai_Atlassian_Rovo__delete*",
       "mcp__claude_ai_gmail__delete_*",
       "mcp__claude_ai_gmail__trash_*",
@@ -92,7 +99,9 @@
     "defaultMode": "auto",
     "deny": [
       "Read(~/.config/acli/)",
+      "Read(~/.config/esa-cli)",
       "Read(~/.config/gh/)",
+      "Read(~/.config/git/)",
       "Read(~/.local/state/gh/)",
       "Bash(rm:*)",
       "Bash(sudo:*)",
@@ -144,16 +153,20 @@
         "~/.asdfrc",
         "~/.claude/",
         "~/.config/acli/",
-        "~/.config/git/",
+        "~/.config/esa-cli",
         "~/.config/gh/",
+        "~/.config/git/",
+        "~/.herdr/worktrees/",
         "~/.local/state/gh/",
-        "~/.git-templates/",
-        "~/.gitconfig",
-        "~/.gitignore"
+        "~/.tool-versions"
       ],
       "allowWrite": [
+        "~/ghq/",
         "~/.config/acli/",
+        "~/.config/esa-cli",
         "~/.config/gh/",
+        "~/.config/git/",
+        "~/.herdr/worktrees/",
         "~/.local/state/gh/"
       ],
       "denyRead": [
@@ -161,7 +174,12 @@
       ]
     },
     "network": {
+      "allowUnixSockets": [
+        "~/.config/herdr/herdr.sock"
+      ],
       "allowedDomains": [
+        "api.atlassian.com",
+        "api.esa.io",
         "github.com",
         "api.github.com",
         "gist.github.com",
