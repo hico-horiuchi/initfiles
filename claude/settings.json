@@ -142,6 +142,7 @@
         "~/ghq/",
         "~/.asdf/",
         "~/.asdfrc",
+        "~/.claude/",
         "~/.config/acli/",
         "~/.config/git/",
         "~/.config/gh/",
