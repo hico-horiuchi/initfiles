@@ -179,6 +179,7 @@
       ],
       "allowedDomains": [
         "api.atlassian.com",
+        "as.atlassian.com",
         "api.esa.io",
         "github.com",
         "api.github.com",

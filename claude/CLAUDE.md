@@ -21,6 +21,14 @@
 - パッケージのインストール (例: `npm install`) やコンテナイメージの取得 (例: `docker pull`)
 - 外部からのスクリプトやバイナリのダウンロードと実行
 
+## 外部サービスの操作
+
+MCP サーバーが利用できるサービスは MCP を優先し、CLI は MCP で対応できない操作に限って使用すること。
+
+- Atlassian (Jira / Confluence) は Atlassian Rovo MCP を使い、`acli` は避ける
+- esa は esa MCP を使い、`esa` は避ける
+- GitHub は GitHub MCP を使い、`gh` は避ける
+
 ## ドキュメントに関する規則
 
 ### 日本語の体裁
