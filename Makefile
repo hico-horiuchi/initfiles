@@ -1,5 +1,10 @@
 PWD=$(shell pwd)
 
+# https://gist.github.com/k16shikano/eb2929f13ed19c97188393d297be8432
+COGNITIVE_RHYTHM_WRITING=k16shikano/eb2929f13ed19c97188393d297be8432
+# https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d
+JAPANESE_TECH_WRITING=k16shikano/fd287c3133457c4fd8f5601d34aa817d
+
 install:
 	asdf plugin list | grep -q awscli || asdf plugin add awscli https://github.com/MetricMike/asdf-awscli.git
 	asdf plugin list | grep -q gcloud || asdf plugin add gcloud https://github.com/jthegedus/asdf-gcloud.git
@@ -44,8 +49,13 @@ install:
 	ghq get github.com/seebi/dircolors-solarized
 	ghq get github.com/supercrabtree/k
 
+	ghq get https://gist.github.com/$(COGNITIVE_RHYTHM_WRITING)
+	ghq get https://gist.github.com/$(JAPANESE_TECH_WRITING)
+
 	mkdir -p $(HOME)/.bundle
+	mkdir -p $(HOME)/.claude/skills/cognitive-rhythm-writing
 	mkdir -p $(HOME)/.claude/skills/herdr
+	mkdir -p $(HOME)/.claude/skills/japanese-tech-writing
 	mkdir -p $(HOME)/.config/gh
 	mkdir -p $(HOME)/.config/gh-copilot
 	mkdir -p $(HOME)/.config/herdr
@@ -93,6 +103,9 @@ install:
 	ln -fns $(PWD)/visual-studio-code/settings.json  $(HOME)/Library/Application\ Support/Code/User/settings.json
 	ln -fns $(PWD)/wakatime/wakatime.cfg             $(HOME)/.wakatime.cfg
 	ln -fns $(PWD)/zsh/zshrc                         $(HOME)/.zshrc
+
+	ln -fns `ghq root`/gist.github.com/$(COGNITIVE_RHYTHM_WRITING)/SKILL.md $(HOME)/.claude/skills/cognitive-rhythm-writing/SKILL.md
+	ln -fns `ghq root`/gist.github.com/$(JAPANESE_TECH_WRITING)/SKILL.md    $(HOME)/.claude/skills/japanese-tech-writing/SKILL.md
 
 	[ ! -e $(PWD)/zsh/zshrc.local.pre ]  || ln -fns $(PWD)/zsh/zshrc.local.pre  $(HOME)/.zshrc.local.pre
 	[ ! -e $(PWD)/zsh/zshrc.local.post ] || ln -fns $(PWD)/zsh/zshrc.local.post $(HOME)/.zshrc.local.post

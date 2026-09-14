@@ -38,4 +38,4 @@ Markdown ファイルの編集やソースコードへのコメント記述時�
 下記は日本語技術文書の規範として有用だが、本ファイルと矛盾する場合は本ファイルを優先すること。
 
 - [japanese-tech-writing](https://gist.github.com/k16shikano/fd287c3133457c4fd8f5601d34aa817d)
-- [natural-japanese](https://github.com/coji/natural-japanese)
+- [cognitive-rhythm-writing](https://gist.github.com/k16shikano/eb2929f13ed19c97188393d297be8432)
