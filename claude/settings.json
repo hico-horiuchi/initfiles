@@ -85,7 +85,6 @@
     "ask": [
       "Bash(acli:*)",
       "Bash(esa:*)",
-      "Bash(gh:*)",
       "mcp__claude_ai_Atlassian_Rovo__delete*",
       "mcp__claude_ai_gmail__delete_*",
       "mcp__claude_ai_gmail__trash_*",
