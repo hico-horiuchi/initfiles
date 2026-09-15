@@ -44,8 +44,6 @@
 	<false/>
 	<key>ExperimentalKeyHandling</key>
 	<true/>
-	<key>FocusReportingEnabled</key>
-	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideScrollbar</key>
