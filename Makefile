@@ -78,6 +78,7 @@ install:
 	ln -fns $(PWD)/bash/inputrc                      $(HOME)/.inputrc
 	ln -fns $(PWD)/bundler/config                    $(HOME)/.bundle/config
 	ln -fns $(PWD)/claude/CLAUDE.md                  $(HOME)/.claude/CLAUDE.md
+	ln -fns $(PWD)/claude/RTK.md                     $(HOME)/.claude/RTK.md
 	ln -fns $(PWD)/claude/settings.json              $(HOME)/.claude/settings.json
 	ln -fns $(PWD)/claude/statusline.sh              $(HOME)/.claude/statusline.sh
 	ln -fns $(PWD)/docker/config.json                $(HOME)/.docker/config.json
