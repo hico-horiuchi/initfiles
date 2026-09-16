@@ -110,11 +110,12 @@ install:
 	[ ! -e $(PWD)/zsh/zshrc.local.pre ]  || ln -fns $(PWD)/zsh/zshrc.local.pre  $(HOME)/.zshrc.local.pre
 	[ ! -e $(PWD)/zsh/zshrc.local.post ] || ln -fns $(PWD)/zsh/zshrc.local.post $(HOME)/.zshrc.local.post
 
-	# https://herdr.dev/ja/docs/session-state/
-	# https://herdr.dev/ja/docs/integrations/
-	herdr integration install claude
 	# https://herdr.dev/ja/docs/agent-skill/
 	herdr --skill > $(HOME)/.claude/skills/herdr/SKILL.md
+	# https://herdr.dev/ja/docs/integrations/
+	herdr integration install claude
+	# https://github.com/kryptamine/herdr-auto-title
+	herdr plugin install kryptamine/herdr-auto-title -y
 
 	# https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
 	sudo cp macos/limit.max*.plist /Library/LaunchDaemons/
