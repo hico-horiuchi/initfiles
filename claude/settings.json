@@ -29,6 +29,17 @@
     }
   },
   "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "rtk hook claude",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ],
     "SessionStart": [
       {
         "hooks": [
@@ -148,6 +159,7 @@
     "filesystem": {
       "allowRead": [
         "~/ghq/",
+        "~/Library/Application Support/rtk/",
         "~/.asdf/",
         "~/.asdfrc",
         "~/.claude/",
@@ -161,6 +173,7 @@
       ],
       "allowWrite": [
         "~/ghq/",
+        "~/Library/Application Support/rtk/",
         "~/.config/acli/",
         "~/.config/esa-cli",
         "~/.config/gh/",

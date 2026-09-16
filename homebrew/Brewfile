@@ -88,6 +88,8 @@ brew "plantuml"
 brew "qrencode"
 # Reattach process (e.g., tmux) to background
 brew "reattach-to-user-namespace"
+# CLI proxy to minimize LLM token consumption
+brew "rtk"
 # Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
 # Source-code syntax highlighter
