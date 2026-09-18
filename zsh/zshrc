@@ -427,6 +427,11 @@ fi
 #--------------------------------------------------------------------------------
 if exists fzf; then
     export FZF_DEFAULT_OPTS='--ansi --info=hidden --layout=reverse'
+    herdr_config_path="${HOME}/.config/herdr/config.toml"
+    if [ -e "${herdr_config_path}" ]; then
+        herdr_accent=$(sed -n 's/^accent *= *"\(#[0-9a-fA-F]\{6\}\)".*/\1/p' "${herdr_config_path}" | head -1)
+        [ -n "${herdr_accent}" ] && export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} --color=hl:${herdr_accent},hl+:${herdr_accent},pointer:${herdr_accent}"
+    fi
     zsh_fzf_history_search_path="${HOME}/ghq/github.com/joshskidmore/zsh-fzf-history-search/zsh-fzf-history-search.zsh"
     if [ -e "${zsh_fzf_history_search_path}" ]; then
         export ZSH_FZF_HISTORY_SEARCH_FZF_ARGS='-e -i +s --no-multi --height=40%'
