@@ -208,6 +208,18 @@
       "strictAllowlist": true
     }
   },
+  "skillOverrides": {
+    "anthropic-skills:cognitive-rhythm-writing": "off",
+    "anthropic-skills:docs": "off",
+    "anthropic-skills:docx": "off",
+    "anthropic-skills:import-memory": "off",
+    "anthropic-skills:japanese-tech-writing": "off",
+    "anthropic-skills:morning": "off",
+    "anthropic-skills:pdf": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:skill-creator": "off",
+    "anthropic-skills:xlsx": "off"
+  },
   "statusLine": {
     "command": "~/.claude/statusline.sh",
     "refreshInterval": 60,
