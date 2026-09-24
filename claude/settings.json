@@ -62,6 +62,11 @@
   },
   "language": "japanese",
   "model": "opus",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
+    }
+  },
   "permissions": {
     "allow": [
       "Artifact",
