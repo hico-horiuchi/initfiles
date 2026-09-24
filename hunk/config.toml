@@ -1,0 +1,4 @@
+hunk_headers = false
+menu_bar = false
+tab_width = 2
+theme = "auto"

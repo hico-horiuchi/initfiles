@@ -17,7 +17,7 @@ make install
 1. asdf プラグイン (awscli / gcloud / golang / nodejs / python / ruby / rust) を追加
 2. gh extension、ghq 管理の外部リポジトリ (auto-fu.zsh, powerline-go, powerline-shell, skk-dict, etc.) をクローン
 3. 各設定ファイルを `~/` へシンボリックリンクで配置
-4. `herdr integration install claude` で herdr の agent 状態検知フックを導入
+4. `herdr integration install claude` で herdr の agent 状態検知フックを導入し、`herdr plugin install` で herdr のプラグイン (auto-title / annotate / hunk-diff) を導入
 5. macOS の fd/proc 上限を上げる plist を `/Library/LaunchDaemons/` へコピー (sudo が必要)
 
 ## リポジトリ構造
@@ -32,6 +32,7 @@ make install
 | `github/` | `~/.config/gh/config.yml`, `~/.config/gh-copilot/config.yml`, `~/.copilot/config.json` |
 | `herdr/` | `~/.config/herdr/config.toml` |
 | `homebrew/` | `~/.Brewfile` |
+| `hunk/` | `~/.config/hunk/config.toml` |
 | `lazygit/` | `~/Library/Application Support/lazygit/config.yml` |
 | `powerline-go/` | パッチファイル群 (Makefile で手動適用) |
 | `tmux/` | `~/.tmux.conf` |

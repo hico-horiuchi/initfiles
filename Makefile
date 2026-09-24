@@ -59,6 +59,7 @@ install:
 	mkdir -p $(HOME)/.config/gh
 	mkdir -p $(HOME)/.config/gh-copilot
 	mkdir -p $(HOME)/.config/herdr
+	mkdir -p $(HOME)/.config/hunk
 	mkdir -p $(HOME)/.config/pip
 	mkdir -p $(HOME)/.config/powerline-shell
 	mkdir -p $(HOME)/.config/uv
@@ -92,6 +93,7 @@ install:
 	ln -fns $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fns $(PWD)/herdr/config.toml                 $(HOME)/.config/herdr/config.toml
 	ln -fns $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
+	ln -fns $(PWD)/hunk/config.toml                  $(HOME)/.config/hunk/config.toml
 	ln -fns $(PWD)/lazygit/config.yml                $(HOME)/Library/Application\ Support/lazygit/config.yml
 	ln -fns $(PWD)/nano/nanorc                       $(HOME)/.nanorc
 	ln -fns $(PWD)/npm/npmrc                         $(HOME)/.npmrc
@@ -115,8 +117,12 @@ install:
 	herdr --skill > $(HOME)/.claude/skills/herdr/SKILL.md
 	# https://herdr.dev/ja/docs/integrations/
 	herdr integration install claude
+	# https://github.com/jhochenbaum/herdr-hunk-diff
+	herdr plugin install jhochenbaum/herdr-hunk-diff -y
 	# https://github.com/kryptamine/herdr-auto-title
 	herdr plugin install kryptamine/herdr-auto-title -y
+	# https://github.com/plannotator/herdr-annotate
+	herdr plugin install plannotator/herdr-annotate -y
 
 	# https://gist.github.com/tombigel/d503800a282fcadbee14b537735d202c
 	sudo cp macos/limit.max*.plist /Library/LaunchDaemons/

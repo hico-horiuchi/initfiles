@@ -22,7 +22,7 @@ light_name = "catppuccin-latte"
 [keys]
 prefix = "ctrl+z"
 detach = "prefix+d"
-open_notification_target = "prefix+ctrl+o"
+open_notification_target = "prefix+ctrl+t"
 previous_agent = "prefix+ctrl+p"
 next_agent = "prefix+ctrl+n"
 focus_agent = "prefix+alt+1..9"
@@ -37,17 +37,55 @@ split_horizontal = "prefix+2"
 close_pane = "prefix+ctrl+k"
 zoom = "prefix+1"
 
-[[keys.command]]
-key = "prefix+ctrl+g"
-type = "popup"
-command = "lazygit"
-width = "80%"
-height = "80%"
-
+# claude
 [[keys.command]]
 key = "prefix+y"
 type = "pane"
 command = "claude"
+
+# lazygit
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "pane"
+command = "lazygit"
+
+# herdr-annotate
+[[keys.command]]
+key = "prefix+shift+o"
+type = "plugin_action"
+command = "annotate.last"
+description = "annotate: review the agent's last reply"
+
+[[keys.command]]
+key = "prefix+ctrl+o"
+type = "plugin_action"
+command = "annotate.last-newest"
+description = "annotate: review the agent's newest reply"
+
+# herdr-hunk-diff
+[[keys.command]]
+key = "prefix+shift+h"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.review"
+description = "hunk: review changes"
+
+[[keys.command]]
+key = "prefix+shift+s"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.send-review"
+description = "hunk: send review to agent"
+
+[[keys.command]]
+key = "prefix+shift+c"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.review:commit"
+description = "hunk: review the last commit"
+
+[[keys.command]]
+key = "prefix+shift+a"
+type = "plugin_action"
+command = "jhochenbaum.hunkdiff.review:staged"
+description = "hunk: review staged changes"
 
 [ui]
 prompt_new_tab_name = false
