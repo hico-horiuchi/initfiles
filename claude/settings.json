@@ -10,9 +10,11 @@
   "enabledPlugins": {
     "esa@esa-skills": true,
     "ponytail@ponytail": true,
+    "prompt-rail@oikon48": true,
     "ruby-lsp@claude-plugins-official": true
   },
   "env": {
+    "CLAUDE_CODE_ENABLE_FUNCTION_HOOKS": "1",
     "CLAUDE_CODE_NO_FLICKER": "1",
     "CLAUDE_CODE_THRIFTY_SONIC": "0",
     "GIT_AUTHOR_EMAIL": "12ff5b8@gmail.com",
@@ -26,6 +28,12 @@
       "source": {
         "source": "git",
         "url": "https://github.com/esaio/esa-skills.git"
+      }
+    },
+    "oikon48": {
+      "source": {
+        "repo": "oikon48/prompt-rail",
+        "source": "github"
       }
     },
     "ponytail": {
@@ -131,6 +139,13 @@
       "Bash(wget:*)"
     ],
     "disableBypassPermissionsMode": "disable"
+  },
+  "pluginConfigs": {
+    "prompt-rail@oikon48": {
+      "options": {
+        "mode": "vertical"
+      }
+    }
   },
   "sandbox": {
     "allowUnsandboxedCommands": false,
