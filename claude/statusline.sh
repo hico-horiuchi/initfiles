@@ -3,22 +3,24 @@
 
 input=$(cat)
 
-IFS=$'\t' read -r MODEL EFFORT WORKSPACE SESSION_ID CONTEXT_WINDOW COST DURATION_MS FIVE_HOUR_RATE FIVE_HOUR_RESET SEVEN_DAY_RATE SEVEN_DAY_RESET < <(
+IFS=$'\x1f' read -r MODEL EFFORT WORKSPACE SESSION_ID CONTEXT_WINDOW PROMPT_CACHE_TTL PROMPT_CACHE_LEFT COST DURATION_MS FIVE_HOUR_RATE FIVE_HOUR_RESET SEVEN_DAY_RATE SEVEN_DAY_RESET < <(
     echo "${input}" | jq -r '
-        def secs_left: if . == null then "" else (. - now | floor) end;
+        def secs_left: if . == null then "" else ([. - now | floor, 0] | max) end;
         [
             .model.display_name,
             .effort.level,
             .workspace.current_dir,
             .session_id,
             (.context_window.used_percentage // 0),
+            (.prompt_cache.ttl // ""),
+            (.prompt_cache | if . == null then "" elif .warm then (.expires_at | secs_left) else 0 end),
             (.cost.total_cost_usd // 0),
             (.cost.total_duration_ms // 0),
             (.rate_limits.five_hour.used_percentage // ""),
             (.rate_limits.five_hour.resets_at | secs_left),
             (.rate_limits.seven_day.used_percentage // ""),
             (.rate_limits.seven_day.resets_at | secs_left)
-        ] | @tsv
+        ] | map(. // "" | tostring) | join("\u001f")
     '
 )
 
@@ -51,11 +53,12 @@ IFS='|' read -r BRANCH STAGED MODIFIED < "${CACHE_FILE}"
 
 usage_bar() {
     local USAGE=${1%.*}
+    local COLOR_USAGE=${2:-${USAGE}}
     local BAR_COLOR FILLED EMPTY FILL PAD BAR
 
-    if [ "${USAGE}" -ge 90 ]; then
+    if [ "${COLOR_USAGE}" -ge 90 ]; then
         BAR_COLOR="${RED}"
-    elif [ "${USAGE}" -ge 70 ]; then
+    elif [ "${COLOR_USAGE}" -ge 70 ]; then
         BAR_COLOR="${YELLOW}"
     else
         BAR_COLOR="${GREEN}"
@@ -75,7 +78,6 @@ remaining_time() {
     local UNIT=${2}
 
     [ -n "${LEFT}" ] || return
-    [ "${LEFT}" -lt 0 ] && LEFT=0
 
     if [ "${UNIT}" = 'dh' ]; then
         printf '%dd%dh' $((LEFT / 86400)) $(((LEFT % 86400) / 3600))
@@ -89,6 +91,12 @@ INFO_LINE="🤖 ${MODEL} ${BOLD}${EFFORT}${RESET} | 📁 ${WORKSPACE##*/}"
 echo -e "${INFO_LINE}"
 
 USAGE_LINE="🧠 $(usage_bar "${CONTEXT_WINDOW}") ${CONTEXT_WINDOW%.*}%"
+if [ -n "${PROMPT_CACHE_LEFT}" ]; then
+    [ "${PROMPT_CACHE_TTL}" = '5m' ] && PROMPT_CACHE_TTL_SECS=300 || PROMPT_CACHE_TTL_SECS=3600
+    [ "${PROMPT_CACHE_LEFT}" -gt "${PROMPT_CACHE_TTL_SECS}" ] && PROMPT_CACHE_LEFT=${PROMPT_CACHE_TTL_SECS}
+    PROMPT_CACHE_RATE=$((PROMPT_CACHE_LEFT * 100 / PROMPT_CACHE_TTL_SECS))
+    USAGE_LINE="${USAGE_LINE} | 💾 $(usage_bar "${PROMPT_CACHE_RATE}" $((100 - PROMPT_CACHE_RATE))) ${PROMPT_CACHE_TTL} ${BOLD}($((PROMPT_CACHE_LEFT / 60))m)${RESET}"
+fi
 if [ "${CLAUDE_CODE_STATUSLINE_MODE}" = 'cost' ]; then
     COST_FMT=$(printf '$%.2f' "${COST}")
     DURATION_MINS=$((DURATION_MS / 60000))
