@@ -9,6 +9,7 @@
   "disableDeepLinkRegistration": "disable",
   "enabledPlugins": {
     "esa@esa-skills": true,
+    "md-prompt@nogu66": true,
     "ponytail@ponytail": true,
     "prompt-rail@oikon48": true,
     "ruby-lsp@claude-plugins-official": true
@@ -28,6 +29,12 @@
       "source": {
         "source": "git",
         "url": "https://github.com/esaio/esa-skills.git"
+      }
+    },
+    "nogu66": {
+      "source": {
+        "repo": "nogu66/md-prompt",
+        "source": "github"
       }
     },
     "oikon48": {
@@ -232,7 +239,11 @@
     }
   },
   "skillOverrides": {
+    "anthropic-skills:built-in-browser": "off",
+    "anthropic-skills:chrome-browser": "off",
     "anthropic-skills:cognitive-rhythm-writing": "off",
+    "anthropic-skills:computer-use": "off",
+    "anthropic-skills:deep-research": "off",
     "anthropic-skills:docs": "off",
     "anthropic-skills:docx": "off",
     "anthropic-skills:import-memory": "off",
