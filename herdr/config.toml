@@ -9,7 +9,7 @@ auto_switch = true
 dark_name = "catppuccin"
 light_name = "catppuccin-latte"
 
-# [theme.custom]
+[theme.custom]
 # monterey
 # accent = "#af87ff"
 # ventura
@@ -99,7 +99,7 @@ tab_bar_right_separator = " · "
 agent_panel_sort = "priority"
 
 [ui.sidebar.agents]
-row_gap = 1
+# row_gap = 1
 rows = [
   ["state_icon", "agent", "state_text"],
   ["workspace", "tab"],
@@ -113,10 +113,11 @@ claude = [
 ]
 
 [ui.sidebar.spaces]
-row_gap = 1
+# row_gap = 1
 
 [ui.toast]
 delivery = "herdr"
+delay_seconds = 0
 
 [ui.toast.clipboard]
 enabled = false

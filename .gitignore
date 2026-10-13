@@ -1,2 +1,5 @@
+# リポジトリで管理しないロックファイル
+/herdr/.config.toml.gpui-lock
+
 # リポジトリで管理しないローカル設定
 /zsh/zshrc.local.*

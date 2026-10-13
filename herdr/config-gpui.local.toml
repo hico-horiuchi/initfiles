@@ -1,0 +1,20 @@
+show_listening_ports = false
+remove_merged_worktrees = true
+theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
+layout = "comfortable-rounded"
+
+[code]
+license_accepted = true
+port = 65200
+
+[terminal]
+family = "Liga Ricty for Powerline"
+size = 15.0
+
+[sidebar]
+family = "Liga Ricty for Powerline"
+size = 15.0
+
+[tabs]
+family = "Liga Ricty for Powerline"
+size = 15.0

@@ -92,6 +92,7 @@ install:
 	ln -fns $(PWD)/github/gh-copilot_config.yml      $(HOME)/.config/gh-copilot/config.yml
 	ln -fns $(PWD)/github/copilot_config.json        $(HOME)/.copilot/config.json
 	ln -fns $(PWD)/herdr/config.toml                 $(HOME)/.config/herdr/config.toml
+	ln -fns $(PWD)/herdr/config-gpui.local.toml      $(HOME)/.config/herdr/config-gpui.local.toml
 	ln -fns $(PWD)/homebrew/Brewfile                 $(HOME)/.Brewfile
 	ln -fns $(PWD)/hunk/config.toml                  $(HOME)/.config/hunk/config.toml
 	ln -fns $(PWD)/lazygit/config.yml                $(HOME)/Library/Application\ Support/lazygit/config.yml
