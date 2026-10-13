@@ -11,6 +11,7 @@
     "esa@esa-skills": true,
     "md-prompt@nogu66": true,
     "ponytail@ponytail": true,
+    "postman@claude-plugins-official": false,
     "prompt-rail@oikon48": true,
     "ruby-lsp@claude-plugins-official": true
   },
