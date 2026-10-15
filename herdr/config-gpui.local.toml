@@ -2,6 +2,7 @@ show_listening_ports = false
 remove_merged_worktrees = true
 theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
 layout = "comfortable-rounded"
+status_icons = "solid"
 
 [code]
 license_accepted = true
