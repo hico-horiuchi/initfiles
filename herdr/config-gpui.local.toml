@@ -1,13 +1,21 @@
+# General
 show_listening_ports = false
 remove_merged_worktrees = true
-theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
-layout = "comfortable-rounded"
-status_icons = "solid"
 
+# Theme
+theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
+
+# Sidebar
+layout = "normal-rounded"
+agents_placement = "nested"
+show_repository_icons = false
+
+# Code
 [code]
 license_accepted = true
 port = 65200
 
+# Fonts
 [terminal]
 family = "Liga Ricty for Powerline"
 size = 15.0
@@ -20,5 +28,6 @@ size = 15.0
 family = "Liga Ricty for Powerline"
 size = 15.0
 
+# Notifications
 [sound]
 volume = 100
