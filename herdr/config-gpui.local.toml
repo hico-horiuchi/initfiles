@@ -21,6 +21,7 @@ family = "Liga Ricty for Powerline"
 size = 15.0
 
 [sidebar]
+activity_bar = false
 family = "Liga Ricty for Powerline"
 size = 15.0
 
