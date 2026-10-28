@@ -10,6 +10,9 @@ layout = "normal-rounded"
 agents_placement = "nested"
 show_repository_icons = false
 
+# Tabs & panes
+tab_layout = "curved"
+
 # Code
 [code]
 license_accepted = true
