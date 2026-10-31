@@ -89,10 +89,11 @@
   "permissions": {
     "allow": [
       "Artifact",
+      "WebFetch(domain:*.atlassian.com)",
+      "WebFetch(domain:docs.esa.io)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:api.github.com)",
-      "WebFetch(domain:gist.github.com)",
-      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:*.github.com)",
+      "WebFetch(domain:*.githubusercontent.com)",
       "mcp__claude_ai_Atlassian_Rovo__atlassian*",
       "mcp__claude_ai_Atlassian_Rovo__fetch*",
       "mcp__claude_ai_Atlassian_Rovo__get*",
@@ -231,15 +232,8 @@
         "~/.config/herdr/herdr.sock"
       ],
       "allowedDomains": [
-        "api.atlassian.com",
-        "as.atlassian.com",
-        "api.esa.io",
-        "github.com",
-        "api.github.com",
-        "gist.github.com",
-        "raw.githubusercontent.com"
-      ],
-      "strictAllowlist": true
+        "api.esa.io"
+      ]
     }
   },
   "skillOverrides": {
