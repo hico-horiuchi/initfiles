@@ -42,10 +42,14 @@ MCP サーバーが利用できるサービスは MCP を優先し、CLI は MCP
 - Markdown ファイルの本文
 - ソースコードのコメント
 - コミットメッセージの件名と本文
+- Claude の Artifact
+- esa の記事の本文とコメント
 - GitHub の Issue や Pull Request の説明とコメント
+- Gmail の件名と本文
+- Google Docs / Sheets / Slides の本文とコメント
 - Jira の課題の説明とコメント
 - Confluence のページの本文とコメント
-- esa の記事の本文とコメント
+- Slack のメッセージと Canvas
 
 規則は下記の通り。
 
