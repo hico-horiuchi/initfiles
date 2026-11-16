@@ -9,6 +9,7 @@
   "disableDeepLinkRegistration": "disable",
   "enabledPlugins": {
     "esa@esa-skills": true,
+    "gopls-lsp@claude-plugins-official": true,
     "md-prompt@nogu66": true,
     "ponytail@ponytail": true,
     "postman@claude-plugins-official": false,
