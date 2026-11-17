@@ -25,7 +25,7 @@
 
 MCP サーバーが利用できるサービスは MCP を優先し、CLI は MCP で対応できない操作に限って使用すること。
 
-- Atlassian (Jira / Confluence) は Atlassian Rovo MCP を使い、`acli` は避ける
+- Atlassian (Jira / Confluence) は Atlassian MCP (v2) を使い、Atlassian Rovo (v1) と `acli` は避ける
 - esa は esa MCP を使い、`esa` は避ける
 
 ただし **GitHub は逆**とし、`gh` を優先して GitHub MCP は `gh` で対応できない操作に限って使用すること。
