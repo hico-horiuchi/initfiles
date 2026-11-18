@@ -1,37 +1,30 @@
-# General
-show_listening_ports = false
+agents_placement = "nested"
+layout = "normal-rounded"
 remove_merged_worktrees = true
-
-# Theme
+show_listening_ports = false
+show_repository_icons = false
+tab_layout = "curved"
 theme = "light:Catppuccin Latte,dark:Catppuccin Mocha"
 
-# Sidebar
-layout = "normal-rounded"
-agents_placement = "nested"
-show_repository_icons = false
-
-# Tabs & panes
-tab_layout = "curved"
-
-# Code
 [code]
 license_accepted = true
 port = 65200
 
-# Fonts
-[terminal]
-family = "Liga Ricty for Powerline"
-size = 15.0
+[features]
+acp_chats = false
 
 [sidebar]
 activity_bar = false
 family = "Liga Ricty for Powerline"
 size = 15.0
 
+[sound]
+volume = 100
+
 [tabs]
 family = "Liga Ricty for Powerline"
 size = 15.0
 
-# Notifications
-[sound]
-volume = 100
+[terminal]
+family = "Liga Ricty for Powerline"
+size = 15.0
