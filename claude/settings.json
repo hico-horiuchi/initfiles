@@ -166,6 +166,7 @@
   "pluginConfigs": {
     "prompt-rail@oikon48": {
       "options": {
+        "classicHooks": false,
         "mode": "vertical"
       }
     }
